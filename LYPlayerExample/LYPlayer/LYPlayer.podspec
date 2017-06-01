@@ -1,16 +1,19 @@
 Pod::Spec.new do |s|
-  s.name         = "LYPlayer"
-  s.version      = “0.1”
-  s.summary      = “高度自定义的视频播放器“
-  s.description  = "高度自定义的视频播放器 addtion with cocoapod support."
-  s.homepage     = "https://github.com/LY-Coder/LYPlayer"
-  s.social_media_url   = "http://www.weibo.com/u/5267312788"
-  s.license= { :type => "MIT", :file => "LICENSE" }
-  s.author       = { "LY-Coder” => “ly_coder@163.com" }
-  s.source       = { :git => "https://github.com/LY-Coder/LYPlayer.git", :tag => s.version }
-  s.source_files = "XXImageLoopView/*.{h,m,swift}”
-  s.ios.deployment_target = ‘8.0’
-  s.frameworks   = 'UIKit'
+  s.name = 'LYPlayer'
+  s.version = '0.1'
+  s.license = 'MIT'
+  s.summary = '高度自定义的视频播放器.'
+  s.homepage = 'https://github.com/LY-Coder/LYPlayer'
+  s.authors = { 'LY-Coder' => 'ly_coder@163.com' }
+  s.social_media_url = 'https://github.com/LY-Coder/LYPlayer'
+  s.source = { :git => 'https://github.com/LY-Coder/LYPlayer.git', :tag => '0.1' }
+
+  s.ios.deployment_target = '8.0'
+  # s.osx.deployment_target = '10.11'
+  # s.tvos.deployment_target = '9.0'
+
+  s.source_files = 'Source/*.swift'
+
   s.requires_arc = true
 
 end
