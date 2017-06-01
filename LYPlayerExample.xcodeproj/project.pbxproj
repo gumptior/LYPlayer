@@ -1,0 +1,437 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		611FDE775DDBDD1F586BE273 /* Pods_LYPlayerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */; };
+		A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC61ED31AA1004378B0 /* AppDelegate.swift */; };
+		A49DACC91ED31AA1004378B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC81ED31AA1004378B0 /* ViewController.swift */; };
+		A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCA1ED31AA1004378B0 /* Main.storyboard */; };
+		A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCD1ED31AA1004378B0 /* Assets.xcassets */; };
+		A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCF1ED31AA1004378B0 /* LaunchScreen.storyboard */; };
+		A49DACE31ED31AC6004378B0 /* LYExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACD91ED31AC6004378B0 /* LYExtension.swift */; };
+		A49DACE41ED31AC6004378B0 /* LYPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACDA1ED31AC6004378B0 /* LYPlayButton.swift */; };
+		A49DACE51ED31AC6004378B0 /* LYPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */; };
+		A49DACE61ED31AC6004378B0 /* LYPlayer_back_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A49DACDC1ED31AC6004378B0 /* LYPlayer_back_full@2x.png */; };
+		A49DACE71ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A49DACDD1ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png */; };
+		A49DACE81ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A49DACDE1ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png */; };
+		A49DACE91ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A49DACDF1ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png */; };
+		A49DACEA1ED31AC6004378B0 /* LYPlayerGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */; };
+		A49DACEB1ED31AC6004378B0 /* LYPlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */; };
+		A49DACEC1ED31AC6004378B0 /* LYPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
+		839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYPlayerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A49DACC31ED31AA1004378B0 /* LYPlayerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYPlayerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A49DACC61ED31AA1004378B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A49DACC81ED31AA1004378B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A49DACCB1ED31AA1004378B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A49DACCD1ED31AA1004378B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A49DACD01ED31AA1004378B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A49DACD21ED31AA1004378B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A49DACD91ED31AC6004378B0 /* LYExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYExtension.swift; sourceTree = "<group>"; };
+		A49DACDA1ED31AC6004378B0 /* LYPlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayButton.swift; sourceTree = "<group>"; };
+		A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayer.swift; sourceTree = "<group>"; };
+		A49DACDC1ED31AC6004378B0 /* LYPlayer_back_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_back_full@2x.png"; sourceTree = "<group>"; };
+		A49DACDD1ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_fullscreen@2x.png"; sourceTree = "<group>"; };
+		A49DACDE1ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_lock-nor@2x.png"; sourceTree = "<group>"; };
+		A49DACDF1ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_shrinkscreen@2x.png"; sourceTree = "<group>"; };
+		A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerGesture.swift; sourceTree = "<group>"; };
+		A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerSlider.swift; sourceTree = "<group>"; };
+		A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerView.swift; sourceTree = "<group>"; };
+		E324F7939661CEC7045626AA /* Pods-LYPlayerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A49DACC01ED31AA1004378B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				611FDE775DDBDD1F586BE273 /* Pods_LYPlayerExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13F3AE9D349DA98B269DE3F4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E324F7939661CEC7045626AA /* Pods-LYPlayerExample.debug.xcconfig */,
+				5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5C6A9D637F7E22F6108E8311 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A49DACBA1ED31AA1004378B0 = {
+			isa = PBXGroup;
+			children = (
+				A49DACC51ED31AA1004378B0 /* LYPlayerExample */,
+				A49DACC41ED31AA1004378B0 /* Products */,
+				13F3AE9D349DA98B269DE3F4 /* Pods */,
+				5C6A9D637F7E22F6108E8311 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A49DACC41ED31AA1004378B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A49DACC31ED31AA1004378B0 /* LYPlayerExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A49DACC51ED31AA1004378B0 /* LYPlayerExample */ = {
+			isa = PBXGroup;
+			children = (
+				A49DACD81ED31AC6004378B0 /* LYPlayer */,
+				A49DACC61ED31AA1004378B0 /* AppDelegate.swift */,
+				A49DACC81ED31AA1004378B0 /* ViewController.swift */,
+				A49DACCA1ED31AA1004378B0 /* Main.storyboard */,
+				A49DACCD1ED31AA1004378B0 /* Assets.xcassets */,
+				A49DACCF1ED31AA1004378B0 /* LaunchScreen.storyboard */,
+				A49DACD21ED31AA1004378B0 /* Info.plist */,
+			);
+			path = LYPlayerExample;
+			sourceTree = "<group>";
+		};
+		A49DACD81ED31AC6004378B0 /* LYPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				A49DACD91ED31AC6004378B0 /* LYExtension.swift */,
+				A49DACDA1ED31AC6004378B0 /* LYPlayButton.swift */,
+				A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */,
+				A49DACDC1ED31AC6004378B0 /* LYPlayer_back_full@2x.png */,
+				A49DACDD1ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png */,
+				A49DACDE1ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png */,
+				A49DACDF1ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png */,
+				A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */,
+				A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */,
+				A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */,
+			);
+			path = LYPlayer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A49DACC21ED31AA1004378B0 /* LYPlayerExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A49DACD51ED31AA1004378B0 /* Build configuration list for PBXNativeTarget "LYPlayerExample" */;
+			buildPhases = (
+				4598277CCD7C2D5FFAECC176 /* [CP] Check Pods Manifest.lock */,
+				A49DACBF1ED31AA1004378B0 /* Sources */,
+				A49DACC01ED31AA1004378B0 /* Frameworks */,
+				A49DACC11ED31AA1004378B0 /* Resources */,
+				469F46BD42EC96EC49904942 /* [CP] Embed Pods Frameworks */,
+				D781E3F2F2B136CFA359A182 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LYPlayerExample;
+			productName = LYPlayerExample;
+			productReference = A49DACC31ED31AA1004378B0 /* LYPlayerExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A49DACBB1ED31AA1004378B0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = LYCoder;
+				TargetAttributes = {
+					A49DACC21ED31AA1004378B0 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = WMW74G89JH;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A49DACBE1ED31AA1004378B0 /* Build configuration list for PBXProject "LYPlayerExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A49DACBA1ED31AA1004378B0;
+			productRefGroup = A49DACC41ED31AA1004378B0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A49DACC21ED31AA1004378B0 /* LYPlayerExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A49DACC11ED31AA1004378B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */,
+				A49DACE91ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png in Resources */,
+				A49DACE81ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png in Resources */,
+				A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */,
+				A49DACE61ED31AC6004378B0 /* LYPlayer_back_full@2x.png in Resources */,
+				A49DACE71ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png in Resources */,
+				A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4598277CCD7C2D5FFAECC176 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		469F46BD42EC96EC49904942 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D781E3F2F2B136CFA359A182 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A49DACBF1ED31AA1004378B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A49DACE51ED31AC6004378B0 /* LYPlayer.swift in Sources */,
+				A49DACE41ED31AC6004378B0 /* LYPlayButton.swift in Sources */,
+				A49DACEC1ED31AC6004378B0 /* LYPlayerView.swift in Sources */,
+				A49DACE31ED31AC6004378B0 /* LYExtension.swift in Sources */,
+				A49DACEB1ED31AC6004378B0 /* LYPlayerSlider.swift in Sources */,
+				A49DACC91ED31AA1004378B0 /* ViewController.swift in Sources */,
+				A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */,
+				A49DACEA1ED31AC6004378B0 /* LYPlayerGesture.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A49DACCA1ED31AA1004378B0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A49DACCB1ED31AA1004378B0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A49DACCF1ED31AA1004378B0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A49DACD01ED31AA1004378B0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A49DACD31ED31AA1004378B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A49DACD41ED31AA1004378B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A49DACD61ED31AA1004378B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E324F7939661CEC7045626AA /* Pods-LYPlayerExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = WMW74G89JH;
+				INFOPLIST_FILE = LYPlayerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LYCoder.LYPlayerExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		A49DACD71ED31AA1004378B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = WMW74G89JH;
+				INFOPLIST_FILE = LYPlayerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LYCoder.LYPlayerExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A49DACBE1ED31AA1004378B0 /* Build configuration list for PBXProject "LYPlayerExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A49DACD31ED31AA1004378B0 /* Debug */,
+				A49DACD41ED31AA1004378B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A49DACD51ED31AA1004378B0 /* Build configuration list for PBXNativeTarget "LYPlayerExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A49DACD61ED31AA1004378B0 /* Debug */,
+				A49DACD71ED31AA1004378B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A49DACBB1ED31AA1004378B0 /* Project object */;
+}
