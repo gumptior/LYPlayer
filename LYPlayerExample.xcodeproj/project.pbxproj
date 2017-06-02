@@ -16,10 +16,6 @@
 		A49DACE31ED31AC6004378B0 /* LYExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACD91ED31AC6004378B0 /* LYExtension.swift */; };
 		A49DACE41ED31AC6004378B0 /* LYPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACDA1ED31AC6004378B0 /* LYPlayButton.swift */; };
 		A49DACE51ED31AC6004378B0 /* LYPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */; };
-		A49DACE61ED31AC6004378B0 /* LYPlayer_back_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A49DACDC1ED31AC6004378B0 /* LYPlayer_back_full@2x.png */; };
-		A49DACE71ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A49DACDD1ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png */; };
-		A49DACE81ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A49DACDE1ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png */; };
-		A49DACE91ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A49DACDF1ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png */; };
 		A49DACEA1ED31AC6004378B0 /* LYPlayerGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */; };
 		A49DACEB1ED31AC6004378B0 /* LYPlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */; };
 		A49DACEC1ED31AC6004378B0 /* LYPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */; };
@@ -38,10 +34,6 @@
 		A49DACD91ED31AC6004378B0 /* LYExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYExtension.swift; sourceTree = "<group>"; };
 		A49DACDA1ED31AC6004378B0 /* LYPlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayButton.swift; sourceTree = "<group>"; };
 		A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayer.swift; sourceTree = "<group>"; };
-		A49DACDC1ED31AC6004378B0 /* LYPlayer_back_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_back_full@2x.png"; sourceTree = "<group>"; };
-		A49DACDD1ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_fullscreen@2x.png"; sourceTree = "<group>"; };
-		A49DACDE1ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_lock-nor@2x.png"; sourceTree = "<group>"; };
-		A49DACDF1ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_shrinkscreen@2x.png"; sourceTree = "<group>"; };
 		A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerGesture.swift; sourceTree = "<group>"; };
 		A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerSlider.swift; sourceTree = "<group>"; };
 		A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerView.swift; sourceTree = "<group>"; };
@@ -115,10 +107,6 @@
 				A49DACD91ED31AC6004378B0 /* LYExtension.swift */,
 				A49DACDA1ED31AC6004378B0 /* LYPlayButton.swift */,
 				A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */,
-				A49DACDC1ED31AC6004378B0 /* LYPlayer_back_full@2x.png */,
-				A49DACDD1ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png */,
-				A49DACDE1ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png */,
-				A49DACDF1ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png */,
 				A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */,
 				A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */,
 				A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */,
@@ -190,11 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */,
-				A49DACE91ED31AC6004378B0 /* LYPlayer_shrinkscreen@2x.png in Resources */,
-				A49DACE81ED31AC6004378B0 /* LYPlayer_lock-nor@2x.png in Resources */,
 				A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */,
-				A49DACE61ED31AC6004378B0 /* LYPlayer_back_full@2x.png in Resources */,
-				A49DACE71ED31AC6004378B0 /* LYPlayer_fullscreen@2x.png in Resources */,
 				A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
