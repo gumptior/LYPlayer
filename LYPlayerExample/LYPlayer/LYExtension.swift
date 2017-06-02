@@ -23,7 +23,7 @@ extension CALayer {
 
 public var key: Void?
 
-extension AppDelegate {
+extension UIResponder {
     
     var allowRotation: Bool? {
         get {
@@ -34,7 +34,7 @@ extension AppDelegate {
         }
     }
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+    @objc(application:supportedInterfaceOrientationsForWindow:) func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if allowRotation == true {
             return .landscapeRight
         } else {
