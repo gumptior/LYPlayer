@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   # s.tvos.deployment_target = '9.0'
 
   s.source_files = 'Source/*.swift'
-  s.dependency = 'SnapKit', '~> 3.2.0'
+  s.dependency 'SnapKit'
 
   s.requires_arc = true
 

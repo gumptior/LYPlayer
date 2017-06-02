@@ -25,7 +25,7 @@ public var key: Void?
 
 extension AppDelegate {
     
-    @IBInspectable var allowRotation: Bool? {
+    var allowRotation: Bool? {
         get {
             return objc_getAssociatedObject(self, &key) as? Bool
         }
