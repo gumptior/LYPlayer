@@ -322,7 +322,7 @@ class LYPlayerView: UIView {
     func fullScreenBtnAction(button: UIButton) {
         // 旋转控制器
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! UIResponder
         let value: Int
         
         if isFullScreen {
