@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		611FDE775DDBDD1F586BE273 /* Pods_LYPlayerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */; };
+		A41504CB1EE6450100F97979 /* LYPlayerConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */; };
+		A41504CD1EE65C7300F97979 /* LYPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A41504CC1EE65C7200F97979 /* LYPlayer.bundle */; };
 		A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC61ED31AA1004378B0 /* AppDelegate.swift */; };
-		A49DACC91ED31AA1004378B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC81ED31AA1004378B0 /* ViewController.swift */; };
+		A49DACC91ED31AA1004378B0 /* TypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC81ED31AA1004378B0 /* TypeListViewController.swift */; };
 		A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCA1ED31AA1004378B0 /* Main.storyboard */; };
 		A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCD1ED31AA1004378B0 /* Assets.xcassets */; };
 		A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCF1ED31AA1004378B0 /* LaunchScreen.storyboard */; };
@@ -19,14 +21,17 @@
 		A49DACEA1ED31AC6004378B0 /* LYPlayerGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */; };
 		A49DACEB1ED31AC6004378B0 /* LYPlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */; };
 		A49DACEC1ED31AC6004378B0 /* LYPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */; };
+		A4D027131EE13CFA00FAF312 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D027121EE13CFA00FAF312 /* VideoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
 		839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYPlayerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerConfigure.swift; sourceTree = "<group>"; };
+		A41504CC1EE65C7200F97979 /* LYPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LYPlayer.bundle; sourceTree = "<group>"; };
 		A49DACC31ED31AA1004378B0 /* LYPlayerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYPlayerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A49DACC61ED31AA1004378B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A49DACC81ED31AA1004378B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A49DACC81ED31AA1004378B0 /* TypeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeListViewController.swift; sourceTree = "<group>"; };
 		A49DACCB1ED31AA1004378B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A49DACCD1ED31AA1004378B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A49DACD01ED31AA1004378B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,6 +42,7 @@
 		A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerGesture.swift; sourceTree = "<group>"; };
 		A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerSlider.swift; sourceTree = "<group>"; };
 		A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerView.swift; sourceTree = "<group>"; };
+		A4D027121EE13CFA00FAF312 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		E324F7939661CEC7045626AA /* Pods-LYPlayerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,7 +98,8 @@
 			children = (
 				A49DACD81ED31AC6004378B0 /* LYPlayer */,
 				A49DACC61ED31AA1004378B0 /* AppDelegate.swift */,
-				A49DACC81ED31AA1004378B0 /* ViewController.swift */,
+				A49DACC81ED31AA1004378B0 /* TypeListViewController.swift */,
+				A4D027121EE13CFA00FAF312 /* VideoViewController.swift */,
 				A49DACCA1ED31AA1004378B0 /* Main.storyboard */,
 				A49DACCD1ED31AA1004378B0 /* Assets.xcassets */,
 				A49DACCF1ED31AA1004378B0 /* LaunchScreen.storyboard */,
@@ -104,12 +111,14 @@
 		A49DACD81ED31AC6004378B0 /* LYPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */,
+				A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */,
 				A49DACD91ED31AC6004378B0 /* LYExtension.swift */,
 				A49DACDA1ED31AC6004378B0 /* LYPlayButton.swift */,
-				A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */,
 				A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */,
 				A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */,
-				A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */,
+				A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */,
+				A41504CC1EE65C7200F97979 /* LYPlayer.bundle */,
 			);
 			path = LYPlayer;
 			sourceTree = "<group>";
@@ -178,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */,
+				A41504CD1EE65C7300F97979 /* LYPlayer.bundle in Resources */,
 				A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */,
 				A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */,
 			);
@@ -240,11 +250,13 @@
 			files = (
 				A49DACE51ED31AC6004378B0 /* LYPlayer.swift in Sources */,
 				A49DACE41ED31AC6004378B0 /* LYPlayButton.swift in Sources */,
+				A41504CB1EE6450100F97979 /* LYPlayerConfigure.swift in Sources */,
 				A49DACEC1ED31AC6004378B0 /* LYPlayerView.swift in Sources */,
 				A49DACE31ED31AC6004378B0 /* LYExtension.swift in Sources */,
 				A49DACEB1ED31AC6004378B0 /* LYPlayerSlider.swift in Sources */,
-				A49DACC91ED31AA1004378B0 /* ViewController.swift in Sources */,
+				A49DACC91ED31AA1004378B0 /* TypeListViewController.swift in Sources */,
 				A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */,
+				A4D027131EE13CFA00FAF312 /* VideoViewController.swift in Sources */,
 				A49DACEA1ED31AC6004378B0 /* LYPlayerGesture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,7 +386,7 @@
 				INFOPLIST_FILE = LYPlayerExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LYCoder.LYPlayerExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fxhl.LYPlayerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -391,7 +403,7 @@
 				INFOPLIST_FILE = LYPlayerExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LYCoder.LYPlayerExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fxhl.LYPlayerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;

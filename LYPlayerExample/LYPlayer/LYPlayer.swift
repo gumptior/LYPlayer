@@ -8,7 +8,7 @@
 
 
 /*
- *  分离功能和视图优劣势
+ *  分离功能和视图优劣
  *
  *  1.逻辑清晰。代码可读性提高
  *  2.如果页面无法满足，完全可以自定义
@@ -42,6 +42,10 @@
 import UIKit
 import AVFoundation
 
+typealias LBVideoInfo = (String, Float) -> Void
+
+typealias LBVideoProgress = (Float, Float, LBPlayerState) -> Void
+
 // 视频图像填充模式
 public enum LBPlayerContentMode {
     case resizeFit  // 比例缩放
@@ -58,30 +62,27 @@ public enum LBPlayerState {
     case stopped  // 停止播放
 }
 
-@objc protocol LYPlayerDelegate {
+protocol LYPlayerDelegate {
     
     // 视频将要播放
-    @objc optional func player(_ playerView: LYPlayer, willPlay item: AVPlayerItem)
+    func player(_ LYPlayer: LYPlayer, willPlayItemAt item: AVPlayerItem)
     
     // 视频正在播放
-    @objc optional func player(_ playerView: LYPlayer, playing playProgress: CGFloat)
+    func player(_ LYPlayer: LYPlayer, playingItemAt item: AVPlayerItem, playProgress: CGFloat)
     
     // 视频将要结束播放
-    @objc optional func playerWillFinishPlay(_ player: LYPlayer)
-    
-    // 视频已经结束播放
-    @objc optional func playerDidFinishPlay(_ player: LYPlayer)
+    func playerWillFinishPlay(_ player: LYPlayer, willEndPlayAt item: AVPlayerItem)
     
     // 视频暂停中
-    @objc optional func playerDidPausePlay(_ player: LYPlayer)
+    func playerPause(_ player: LYPlayer)
     
     // 视频播放失败
-    @objc optional func playerFailurePlay(_ player: LYPlayer, erroe: Error)
+    func playerFailure(_ player: LYPlayer, erroe: Error)
 }
 
-typealias LBVideoInfo = (String, Float) -> Void
-
-typealias LBVideoProgress = (Float, Float, LBPlayerState) -> Void
+extension LYPlayerDelegate {
+    
+}
 
 class LYPlayer: NSObject {
     
@@ -145,10 +146,30 @@ class LYPlayer: NSObject {
     }
     
     // 播放一个视频
-    convenience init(url: URL) {
+    convenience init(urlString: String?) {
         self.init()
-        self.url = url
+        // 设置URL
+        setupURL(string: urlString)
+        // 配置视频项
         configureItem()
+    }
+    
+    
+    /// 通过 string 设置 self.url
+    ///
+    /// - Parameter string: 视频网络地址
+    func setupURL(string: String?) {
+        if string == nil {
+            // 字符串是 nil
+            print("urlString是nil")
+        } else if string! == "" {
+            // 是空字符串
+            print("urlString中没有内容")
+        } else {
+            // 有内容的字符串
+            // 转换
+            self.url = URL(string: string!)!
+        }
     }
     
     /*
@@ -178,6 +199,7 @@ class LYPlayer: NSObject {
     
     // 播放
     public func play() {
+        delegate?.player(self, willPlayItemAt: playerItem)
         player.play()
     }
     
@@ -200,7 +222,7 @@ class LYPlayer: NSObject {
     }
     
     deinit {
-        print("deinit")
+        
     }
     
     // 设置视频标题

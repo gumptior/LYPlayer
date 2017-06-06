@@ -20,13 +20,25 @@ protocol LYPlayerViewDelegate {
 
 class LYPlayerView: UIView {
     
+    // 代理对象
     public var delegate: LYPlayerViewDelegate?
     
+    // 播放器对象
+    public var player: LYPlayer?
     
     // 视频总秒数
-    private var totalSeconds: Float = 0.0 {
+    fileprivate var totalSeconds: Float = 0.0
+    
+    // 视频当前播放秒数
+    fileprivate var currentSeconds: Float = 0.0
+    
+    // 滑条是否正在被拖拽
+    private var isSliderDragging = false
+    
+    // 是否允许全屏显示
+    private var isAllowFullScreen = true {
         willSet {
-
+            lockScreenBtn.isSelected = !newValue
         }
     }
     
@@ -44,12 +56,18 @@ class LYPlayerView: UIView {
         }
     }
     
-    public var player: LYPlayer?
+    /// 通过 url 初始化
+    ///
+    /// - Parameter url: 视频的网络地址
+    convenience init(urlString: String) {
+        self.init(frame: CGRect.zero)
+        self.player = LYPlayer(urlString: urlString)
+        initialize()
+    }
     
-    // 滑条是否正在被拖拽
-    private var isSliderDragging = false
-    
-    
+    /// 通过 LYPlayer Object 初始化
+    ///
+    /// - Parameter player: 播放器对象
     convenience init(player: LYPlayer) {
         self.init(frame: CGRect.zero)
         self.player = player
@@ -65,7 +83,7 @@ class LYPlayerView: UIView {
     }
     
     deinit {
-        print("LYPlayerView - deinit")
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     override func layoutSubviews() {
@@ -101,6 +119,8 @@ class LYPlayerView: UIView {
         
         // 视频进度
         LYPlayer.videoProgress { (currentSeconds, cacheSeconds, state) in
+            
+            self.currentSeconds = currentSeconds
             
             // 修改当前播放时间
             self.currentTimeLabel.text = ({
@@ -216,6 +236,7 @@ class LYPlayerView: UIView {
     lazy var gestureView: LYPlayerGesture = {
         let gestureView = LYPlayerGesture()
         gestureView.backgroundColor = UIColor.clear
+        gestureView.delegate = self
         
         return gestureView
     }()
@@ -273,7 +294,8 @@ class LYPlayerView: UIView {
     // 全屏按钮
     lazy var fullScreenBtn: UIButton = {
         let fullScreenBtn = UIButton(type: .custom)
-        fullScreenBtn.setImage(UIImage(named: "info_fullScreen_button_normal_iPhone"), for: .normal)
+        fullScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_fullscreen"), for: .normal)
+        fullScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_shrinkscreen"), for: .selected)
         fullScreenBtn.isSelected = false
         fullScreenBtn.addTarget(self, action: #selector(fullScreenBtnAction), for: .touchUpInside)
         return fullScreenBtn
@@ -285,7 +307,7 @@ class LYPlayerView: UIView {
         backBtn.backgroundColor = UIColor.black
         backBtn.alpha = 0.5
         backBtn.layer.cornerRadius = 15
-        backBtn.setImage(UIImage(named: "common_navback_button_ highlight_iPhone"), for: .normal)
+        backBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_back_full"), for: .normal)
         backBtn.addTarget(self, action: #selector(backBtnAction), for: .touchUpInside)
         
         return backBtn
@@ -294,8 +316,8 @@ class LYPlayerView: UIView {
     // 锁屏按钮
     lazy var lockScreenBtn: UIButton = {
         let lockScreenBtn = UIButton(type: .custom)
-        lockScreenBtn.setImage(UIImage(named: "ZFPlayer_lock-nor"), for: .normal)
-        lockScreenBtn.setImage(UIImage(named: "ZFPlayer_lock-nor"), for: .selected)
+        lockScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_lock-nor"), for: .selected)
+        lockScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_unlock-nor"), for: .normal)
         lockScreenBtn.addTarget(self, action: #selector(lockScreenBtnAction), for: .touchUpInside)
         
         return lockScreenBtn
@@ -321,7 +343,11 @@ class LYPlayerView: UIView {
     // 全屏按钮点击事件
     func fullScreenBtnAction(button: UIButton) {
         // 旋转控制器
-        
+        // 判断是否允许屏幕旋转
+        if isAllowFullScreen == false {
+            print("当前全屏按钮处于锁定状态")
+            return
+        }
         let appDelegate = UIApplication.shared.delegate as! UIResponder
         let value: Int
         
@@ -356,7 +382,9 @@ class LYPlayerView: UIView {
     
     // 锁屏按钮点击事件
     func lockScreenBtnAction(button: UIButton) {
-        button.isSelected = !button.isSelected
+        isAllowFullScreen = !isAllowFullScreen
+//        button.isSelected = !button.isSelected
+        
     }
     
     // 进度条被按下时的事件
@@ -407,6 +435,13 @@ class LYPlayerView: UIView {
     }
     
     
+}
+
+extension LYPlayerView: LYPlayerGestureDelegate {
+    
+    func adjustVideoPlaySeconds(_ seconds: Float) {
+        player?.seekToSeconds(seconds: currentSeconds + seconds)
+    }
 }
 
 extension LYPlayerView {

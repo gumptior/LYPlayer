@@ -166,7 +166,7 @@ class LYPlayerSlider: UIControl {
                 playProgress = point.x / frame.width
                 
             } else {
-                print("点击的是外面")
+                
             }
         }
     }
