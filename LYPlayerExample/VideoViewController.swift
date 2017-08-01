@@ -2,7 +2,7 @@
 //  VideoViewController.swift
 //  LYPlayerExample
 //
-//  Created by 你个LB on 2017/6/2.
+//  Created by ly_coder on 2017/6/2.
 //  Copyright © 2017年 LYCoder. All rights reserved.
 //
 

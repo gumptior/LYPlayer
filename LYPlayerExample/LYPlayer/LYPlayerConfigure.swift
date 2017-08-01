@@ -1,9 +1,9 @@
 //
 //  LYPlayerConfigure.swift
-//  LYPlayerExample
 //
-//  Created by 你个LB on 2017/6/6.
-//  Copyright © 2017年 LYCoder. All rights reserved.
+//  Copyright © 2017年 ly_coder. All rights reserved.
+//
+//  GitHub地址：https://github.com/LY-Coder/LYPlayer
 //
 
 import UIKit

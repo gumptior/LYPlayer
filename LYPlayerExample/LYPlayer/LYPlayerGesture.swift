@@ -1,9 +1,9 @@
 //
-//  LYGestureControl.swift
-//  LBPlayerExample
+//  LYPlayerGesture.swift
 //
-//  Created by 你个LB on 2017/3/28.
-//  Copyright © 2017年 NGeLB. All rights reserved.
+//  Copyright © 2017年 ly_coder. All rights reserved.
+//
+//  GitHub地址：https://github.com/LY-Coder/LYPlayer
 //
 
 import UIKit
@@ -152,6 +152,8 @@ class LYPlayerGesture: UIView {
                 } else {
                     // 减少亮度
                 }
+                let brightnessView = LYBrightnessView.shard
+                brightnessView.progress = CGFloat(startValue!) + changeValue
             } else {
                 // 音量
                 volumeViewSlider?.setValue(startValue! + Float(changeValue), animated: true)

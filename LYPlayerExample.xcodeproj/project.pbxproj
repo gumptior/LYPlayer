@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A4365DD1F300FEA00C63D0C /* LYBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4365DC1F300FEA00C63D0C /* LYBrightnessView.swift */; };
+		1A4365DF1F30191B00C63D0C /* LYPlayer_brightness@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A4365DE1F30191B00C63D0C /* LYPlayer_brightness@2x.png */; };
 		611FDE775DDBDD1F586BE273 /* Pods_LYPlayerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */; };
 		A41504CB1EE6450100F97979 /* LYPlayerConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */; };
 		A41504CD1EE65C7300F97979 /* LYPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A41504CC1EE65C7200F97979 /* LYPlayer.bundle */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A4365DC1F300FEA00C63D0C /* LYBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBrightnessView.swift; sourceTree = "<group>"; };
+		1A4365DE1F30191B00C63D0C /* LYPlayer_brightness@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LYPlayer_brightness@2x.png"; sourceTree = "<group>"; };
 		5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
 		839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYPlayerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerConfigure.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 				A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */,
 				A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */,
 				A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */,
+				1A4365DC1F300FEA00C63D0C /* LYBrightnessView.swift */,
+				1A4365DE1F30191B00C63D0C /* LYPlayer_brightness@2x.png */,
 				A41504CC1EE65C7200F97979 /* LYPlayer.bundle */,
 			);
 			path = LYPlayer;
@@ -188,6 +194,7 @@
 			files = (
 				A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */,
 				A41504CD1EE65C7300F97979 /* LYPlayer.bundle in Resources */,
+				1A4365DF1F30191B00C63D0C /* LYPlayer_brightness@2x.png in Resources */,
 				A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */,
 				A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */,
 			);
@@ -251,6 +258,7 @@
 				A49DACE51ED31AC6004378B0 /* LYPlayer.swift in Sources */,
 				A49DACE41ED31AC6004378B0 /* LYPlayButton.swift in Sources */,
 				A41504CB1EE6450100F97979 /* LYPlayerConfigure.swift in Sources */,
+				1A4365DD1F300FEA00C63D0C /* LYBrightnessView.swift in Sources */,
 				A49DACEC1ED31AC6004378B0 /* LYPlayerView.swift in Sources */,
 				A49DACE31ED31AC6004378B0 /* LYExtension.swift in Sources */,
 				A49DACEB1ED31AC6004378B0 /* LYPlayerSlider.swift in Sources */,

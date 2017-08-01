@@ -2,12 +2,9 @@
 //  AppDelegate.swift
 //  LYPlayerExample
 //
-//  Created by 你个LB on 2017/5/22.
+//  Created by ly_coder on 2017/5/22.
 //  Copyright © 2017年 LYCoder. All rights reserved.
 //
-
-// GitHub:
-// 邮箱: ly_coder@163.com
 
 import UIKit
 

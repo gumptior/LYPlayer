@@ -1,10 +1,11 @@
 //
-//  LBPlayerView.swift
-//  LBPlayerExample
+//  LYPlayerView.swift
 //
-//  Created by 你个LB on 2017/3/24.
-//  Copyright © 2017年 NGeLB. All rights reserved.
+//  Copyright © 2017年 ly_coder. All rights reserved.
 //
+//  GitHub地址：https://github.com/LY-Coder/LYPlayer
+//
+
 
 
 
