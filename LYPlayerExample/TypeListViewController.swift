@@ -19,8 +19,6 @@ class TypeListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        <#code#>
+        
     }
 }
-
-

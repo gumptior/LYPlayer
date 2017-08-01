@@ -39,7 +39,7 @@ class VideoViewController: UIViewController {
 //        let playerView = LYPlayerView(player: self.player)
 //        let playerView = LYPlayerView(url: url)
         let playerView = LYPlayerView(urlString: "http://flv2.bn.netease.com/tvmrepo/2017/3/K/I/ECF9KFDKI/SD/ECF9KFDKI-mobile.mp4")
-        playerView.delegate = self
+        playerView.delegate = self as? LYPlayerViewDelegate
         
         return playerView
     }()
@@ -61,8 +61,8 @@ class VideoViewController: UIViewController {
 
 }
 
-extension VideoViewController: LYPlayerDelegate, LYPlayerViewDelegate {
-    func playerView(playerView: LYPlayerView, didClickFillScreen button: UIButton) {
-        
-    }
-}
+//extension VideoViewController: LYPlayerDelegate, LYPlayerViewDelegate {
+//    func playerView(playerView: LYPlayerView, didClickFillScreen button: UIButton) {
+//        
+//    }
+//}
