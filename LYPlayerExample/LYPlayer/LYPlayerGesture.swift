@@ -19,8 +19,6 @@ protocol LYPlayerGestureDelegate {
     
     // 快进、快退
     func adjustVideoPlaySeconds(_ seconds: Float)
-    
-    
 }
 
 class LYPlayerGesture: UIView {
