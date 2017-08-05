@@ -73,7 +73,6 @@ class LYBrightnessView: UIView {
         progressView.snp.makeConstraints { (make) in
             make.edges.equalTo(progressBgImgView)
         }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
