@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'LYPlayer'
-  s.version = ‘0.2’
+  s.version = '0.2'
   s.license = 'MIT'
   s.summary = '高度自定义的视频播放器.'
   s.homepage = 'https://github.com/LY-Coder/LYPlayer'
