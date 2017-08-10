@@ -60,7 +60,7 @@ class LYPlayer: NSObject {
     // 播放状态
     public var state: LBPlayerState = .stopped {
         willSet {
-            print(newValue)
+//            print(newValue)
         }
     }
     
@@ -164,8 +164,6 @@ class LYPlayer: NSObject {
     
     // 跳转到某个播放时间段
     public func seekToSeconds(seconds: Float) {
-        print(seconds)
-        
         let seekToSeconds = CMTime(seconds: Double(seconds), preferredTimescale: 60)
         playerItem.seek(to: seekToSeconds)
     }
@@ -296,7 +294,6 @@ class LYPlayer: NSObject {
             cacheSeconds = Float(startSeconds + durationSeconds)  // 计算缓存总进度
         case "playbackBufferEmpty":
             // 监听播放器在缓冲数据的状态
-            print("缓冲不足")
             pause()
         case "playbackLikelyToKeepUp":
             // 由于 AVPlayer 缓存不足就会自动暂停，所以缓存充足了需要手动播放，才能继续播放
@@ -304,7 +301,6 @@ class LYPlayer: NSObject {
             if cacheSeconds == 0 {
                 return
             }
-            print("缓冲🐶了")
             play()
         default:
             break

@@ -6,9 +6,6 @@
 //  GitHub地址：https://github.com/LY-Coder/LYPlayer
 //
 
-
-
-
 // 小窗口模式
 
 import UIKit
@@ -28,7 +25,7 @@ class LYPlayerView: UIView {
     public var player: LYPlayer?
     
     // 视频总秒数
-    fileprivate var totalSeconds: Float = 0.0
+    fileprivate var totalSeconds: Float = 60
     
     // 视频当前播放秒数
     fileprivate var currentSeconds: Float = 0.0
@@ -94,12 +91,6 @@ class LYPlayerView: UIView {
         layer.insertSublayer(player!.playerLayer, at: 0)
         
         setupUIFrame()
-        
-        self.totalTimeLabel.text = "00:00"
-        
-        self.currentTimeLabel.text = "00:00"
-        
-        self.totalSeconds = 60
 
         // 视频信息
         LYPlayer.videoInfo { (title, totalSeconds) in
