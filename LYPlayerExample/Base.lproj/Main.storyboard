@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EQI-jj-LHx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EQI-jj-LHx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -82,13 +82,33 @@
                     <view key="view" contentMode="scaleToFill" id="XbW-kE-ys8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="umh-Aa-Vfa">
+                                <rect key="frame" x="73" y="541" width="229" height="46"/>
+                                <color key="backgroundColor" red="1" green="0.45360645760886109" blue="0.42919661398594455" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="229" id="5hC-mx-pfb"/>
+                                    <constraint firstAttribute="height" constant="46" id="bic-qG-Ppz"/>
+                                </constraints>
+                                <state key="normal" title="下一个">
+                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextAction:" destination="q88-sf-PA9" eventType="touchUpInside" id="jTn-33-kWp"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="umh-Aa-Vfa" firstAttribute="centerX" secondItem="XbW-kE-ys8" secondAttribute="centerX" id="Cop-Bx-L8o"/>
+                            <constraint firstItem="r3C-mG-Qus" firstAttribute="top" secondItem="umh-Aa-Vfa" secondAttribute="bottom" constant="80" id="MTR-HX-8KJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dRI-HF-yiJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0cP-S0-Yx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2180" y="-67"/>
+            <point key="canvasLocation" x="2180" y="-67.016491754122939"/>
         </scene>
     </scenes>
 </document>

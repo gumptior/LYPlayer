@@ -36,33 +36,17 @@ class VideoViewController: UIViewController {
     
     // 播放器视图
     lazy var playerView: LYPlayerView = {
-//        let playerView = LYPlayerView(player: self.player)
-//        let playerView = LYPlayerView(url: url)
         let playerView = LYPlayerView(urlString: "http://flv2.bn.netease.com/tvmrepo/2017/3/K/I/ECF9KFDKI/SD/ECF9KFDKI-mobile.mp4")
         playerView.delegate = self as? LYPlayerViewDelegate
         
         return playerView
     }()
     
-//    // 播放器
-//    lazy var player: LYPlayer = {
-//        let player = LYPlayer(url: self.url)
-//        player.delegate = self
-//        
-//        return player
-//    }()
-//    
-//    // 视频地址
-//    lazy var url: URL = {
-//        let url = URL(string: "http://flv2.bn.netease.com/tvmrepo/2017/3/K/I/ECF9KFDKI/SD/ECF9KFDKI-mobile.mp4")
-//        
-//        return url!
-//    }()
-
+    deinit {
+        
+    }
+    
+    @IBAction func nextAction(_ sender: UIButton) {
+        playerView.player?.url = URL(string: "http://ongelo4u0.bkt.clouddn.com/15011427040376xWtn.mp4")
+    }
 }
-
-//extension VideoViewController: LYPlayerDelegate, LYPlayerViewDelegate {
-//    func playerView(playerView: LYPlayerView, didClickFillScreen button: UIButton) {
-//        
-//    }
-//}

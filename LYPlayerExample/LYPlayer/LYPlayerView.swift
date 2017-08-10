@@ -62,7 +62,8 @@ class LYPlayerView: UIView {
     /// - Parameter url: 视频的网络地址
     convenience init(urlString: String) {
         self.init(frame: CGRect.zero)
-        self.player = LYPlayer(urlString: urlString)
+        self.player = LYPlayer.shard
+        self.player?.url = URL(string: urlString)
         initialize()
     }
     
@@ -75,9 +76,7 @@ class LYPlayerView: UIView {
         initialize()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+    override init(frame: CGRect) { super.init(frame: frame) }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -101,7 +100,7 @@ class LYPlayerView: UIView {
         self.currentTimeLabel.text = "00:00"
         
         self.totalSeconds = 60
-        
+
         // 视频信息
         LYPlayer.videoInfo { (title, totalSeconds) in
             
@@ -363,7 +362,6 @@ class LYPlayerView: UIView {
             appDelegate.allowRotation = true    // 打开横屏功能
             value = UIInterfaceOrientation.landscapeLeft.rawValue
             isFullScreen = true
-            
         }
         UIDevice.current.setValue(value, forKey: "orientation")
         delegate?.playerView(playerView: self, didClickFillScreen: button)
@@ -376,16 +374,14 @@ class LYPlayerView: UIView {
             fullScreenBtnAction(button: fullScreenBtn)
         } else {
             playerViewController?.navigationController?.popViewController(animated: true)
-//            player?.stop()
-            player?.stopItem()
+            // 关闭播放器
+            player?.stop()
         }
     }
     
     // 锁屏按钮点击事件
     func lockScreenBtnAction(button: UIButton) {
         isAllowFullScreen = !isAllowFullScreen
-//        button.isSelected = !button.isSelected
-        
     }
     
     // 进度条被按下时的事件
@@ -422,20 +418,6 @@ class LYPlayerView: UIView {
             break
         }
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesMoved(touches, with: event)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-    }
-    
-    
 }
 
 extension LYPlayerView: LYPlayerGestureDelegate {
