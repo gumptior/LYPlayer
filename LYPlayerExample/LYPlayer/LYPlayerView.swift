@@ -47,9 +47,11 @@ class LYPlayerView: UIView {
             if newValue {
                 // 是全屏状态
                 lockScreenBtn.isHidden = false
+                gestureView.isUserInteractionEnabled = true
             } else {
                 // 是竖屏状态
                 lockScreenBtn.isHidden = true
+                gestureView.isUserInteractionEnabled = false
             }
         }
     }
@@ -154,7 +156,7 @@ class LYPlayerView: UIView {
         
         addSubview(gestureView)
         
-        gestureView.addSubview(bottomShadeView)
+        addSubview(bottomShadeView)
         
         addSubview(backBtn)
         
@@ -174,7 +176,7 @@ class LYPlayerView: UIView {
     // 设置UI控件Frame
     private func setupUIFrame() {
         gestureView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
+            make.edges.equalTo(UIEdgeInsetsMake(40, 0, 40, 0))
         }
         
         bottomShadeView.snp.makeConstraints { (make) in
@@ -211,7 +213,7 @@ class LYPlayerView: UIView {
         }
         
         backBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(30)
+            make.top.equalTo(self).offset(20)
             make.left.equalTo(self).offset(13)
             make.size.equalTo(30)
         }
