@@ -47,6 +47,6 @@ class VideoViewController: UIViewController {
     }
     
     @IBAction func nextAction(_ sender: UIButton) {
-        playerView.player?.url = URL(string: "http://ongelo4u0.bkt.clouddn.com/15011427040376xWtn.mp4")
+        playerView.player.url = URL(string: "http://ongelo4u0.bkt.clouddn.com/15011427040376xWtn.mp4")
     }
 }

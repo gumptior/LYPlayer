@@ -13,19 +13,19 @@
 import UIKit
 import AVFoundation
 
-typealias LBVideoInfo = (String, Float) -> Void
+typealias LYVideoInfo = (String, Float) -> Void
 
-typealias LBVideoProgress = (Float, Float, LBPlayerState) -> Void
+typealias LYVideoProgress = (Float, Float, LYPlayerStatus) -> Void
 
 // 视频图像填充模式
-public enum LBPlayerContentMode {
+public enum LYPlayerContentMode {
     case resizeFit  // 比例缩放
     case resizeFitFill  // 填充视图
     case resize  // 默认
 }
 
 // 播放状态
-public enum LBPlayerState {
+public enum LYPlayerStatus {
     case failed  // 播放失败
     case buffering  // 缓冲中
     case playing  // 播放中
@@ -34,6 +34,8 @@ public enum LBPlayerState {
 }
 
 protocol LYPlayerDelegate {
+    
+    func player(_ player: LYPlayer, willChange status: LYPlayerStatus)
     
 //    // 视频将要播放
 //    func player(_ LYPlayer: LYPlayer, willPlayItemAt item: AVPlayerItem)
@@ -51,16 +53,18 @@ protocol LYPlayerDelegate {
 //    func playerFailure(_ player: LYPlayer, erroe: Error)
 }
 
-extension LYPlayerDelegate {
-    
-}
-
 class LYPlayer: NSObject {
     
-    // 播放状态
-    public var state: LBPlayerState = .stopped {
+    public var delegate: LYPlayerDelegate? {
         willSet {
-//            print(newValue)
+            
+        }
+    }
+    
+    // 播放状态
+    public var status: LYPlayerStatus = .stopped {
+        willSet {
+            delegate?.player(self, willChange: newValue)
         }
     }
     
@@ -76,7 +80,7 @@ class LYPlayer: NSObject {
                 // 第一次播放视频
             } else {
                 // 重新播放新视频
-                if state == .stopped {
+                if status == .stopped {
                     
                 } else {
                     stop()
@@ -87,7 +91,7 @@ class LYPlayer: NSObject {
             }
         }
         didSet {
-            addObserve()
+            addObserver()
             addNotificationCenter()
         }
     }
@@ -105,10 +109,10 @@ class LYPlayer: NSObject {
     override init() { super.init() }
     
     // 视频信息
-    static private var videoInfo: LBVideoInfo?
+    static private var videoInfo: LYVideoInfo?
     
     // 视频进度
-    static private var videoProgress: LBVideoProgress?
+    static private var videoProgress: LYVideoProgress?
     
     // 是否正在播放
     public var isPlaying: Bool = false
@@ -129,7 +133,7 @@ class LYPlayer: NSObject {
     // 已经播放时长
     private var currentSeconds: Float = 0 {
         willSet {
-            LYPlayer.videoProgress!(newValue, cacheSeconds, state)
+            LYPlayer.videoProgress!(newValue, cacheSeconds, status)
         }
     }
     
@@ -139,14 +143,14 @@ class LYPlayer: NSObject {
     public func play() {
         player.play()
         starRefreshProgress()
-        state = .playing
+        status = .playing
     }
     
     // 暂停
     public func pause() {
         player.pause()
         stopRefreshProgress()
-        state = .pausing
+        status = .pausing
     }
     
     // 停止
@@ -155,7 +159,7 @@ class LYPlayer: NSObject {
         pause()
         removeObserve()
         removeNotificationCenter()
-        state = .stopped
+        status = .stopped
     }
     
     deinit {
@@ -169,12 +173,12 @@ class LYPlayer: NSObject {
     }
     
     // 视频信息
-    public class func videoInfo(complete: @escaping LBVideoInfo) {
+    public class func videoInfo(complete: @escaping LYVideoInfo) {
         videoInfo = complete
     }
     
     // 视频进度
-    public class func videoProgress(complete: @escaping LBVideoProgress) {
+    public class func videoProgress(complete: @escaping LYVideoProgress) {
         videoProgress = complete
     }
 
@@ -192,7 +196,7 @@ class LYPlayer: NSObject {
     }
     
     // 添加观察者
-    fileprivate func addObserve() {
+    fileprivate func addObserver() {
         // 观察播放状态
         playerItem.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         

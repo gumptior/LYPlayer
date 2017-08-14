@@ -22,7 +22,12 @@ class LYPlayerView: UIView {
     public var delegate: LYPlayerViewDelegate?
     
     // 播放器对象
-    public var player: LYPlayer?
+    public var player: LYPlayer = {
+        let player = LYPlayer.shard
+        
+        
+        return player
+    }()
     
     // 视频总秒数
     fileprivate var totalSeconds: Float = 60
@@ -61,8 +66,7 @@ class LYPlayerView: UIView {
     /// - Parameter url: 视频的网络地址
     convenience init(urlString: String) {
         self.init(frame: CGRect.zero)
-        self.player = LYPlayer.shard
-        self.player?.url = URL(string: urlString)
+        player.url = URL(string: urlString)
         initialize()
     }
     
@@ -88,9 +92,9 @@ class LYPlayerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        layer.addSublayer(player!.playerLayer)
-        player?.playerLayer.frame = bounds
-        layer.insertSublayer(player!.playerLayer, at: 0)
+        layer.addSublayer(player.playerLayer)
+        player.playerLayer.frame = bounds
+        layer.insertSublayer(player.playerLayer, at: 0)
         
         setupUIFrame()
 
@@ -148,7 +152,9 @@ class LYPlayerView: UIView {
         bringSubview(toFront: bottomShadeView)
         
         // 设置竖屏状态
-        isFullScreen = false
+//        isFullScreen = false
+        
+        player.delegate = self
     }
     
     // 设置UI控件
@@ -325,11 +331,9 @@ class LYPlayerView: UIView {
     // 播放和暂停按钮点击事件
     func playAndPauseBtnAction(button: LYPlayButton) {
         if button.playStatus == .pause {
-            button.playStatus = .play
-            player?.play()
+            player.play()
         } else {
-            button.playStatus = .pause
-            player?.pause()
+            player.pause()
         }
     }
     
@@ -368,7 +372,7 @@ class LYPlayerView: UIView {
         } else {
             playerViewController?.navigationController?.popViewController(animated: true)
             // 关闭播放器
-            player?.stop()
+            player.stop()
         }
     }
     
@@ -389,7 +393,7 @@ class LYPlayerView: UIView {
         isSliderDragging = false
         // 计算进度。快进
         let seconds = Float(slider.value / 1.0 * totalSeconds)
-        player?.seekToSeconds(seconds: seconds)
+        player.seekToSeconds(seconds: seconds)
     }
     
     // 处理旋转过程中需要的操作
@@ -413,10 +417,29 @@ class LYPlayerView: UIView {
     }
 }
 
+extension LYPlayerView: LYPlayerDelegate {
+    
+    func player(_ player: LYPlayer, willChange status: LYPlayerStatus) {
+        
+        switch status {
+        case .playing:
+            playAndPauseBtn.playStatus = .play
+        case .pausing:
+            playAndPauseBtn.playStatus = .pause
+        case .stopped:
+            break
+        case .buffering:
+            break
+        case .failed:
+            break
+        }
+    }
+}
+
 extension LYPlayerView: LYPlayerGestureDelegate {
     
     func adjustVideoPlaySeconds(_ seconds: Float) {
-        player?.seekToSeconds(seconds: currentSeconds + seconds)
+        player.seekToSeconds(seconds: currentSeconds + seconds)
     }
 }
 
