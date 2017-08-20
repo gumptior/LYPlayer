@@ -152,7 +152,7 @@ class LYPlayerView: UIView {
         bringSubview(toFront: bottomShadeView)
         
         // 设置竖屏状态
-//        isFullScreen = false
+        isFullScreen = false
         
         player.delegate = self
     }
