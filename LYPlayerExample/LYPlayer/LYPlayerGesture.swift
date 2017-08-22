@@ -19,6 +19,8 @@ protocol LYPlayerGestureDelegate {
     
     // 快进、快退
     func adjustVideoPlaySeconds(_ seconds: Float)
+    
+    func tapGestureAction(view: UIView)
 }
 
 class LYPlayerGesture: UIView {
@@ -36,15 +38,21 @@ class LYPlayerGesture: UIView {
     // 开始值
     private var startValue: Float?
     
+    // 是否允许拖拽手势
+    var isEnabledDragGesture: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        // 添加点击手势
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        tap.numberOfTapsRequired = 1
+        tap.numberOfTouchesRequired = 1
+        addGestureRecognizer(tap)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     lazy var volumeViewSlider: UISlider? = {
         let volumeView = MPVolumeView(frame: CGRect(x: 50, y: 50, width: 100, height: 100))
@@ -87,6 +95,11 @@ class LYPlayerGesture: UIView {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
+        // 判断是否激活拖拽手势
+        if isEnabledDragGesture == false {
+            return
+        }
+        
         var point: CGPoint?
         for touch in touches {
             point = touch.location(in: self)
@@ -116,6 +129,11 @@ class LYPlayerGesture: UIView {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
+        // 判断是否激活拖拽手势
+        if isEnabledDragGesture == false {
+            return
+        }
+        
         var point: CGPoint?
         for touch in touches {
             point = touch.location(in: self)
@@ -163,8 +181,7 @@ class LYPlayerGesture: UIView {
             }
             
         } else {
-            // 视频进度
-//            self.delegate?.adjustVideoPlayProgress(<#T##progress: CGFloat##CGFloat#>)
+            
         }
     }
 
@@ -178,7 +195,12 @@ class LYPlayerGesture: UIView {
         // * 3  ：在滑动相等距离的情况下，乘的越大，滑动产生的效果越大（value变化快）
         let value = -point.y / screen_width * 3
 
-        
         return value
+    }
+    
+    /// 点击手势事件
+    func tapAction() {
+        
+        self.delegate?.tapGestureAction(view: self)
     }
 }

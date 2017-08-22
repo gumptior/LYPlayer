@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A3686421F356D8F00948031 /* LYPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A3686411F356D8F00948031 /* LYPlayer.bundle */; };
 		1A4365DD1F300FEA00C63D0C /* LYBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4365DC1F300FEA00C63D0C /* LYBrightnessView.swift */; };
+		1A81FD9E1F4B2BD9004942F6 /* LYPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1A81FD9D1F4B2BD9004942F6 /* LYPlayer.bundle */; };
 		611FDE775DDBDD1F586BE273 /* Pods_LYPlayerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */; };
 		A41504CB1EE6450100F97979 /* LYPlayerConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */; };
 		A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC61ED31AA1004378B0 /* AppDelegate.swift */; };
@@ -26,8 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A3686411F356D8F00948031 /* LYPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LYPlayer.bundle; sourceTree = "<group>"; };
 		1A4365DC1F300FEA00C63D0C /* LYBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBrightnessView.swift; sourceTree = "<group>"; };
+		1A81FD9D1F4B2BD9004942F6 /* LYPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LYPlayer.bundle; sourceTree = "<group>"; };
 		5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
 		839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYPlayerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerConfigure.swift; sourceTree = "<group>"; };
@@ -113,15 +113,15 @@
 		A49DACD81ED31AC6004378B0 /* LYPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */,
 				A49DACDB1ED31AC6004378B0 /* LYPlayer.swift */,
+				A49DACE21ED31AC6004378B0 /* LYPlayerView.swift */,
 				A49DACD91ED31AC6004378B0 /* LYExtension.swift */,
 				A49DACDA1ED31AC6004378B0 /* LYPlayButton.swift */,
 				A49DACE01ED31AC6004378B0 /* LYPlayerGesture.swift */,
 				A49DACE11ED31AC6004378B0 /* LYPlayerSlider.swift */,
 				A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */,
 				1A4365DC1F300FEA00C63D0C /* LYBrightnessView.swift */,
-				1A3686411F356D8F00948031 /* LYPlayer.bundle */,
+				1A81FD9D1F4B2BD9004942F6 /* LYPlayer.bundle */,
 			);
 			path = LYPlayer;
 			sourceTree = "<group>";
@@ -190,7 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */,
-				1A3686421F356D8F00948031 /* LYPlayer.bundle in Resources */,
+				1A81FD9E1F4B2BD9004942F6 /* LYPlayer.bundle in Resources */,
 				A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */,
 				A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */,
 			);

@@ -38,11 +38,65 @@ class LYPlayerView: UIView {
     // 滑条是否正在被拖拽
     private var isSliderDragging = false
     
-    // 是否允许全屏显示
-    private var isAllowFullScreen = true {
-        willSet {
-            lockScreenBtn.isSelected = !newValue
+    // 是否允许旋转屏幕
+    private var isAllowRotateScreen = true {
+        didSet {
+            lockScreenBtn.isSelected = !isAllowRotateScreen
+            if isAllowRotateScreen == false {
+                // 锁屏
+                hiddenControlShade()
+            } else {
+                // 非锁屏
+                showControlShade()
+            }
         }
+        willSet {
+
+        }
+    }
+    
+    // 是否显示上下遮罩视图
+    fileprivate var isShowShadeView: Bool = true {
+        willSet {
+            if newValue == true {
+                // 显示
+                showControlShade()
+            } else {
+                // 隐藏
+                hiddenControlShade()
+            }
+        }
+    }
+    
+    // 显示控制遮罩视图
+    private func showControlShade() {
+        if isAllowRotateScreen == false {
+            // 锁屏
+            lockScreenBtn.isHidden = false
+            return
+        }
+        
+        topShadeView.isHidden = false
+        bottomShadeView.isHidden = false
+        
+        if isFullScreen == true {
+            // 横屏
+            lockScreenBtn.isHidden = false
+        }
+    }
+    
+    // 隐藏控制遮罩视图
+    private func hiddenControlShade() {
+        topShadeView.isHidden = true
+        bottomShadeView.isHidden = true
+        
+        if isAllowRotateScreen == false {
+            // 锁屏
+            lockScreenBtn.isHidden = false
+            return
+        }
+        // 非锁屏
+        lockScreenBtn.isHidden = true
     }
     
     // 是否全屏状态
@@ -52,11 +106,11 @@ class LYPlayerView: UIView {
             if newValue {
                 // 是全屏状态
                 lockScreenBtn.isHidden = false
-                gestureView.isUserInteractionEnabled = true
+                gestureView.isEnabledDragGesture = true
             } else {
                 // 是竖屏状态
                 lockScreenBtn.isHidden = true
-                gestureView.isUserInteractionEnabled = false
+                gestureView.isEnabledDragGesture = false
             }
         }
     }
@@ -97,6 +151,8 @@ class LYPlayerView: UIView {
         layer.insertSublayer(player.playerLayer, at: 0)
         
         setupUIFrame()
+        
+        
 
         // 视频信息
         LYPlayer.videoInfo { (title, totalSeconds) in
@@ -154,6 +210,9 @@ class LYPlayerView: UIView {
         // 设置竖屏状态
         isFullScreen = false
         
+        // 是否显示上下遮罩视图
+        isShowShadeView = true
+        
         player.delegate = self
     }
     
@@ -162,9 +221,13 @@ class LYPlayerView: UIView {
         
         addSubview(gestureView)
         
+        addSubview(lockScreenBtn)
+        
         addSubview(bottomShadeView)
         
-        addSubview(backBtn)
+        addSubview(topShadeView)
+        
+        topShadeView.addSubview(backBtn)
         
         bottomShadeView.addSubview(playAndPauseBtn)
         
@@ -175,14 +238,17 @@ class LYPlayerView: UIView {
         bottomShadeView.addSubview(totalTimeLabel)
         
         bottomShadeView.addSubview(fullScreenBtn)
-        
-        addSubview(lockScreenBtn)
     }
     
     // 设置UI控件Frame
     private func setupUIFrame() {
         gestureView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(40, 0, 40, 0))
+        }
+        
+        topShadeView.snp.makeConstraints { (make) in
+            make.top.left.right.equalTo(self)
+            make.height.equalTo(64)
         }
         
         bottomShadeView.snp.makeConstraints { (make) in
@@ -220,13 +286,13 @@ class LYPlayerView: UIView {
         
         backBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(20)
-            make.left.equalTo(self).offset(13)
-            make.size.equalTo(30)
+            make.left.equalTo(self).offset(0)
+            make.size.equalTo(40)
         }
         
         lockScreenBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self)
-            make.left.equalTo(self).offset(15)
+            make.left.equalTo(self).offset(10)
             make.size.equalTo(35)
         }
     }
@@ -240,11 +306,24 @@ class LYPlayerView: UIView {
         return gestureView
     }()
     
+    // 上部遮罩视图
+    lazy var topShadeView: UIImageView = {
+        let topShadeView = UIImageView()
+        topShadeView.isUserInteractionEnabled = true
+        let image = UIImage(named: "LYPlayer.bundle/LYPlayer_top_shadel")!
+        
+        topShadeView.image = image.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0.5, 0, 1) , resizingMode: .stretch)
+        
+        return topShadeView
+    }()
+    
     // 下部遮罩视图
-    lazy var bottomShadeView: UIView = {
-        let bottomShadeView = UIView()
-        bottomShadeView.backgroundColor = UIColor.black
-        bottomShadeView.alpha = 0.5
+    lazy var bottomShadeView: UIImageView = {
+        let bottomShadeView = UIImageView()
+        bottomShadeView.isUserInteractionEnabled = true
+        let image = UIImage(named: "LYPlayer.bundle/LYPlayer_bottom_shadel")!
+        
+        bottomShadeView.image = image.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0.5, 0, 1) , resizingMode: .stretch)
         
         return bottomShadeView
     }()
@@ -252,7 +331,6 @@ class LYPlayerView: UIView {
     // 开始暂停按钮
     lazy var playAndPauseBtn: LYPlayButton = {
         let playAndPauseBtn = LYPlayButton()
-        playAndPauseBtn.layer.transform =  CATransform3DMakeScale(0.6, 0.6, 1)
         playAndPauseBtn.addTarget(self, action: #selector(playAndPauseBtnAction), for: .touchUpInside)
         
         return playAndPauseBtn
@@ -303,9 +381,6 @@ class LYPlayerView: UIView {
     // 返回按钮
     lazy var backBtn: UIButton = {
         let backBtn = UIButton(type: .custom)
-        backBtn.backgroundColor = UIColor.black
-        backBtn.alpha = 0.5
-        backBtn.layer.cornerRadius = 15
         backBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_back_full"), for: .normal)
         backBtn.addTarget(self, action: #selector(backBtnAction), for: .touchUpInside)
         
@@ -315,6 +390,8 @@ class LYPlayerView: UIView {
     // 锁屏按钮
     lazy var lockScreenBtn: UIButton = {
         let lockScreenBtn = UIButton(type: .custom)
+        lockScreenBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        lockScreenBtn.layer.cornerRadius = 17.5
         lockScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_lock-nor"), for: .selected)
         lockScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_unlock-nor"), for: .normal)
         lockScreenBtn.addTarget(self, action: #selector(lockScreenBtnAction), for: .touchUpInside)
@@ -341,7 +418,7 @@ class LYPlayerView: UIView {
     func fullScreenBtnAction(button: UIButton) {
         // 旋转控制器
         // 判断是否允许屏幕旋转
-        if isAllowFullScreen == false {
+        if isAllowRotateScreen == false {
             print("当前全屏按钮处于锁定状态")
             return
         }
@@ -378,7 +455,7 @@ class LYPlayerView: UIView {
     
     // 锁屏按钮点击事件
     func lockScreenBtnAction(button: UIButton) {
-        isAllowFullScreen = !isAllowFullScreen
+        isAllowRotateScreen = !isAllowRotateScreen
     }
     
     // 进度条被按下时的事件
@@ -440,6 +517,11 @@ extension LYPlayerView: LYPlayerGestureDelegate {
     
     func adjustVideoPlaySeconds(_ seconds: Float) {
         player.seekToSeconds(seconds: currentSeconds + seconds)
+    }
+    
+    func tapGestureAction(view: UIView) {
+        // 设置点击手势控制是否显示上下遮罩视图
+        isShowShadeView = !isShowShadeView
     }
 }
 
