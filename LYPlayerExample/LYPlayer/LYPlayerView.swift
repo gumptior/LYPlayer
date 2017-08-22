@@ -68,37 +68,6 @@ class LYPlayerView: UIView {
         }
     }
     
-    // 显示控制遮罩视图
-    private func showControlShade() {
-        if isAllowRotateScreen == false {
-            // 锁屏
-            lockScreenBtn.isHidden = false
-            return
-        }
-        
-        topShadeView.isHidden = false
-        bottomShadeView.isHidden = false
-        
-        if isFullScreen == true {
-            // 横屏
-            lockScreenBtn.isHidden = false
-        }
-    }
-    
-    // 隐藏控制遮罩视图
-    private func hiddenControlShade() {
-        topShadeView.isHidden = true
-        bottomShadeView.isHidden = true
-        
-        if isAllowRotateScreen == false {
-            // 锁屏
-            lockScreenBtn.isHidden = false
-            return
-        }
-        // 非锁屏
-        lockScreenBtn.isHidden = true
-    }
-    
     // 是否全屏状态
     private var isFullScreen = false {
         willSet {
@@ -473,6 +442,37 @@ class LYPlayerView: UIView {
         player.seekToSeconds(seconds: seconds)
     }
     
+    // 显示控制遮罩视图
+    private func showControlShade() {
+        if isAllowRotateScreen == false {
+            // 锁屏
+            lockScreenBtn.isHidden = false
+            return
+        }
+        
+        topShadeView.isHidden = false
+        bottomShadeView.isHidden = false
+        
+        if isFullScreen == true {
+            // 横屏
+            lockScreenBtn.isHidden = false
+        }
+    }
+    
+    // 隐藏控制遮罩视图
+    private func hiddenControlShade() {
+        topShadeView.isHidden = true
+        bottomShadeView.isHidden = true
+        
+        if isAllowRotateScreen == false {
+            // 锁屏
+            lockScreenBtn.isHidden = false
+            return
+        }
+        // 非锁屏
+        lockScreenBtn.isHidden = true
+    }
+    
     // 处理旋转过程中需要的操作
     func orientation(notification: NSNotification) {
         
@@ -547,3 +547,5 @@ extension LYPlayerView {
         }
     }
 }
+
+
