@@ -14,7 +14,11 @@
 2. 如果页面无法满足需求，完全自定义UI
 
 ## 效果图
-![](http://ov49u3l5m.bkt.clouddn.com/LYPlayer%E5%8A%A8%E6%80%81%E6%95%88%E6%9E%9C.gif)
+![](http://ov49u3l5m.bkt.clouddn.com/LYPlayer%E6%95%88%E6%9E%9C%E5%9B%BE01.gif)
+![](http://ov49u3l5m.bkt.clouddn.com/LYPlayer%E6%95%88%E6%9E%9C%E5%9B%BE02.gif)
+![](http://ov49u3l5m.bkt.clouddn.com/LYPlayer%E6%95%88%E6%9E%9C%E5%9B%BE03.gif)
+![](http://ov49u3l5m.bkt.clouddn.com/LYPlayer%E6%95%88%E6%9E%9C%E5%9B%BE04.gif)
+![](http://ov49u3l5m.bkt.clouddn.com/LYPlayer%E6%95%88%E6%9E%9C%E5%9B%BE05.gif)
 
 ## CocoaPods安装
 #### Podfile
