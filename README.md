@@ -23,7 +23,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 target 'TargetName' do
-pod 'LYPlayer', '~> 0.2'
+pod 'LYPlayer', '~> 0.3'
 end
 ```
 运行下面的命令
