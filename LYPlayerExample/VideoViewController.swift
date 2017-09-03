@@ -18,8 +18,6 @@ class VideoViewController: UIViewController {
         return .lightContent
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

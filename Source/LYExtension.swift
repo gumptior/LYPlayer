@@ -1,9 +1,9 @@
 //
-//  CALayer+Extension.swift
-//  PlayButton
+//  LYExtension.swift
 //
-//  Created by ShuYan Feng on 2017/3/25.
-//  Copyright © 2017年 ShuYan Feng. All rights reserved.
+//  Copyright © 2017年 ly_coder. All rights reserved.
+//
+//  GitHub地址：https://github.com/LY-Coder/LYPlayer
 //
 
 import UIKit
