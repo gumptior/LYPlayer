@@ -24,9 +24,12 @@
 ```
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
+use_frameworks!
 
-target 'TargetName' do
-pod 'LYPlayer', '~> 0.3'
+target 'MyApp' do
+  # your other pod
+  # ...
+  pod 'LYPlayer', '~> 0.3'
 end
 ```
 运行下面的命令
