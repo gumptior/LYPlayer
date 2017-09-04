@@ -120,8 +120,6 @@ class LYPlayerView: UIView {
         layer.insertSublayer(player.playerLayer, at: 0)
         
         setupUIFrame()
-        
-        
 
         // 视频信息
         LYPlayer.videoInfo { (title, totalSeconds) in
@@ -279,7 +277,8 @@ class LYPlayerView: UIView {
     lazy var topShadeView: UIImageView = {
         let topShadeView = UIImageView()
         topShadeView.isUserInteractionEnabled = true
-        let image = UIImage(named: "LYPlayer.bundle/LYPlayer_top_shadel")!
+        let image = UIImage.init("LYPlayer_top_shade")
+//        let image = UIImage(named: "LYPlayer.bundle/l")!
         
         topShadeView.image = image.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0.5, 0, 1) , resizingMode: .stretch)
         
@@ -290,7 +289,8 @@ class LYPlayerView: UIView {
     lazy var bottomShadeView: UIImageView = {
         let bottomShadeView = UIImageView()
         bottomShadeView.isUserInteractionEnabled = true
-        let image = UIImage(named: "LYPlayer.bundle/LYPlayer_bottom_shadel")!
+        let image = UIImage.init("LYPlayer_bottom_shade")
+//        let image = UIImage(named: "LYPlayer.bundle/LYPlayer_bottom_shadel")!
         
         bottomShadeView.image = image.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0.5, 0, 1) , resizingMode: .stretch)
         
@@ -340,8 +340,10 @@ class LYPlayerView: UIView {
     // 全屏按钮
     lazy var fullScreenBtn: UIButton = {
         let fullScreenBtn = UIButton(type: .custom)
-        fullScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_fullscreen"), for: .normal)
-        fullScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_shrinkscreen"), for: .selected)
+        
+        
+        fullScreenBtn.setImage(UIImage.init("LYPlayer_fullscreen"), for: .normal)
+        fullScreenBtn.setImage(UIImage.init("LYPlayer_shrinkscreen"), for: .selected)
         fullScreenBtn.isSelected = false
         fullScreenBtn.addTarget(self, action: #selector(fullScreenBtnAction), for: .touchUpInside)
         return fullScreenBtn
@@ -350,7 +352,8 @@ class LYPlayerView: UIView {
     // 返回按钮
     lazy var backBtn: UIButton = {
         let backBtn = UIButton(type: .custom)
-        backBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_back_full"), for: .normal)
+        
+        backBtn.setImage(UIImage.init("LYPlayer_back_full"), for: .normal)
         backBtn.addTarget(self, action: #selector(backBtnAction), for: .touchUpInside)
         
         return backBtn
@@ -361,8 +364,8 @@ class LYPlayerView: UIView {
         let lockScreenBtn = UIButton(type: .custom)
         lockScreenBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         lockScreenBtn.layer.cornerRadius = 17.5
-        lockScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_lock-nor"), for: .selected)
-        lockScreenBtn.setImage(UIImage(named: "LYPlayer.bundle/LYPlayer_unlock-nor"), for: .normal)
+        lockScreenBtn.setImage(UIImage.init("LYPlayer_lock_nor"), for: .selected)
+        lockScreenBtn.setImage(UIImage.init("LYPlayer_unlock_nor"), for: .normal)
         lockScreenBtn.addTarget(self, action: #selector(lockScreenBtnAction), for: .touchUpInside)
         
         return lockScreenBtn

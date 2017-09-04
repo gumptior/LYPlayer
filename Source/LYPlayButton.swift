@@ -45,9 +45,10 @@ class LYPlayButton: UIControl {
         willSet {
             switch newValue {
             case .play:
-                playStatusIcon.image = UIImage(named: "LYPlayer.bundle/LYPlayer_play")
+                
+                playStatusIcon.image = UIImage.init("LYPlayer_play")
             case .pause:
-                playStatusIcon.image = UIImage(named: "LYPlayer.bundle/LYPlayer_pause")
+                playStatusIcon.image = UIImage.init("LYPlayer_pause")
             default:
                 break
             }
