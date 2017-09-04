@@ -13,11 +13,13 @@ Pod::Spec.new do |s|
   # s.tvos.deployment_target = '9.0'
 
   s.source = { :git => 'https://github.com/LY-Coder/LYPlayer.git', :tag => s.version }
-  s.source_files = 'Source/*.swift'
-  s.resources = 'Source/*.xcassets'
+  s.source_files = 'LYPlayerExample/LYPlayer/*.swift'
+  s.resources = 'LYPlayerExample/LYPlayer/*.xcassets'
   s.dependency 'SnapKit'
 
   s.requires_arc = true
+
+
 
 end
 
