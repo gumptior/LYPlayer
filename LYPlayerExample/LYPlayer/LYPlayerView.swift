@@ -83,9 +83,9 @@ public class LYPlayerView: UIView {
     /// 通过 url 初始化
     ///
     /// - Parameter url: 视频的网络地址
-    convenience public init(urlString: String) {
+    convenience public init(url: URL) {
         self.init(frame: CGRect.zero)
-        player.url = URL(string: urlString)
+        player.url = url
         initialize()
     }
     
