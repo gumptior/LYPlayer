@@ -45,7 +45,7 @@ extension UIResponder {
 
 extension Bundle {
     
-    static var lyplayer: Bundle = {
+    @nonobjc static var lyplayer: Bundle = {
         return Bundle(for: LYPlayer.self)
     }()
 }
