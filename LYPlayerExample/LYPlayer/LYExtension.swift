@@ -43,16 +43,9 @@ extension UIResponder {
     }
 }
 
-extension Bundle {
-    
-    @nonobjc static var lyplayer: Bundle = {
-        return Bundle(for: LYPlayer.self)
-    }()
-}
-
 extension UIImage {
     
     convenience init(_ name: String) {
-        self.init(named: name, in: Bundle.lyplayer, compatibleWith: nil)!
+        self.init(named: name, in: Bundle(for: LYPlayer.self), compatibleWith: nil)!
     }
 }
