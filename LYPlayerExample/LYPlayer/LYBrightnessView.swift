@@ -20,7 +20,6 @@ class LYBrightnessView: UIView {
         self.layer.masksToBounds = true
         
         setupUI()
-        
     }
     
     // 获取window
@@ -114,7 +113,6 @@ class LYBrightnessView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .center
         
-        
         return label
     }()
     
@@ -125,7 +123,6 @@ class LYBrightnessView: UIView {
         
         return brightnessImage
     }()
-    
     
     // 进度条
     // 进度条背景图片

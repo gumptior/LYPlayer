@@ -117,10 +117,6 @@ class LYPlayerSlider: UIControl {
     // 视频缓冲进度
     var bufferedProgress: CGFloat = 0.0 {
         willSet {
-            
-//            let width = newValue * frame.size.width
-//            bufferedView.frame.size.width = width
-            
             bufferedView.snp.updateConstraints { (make) in
                 make.width.equalTo(self).multipliedBy(newValue)
             }
@@ -133,11 +129,6 @@ class LYPlayerSlider: UIControl {
             
             let width = newValue * frame.size.width
             playProgressView.frame.size.width = width
-            
-            // 不好使
-//            playProgressView.snp.updateConstraints { (make) in
-//                make.width.equalTo(self.snp.width)
-//            }
         }
     }
     
@@ -170,5 +161,4 @@ class LYPlayerSlider: UIControl {
             }
         }
     }
-
 }

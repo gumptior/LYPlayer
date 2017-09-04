@@ -29,7 +29,7 @@ use_frameworks!
 target 'MyApp' do
   # your other pod
   # ...
-  pod 'LYPlayer', '~> 0.3'
+  pod 'LYPlayer', '~> 0.4.1'
 end
 ```
 运行下面的命令

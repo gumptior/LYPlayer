@@ -11,12 +11,12 @@
 import UIKit
 import SnapKit
 
-protocol LYPlayerViewDelegate {
+public protocol LYPlayerViewDelegate {
     
     func playerView(playerView: LYPlayerView, didClickFillScreen button: UIButton)
 }
 
-class LYPlayerView: UIView {
+public class LYPlayerView: UIView {
     
     // 代理对象
     public var delegate: LYPlayerViewDelegate?
@@ -24,7 +24,6 @@ class LYPlayerView: UIView {
     // 播放器对象
     public var player: LYPlayer = {
         let player = LYPlayer.shard
-        
         
         return player
     }()
@@ -49,9 +48,6 @@ class LYPlayerView: UIView {
                 // 非锁屏
                 showControlShade()
             }
-        }
-        willSet {
-
         }
     }
     
@@ -87,7 +83,7 @@ class LYPlayerView: UIView {
     /// 通过 url 初始化
     ///
     /// - Parameter url: 视频的网络地址
-    convenience init(urlString: String) {
+    convenience public init(urlString: String) {
         self.init(frame: CGRect.zero)
         player.url = URL(string: urlString)
         initialize()
@@ -96,15 +92,15 @@ class LYPlayerView: UIView {
     /// 通过 LYPlayer Object 初始化
     ///
     /// - Parameter player: 播放器对象
-    convenience init(player: LYPlayer) {
+    convenience public init(player: LYPlayer) {
         self.init(frame: CGRect.zero)
         self.player = player
         initialize()
     }
     
-    override init(frame: CGRect) { super.init(frame: frame) }
+    public override init(frame: CGRect) { super.init(frame: frame) }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -112,7 +108,7 @@ class LYPlayerView: UIView {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         layer.addSublayer(player.playerLayer)
@@ -161,7 +157,7 @@ class LYPlayerView: UIView {
     }
     
     // 初始化对象
-    fileprivate func initialize() {
+    private func initialize() {
         
         backgroundColor = UIColor.black
         
@@ -278,8 +274,6 @@ class LYPlayerView: UIView {
         let topShadeView = UIImageView()
         topShadeView.isUserInteractionEnabled = true
         let image = UIImage.init("LYPlayer_top_shade")
-//        let image = UIImage(named: "LYPlayer.bundle/l")!
-        
         topShadeView.image = image.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0.5, 0, 1) , resizingMode: .stretch)
         
         return topShadeView
@@ -290,8 +284,6 @@ class LYPlayerView: UIView {
         let bottomShadeView = UIImageView()
         bottomShadeView.isUserInteractionEnabled = true
         let image = UIImage.init("LYPlayer_bottom_shade")
-//        let image = UIImage(named: "LYPlayer.bundle/LYPlayer_bottom_shadel")!
-        
         bottomShadeView.image = image.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0.5, 0, 1) , resizingMode: .stretch)
         
         return bottomShadeView
@@ -340,19 +332,17 @@ class LYPlayerView: UIView {
     // 全屏按钮
     lazy var fullScreenBtn: UIButton = {
         let fullScreenBtn = UIButton(type: .custom)
-        
-        
         fullScreenBtn.setImage(UIImage.init("LYPlayer_fullscreen"), for: .normal)
         fullScreenBtn.setImage(UIImage.init("LYPlayer_shrinkscreen"), for: .selected)
         fullScreenBtn.isSelected = false
         fullScreenBtn.addTarget(self, action: #selector(fullScreenBtnAction), for: .touchUpInside)
+        
         return fullScreenBtn
     }()
     
     // 返回按钮
     lazy var backBtn: UIButton = {
         let backBtn = UIButton(type: .custom)
-        
         backBtn.setImage(UIImage.init("LYPlayer_back_full"), for: .normal)
         backBtn.addTarget(self, action: #selector(backBtnAction), for: .touchUpInside)
         
@@ -419,6 +409,9 @@ class LYPlayerView: UIView {
             // 当前是全屏状态
             fullScreenBtnAction(button: fullScreenBtn)
         } else {
+            if playerViewController?.navigationController == nil || playerViewController?.navigationController?.viewControllers.count == 1 {
+                return
+            }
             playerViewController?.navigationController?.popViewController(animated: true)
             // 关闭播放器
             player.stop()
@@ -499,7 +492,7 @@ class LYPlayerView: UIView {
 
 extension LYPlayerView: LYPlayerDelegate {
     
-    func player(_ player: LYPlayer, willChange status: LYPlayerStatus) {
+    public func player(_ player: LYPlayer, willChange status: LYPlayerStatus) {
         
         switch status {
         case .playing:

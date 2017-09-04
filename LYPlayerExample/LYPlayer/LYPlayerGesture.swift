@@ -179,7 +179,6 @@ class LYPlayerGesture: UIView {
                     // 减少音量
                 }
             }
-            
         } else {
             
         }

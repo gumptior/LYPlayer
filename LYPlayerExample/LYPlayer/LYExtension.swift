@@ -44,7 +44,6 @@ extension UIResponder {
 }
 
 extension UIImage {
-    
     convenience init(_ name: String) {
         self.init(named: name, in: Bundle(for: LYPlayer.self), compatibleWith: nil)!
     }

@@ -33,7 +33,7 @@ public enum LYPlayerStatus {
     case stopped  // 停止播放
 }
 
-protocol LYPlayerDelegate {
+public protocol LYPlayerDelegate {
     
     func player(_ player: LYPlayer, willChange status: LYPlayerStatus)
     
@@ -53,24 +53,15 @@ protocol LYPlayerDelegate {
 //    func playerFailure(_ player: LYPlayer, erroe: Error)
 }
 
-class LYPlayer: NSObject {
+public class LYPlayer: NSObject {
     
-    public var delegate: LYPlayerDelegate? {
-        willSet {
-            
-        }
-    }
+    public var delegate: LYPlayerDelegate?
     
     // 播放状态
     public var status: LYPlayerStatus = .stopped {
         willSet {
             delegate?.player(self, willChange: newValue)
         }
-    }
-    
-    // 重新播放
-    public func replay(url: URL) {
-
     }
     
     // URL地址
@@ -101,7 +92,7 @@ class LYPlayer: NSObject {
     
     // MARK: - Lifecycle
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -173,12 +164,12 @@ class LYPlayer: NSObject {
     }
     
     // 视频信息
-    public class func videoInfo(complete: @escaping LYVideoInfo) {
+    class func videoInfo(complete: @escaping LYVideoInfo) {
         videoInfo = complete
     }
     
     // 视频进度
-    public class func videoProgress(complete: @escaping LYVideoProgress) {
+    class func videoProgress(complete: @escaping LYVideoProgress) {
         videoProgress = complete
     }
 
@@ -191,7 +182,7 @@ class LYPlayer: NSObject {
     }
     
     // 停止刷新进度
-    public func stopRefreshProgress() {
+    private func stopRefreshProgress() {
         displayLink?.invalidate()
     }
     
@@ -277,7 +268,7 @@ class LYPlayer: NSObject {
     
     // MARK: - IBActions
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         // 创建局部的PlayerItem
         let observePlayerItem = object as? AVPlayerItem
         
@@ -287,7 +278,7 @@ class LYPlayer: NSObject {
             if observePlayerItem?.status == .readyToPlay {
                 totalSeconds = Float((observePlayerItem?.duration.value)!) / Float((observePlayerItem?.duration.timescale)!)
             } else if observePlayerItem?.status == .failed || observePlayerItem?.status == .unknown {
-                replay(url: url!)
+                
             }
         case "loadedTimeRanges":
             // 播放器的缓存进度
