@@ -15,7 +15,6 @@
 
 ## 效果图
 ![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE1.PNG)
-![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE2.PNG)
 ![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE3.PNG)
 ![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE4.PNG)
 
@@ -29,7 +28,7 @@ use_frameworks!
 target 'MyApp' do
   # your other pod
   # ...
-  pod 'LYPlayer', '~> 0.4.1'
+  pod 'LYPlayer', '~> 0.4.2'
 end
 ```
 运行下面的命令
