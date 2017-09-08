@@ -28,7 +28,7 @@ class LYPlayButton: UIControl {
     // MARK: - life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         addSubview(playStatusIcon)
         
         playStatusIcon.snp.makeConstraints { (make) in
@@ -45,11 +45,10 @@ class LYPlayButton: UIControl {
         willSet {
             switch newValue {
             case .play:
-                
                 playStatusIcon.image = UIImage.init("LYPlayer_play")
             case .pause:
                 playStatusIcon.image = UIImage.init("LYPlayer_pause")
-            default:
+            case .stop:
                 break
             }
         }

@@ -9,6 +9,7 @@
 // 小窗口模式
 
 import UIKit
+import AVFoundation
 import SnapKit
 
 public protocol LYPlayerViewDelegate {
@@ -148,6 +149,7 @@ public class LYPlayerView: UIView {
                 return String.init(format: "%02d:%02d", minute, seconds)
                 }())
             
+            
             // 判断滑条是否正在被拖拽
             if self.isSliderDragging == false {
                 // 如果滑条没有被拖拽
@@ -190,6 +192,8 @@ public class LYPlayerView: UIView {
         
         addSubview(topShadeView)
         
+        addSubview(testActivityIndicatorView)
+        
         topShadeView.addSubview(backBtn)
         
         bottomShadeView.addSubview(playAndPauseBtn)
@@ -206,7 +210,7 @@ public class LYPlayerView: UIView {
     // 设置UI控件Frame
     private func setupUIFrame() {
         gestureView.snp.makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(40, 0, 40, 0))
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
         topShadeView.snp.makeConstraints { (make) in
@@ -258,11 +262,15 @@ public class LYPlayerView: UIView {
             make.left.equalTo(self).offset(10)
             make.size.equalTo(35)
         }
+        
+        testActivityIndicatorView.snp.makeConstraints { (make) in
+            make.center.equalTo(self)
+        }
     }
     
     // 手势控制视图
     lazy var gestureView: LYPlayerGesture = {
-        let gestureView = LYPlayerGesture()
+        let gestureView = LYPlayerGesture(frame: CGRect.zero)
         gestureView.backgroundColor = UIColor.clear
         gestureView.delegate = self
         
@@ -292,6 +300,7 @@ public class LYPlayerView: UIView {
     // 开始暂停按钮
     lazy var playAndPauseBtn: LYPlayButton = {
         let playAndPauseBtn = LYPlayButton()
+        playAndPauseBtn.playStatus = .pause
         playAndPauseBtn.addTarget(self, action: #selector(playAndPauseBtnAction), for: .touchUpInside)
         
         return playAndPauseBtn
@@ -361,8 +370,28 @@ public class LYPlayerView: UIView {
         return lockScreenBtn
     }()
     
+    // 加载缓冲中提示
+    lazy var testActivityIndicatorView: UIActivityIndicatorView = {
+        let adfqwer = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        adfqwer.hidesWhenStopped = true
+        
+        return adfqwer
+    }()
+    
     private func addNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(orientation), name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
+    func getImg(asset: AVAsset) -> UIImage {
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        let time = CMTimeMakeWithSeconds(0.0, 30)
+        var actualTime: CMTime = CMTime(value: 0, timescale: 0)
+        let imgRef = try! generator.copyCGImage(at: time, actualTime: &actualTime)
+        
+        let frameImg: UIImage = UIImage(cgImage: imgRef)
+        
+        return frameImg
     }
     
     // MARK: - IBAction
@@ -496,28 +525,43 @@ extension LYPlayerView: LYPlayerDelegate {
         
         switch status {
         case .playing:
+            // 播放中
             playAndPauseBtn.playStatus = .play
+            gestureView.image = nil
         case .pausing:
+            // 暂停中
             playAndPauseBtn.playStatus = .pause
         case .stopped:
+            // 停止播放
             break
-        case .buffering:
+        case .readyToPlay:
+            // 准备播放
+            testActivityIndicatorView.stopAnimating()
             break
         case .failed:
+            // 播放失败
+            break
+        case .unknown:
+            // 未知错误
+            break
+        case .bufferEmpty:
+            // 缓存区空
+            testActivityIndicatorView.startAnimating()
+            let img = getImg(asset: player.asset)
+            gestureView.image = img
             break
         }
     }
 }
 
 extension LYPlayerView: LYPlayerGestureDelegate {
+    func tapGestureAction(view: UIImageView) {
+        // 设置点击手势控制是否显示上下遮罩视图
+        isShowShadeView = !isShowShadeView
+    }
     
     func adjustVideoPlaySeconds(_ seconds: Float) {
         player.seekToSeconds(seconds: currentSeconds + seconds)
-    }
-    
-    func tapGestureAction(view: UIView) {
-        // 设置点击手势控制是否显示上下遮罩视图
-        isShowShadeView = !isShowShadeView
     }
 }
 

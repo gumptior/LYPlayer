@@ -20,10 +20,10 @@ protocol LYPlayerGestureDelegate {
     // 快进、快退
     func adjustVideoPlaySeconds(_ seconds: Float)
     
-    func tapGestureAction(view: UIView)
+    func tapGestureAction(view: UIImageView)
 }
 
-class LYPlayerGesture: UIView {
+class LYPlayerGesture: UIImageView {
 
     var delegate: LYPlayerGestureDelegate?
     
@@ -43,6 +43,9 @@ class LYPlayerGesture: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        isUserInteractionEnabled = true
+        
         // 添加点击手势
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         tap.numberOfTapsRequired = 1

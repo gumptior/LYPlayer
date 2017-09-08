@@ -69,9 +69,9 @@ class VideoViewController: UIViewController {
         let bundleURL = URL(fileURLWithPath: bundleFilePath)
         
         
-        // return netURL
+         return netURL
         // return sandboxURL
-        return bundleURL
+//        return bundleURL
     }()
     
     // 下一个按钮点击事件

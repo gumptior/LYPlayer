@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A20BF321F602C8E00591A21 /* VideoNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20BF311F602C8E00591A21 /* VideoNewsViewController.swift */; };
+		1A20BF341F602D8300591A21 /* VideoNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A20BF331F602D8300591A21 /* VideoNewsCell.swift */; };
 		1A4291611F5CF36000A7CC50 /* LYPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A4291601F5CF36000A7CC50 /* LYPlayer.xcassets */; };
 		1A4365DD1F300FEA00C63D0C /* LYBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4365DC1F300FEA00C63D0C /* LYBrightnessView.swift */; };
 		611FDE775DDBDD1F586BE273 /* Pods_LYPlayerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */; };
 		A41504CB1EE6450100F97979 /* LYPlayerConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */; };
 		A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC61ED31AA1004378B0 /* AppDelegate.swift */; };
-		A49DACC91ED31AA1004378B0 /* TypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC81ED31AA1004378B0 /* TypeListViewController.swift */; };
 		A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCA1ED31AA1004378B0 /* Main.storyboard */; };
 		A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCD1ED31AA1004378B0 /* Assets.xcassets */; };
 		A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCF1ED31AA1004378B0 /* LaunchScreen.storyboard */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A20BF311F602C8E00591A21 /* VideoNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNewsViewController.swift; sourceTree = "<group>"; };
+		1A20BF331F602D8300591A21 /* VideoNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNewsCell.swift; sourceTree = "<group>"; };
 		1A4291601F5CF36000A7CC50 /* LYPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LYPlayer.xcassets; sourceTree = "<group>"; };
 		1A4365DC1F300FEA00C63D0C /* LYBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBrightnessView.swift; sourceTree = "<group>"; };
 		5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -33,7 +36,6 @@
 		A41504CA1EE6450100F97979 /* LYPlayerConfigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYPlayerConfigure.swift; sourceTree = "<group>"; };
 		A49DACC31ED31AA1004378B0 /* LYPlayerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYPlayerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A49DACC61ED31AA1004378B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A49DACC81ED31AA1004378B0 /* TypeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeListViewController.swift; sourceTree = "<group>"; };
 		A49DACCB1ED31AA1004378B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A49DACCD1ED31AA1004378B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A49DACD01ED31AA1004378B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -100,7 +102,8 @@
 			children = (
 				A49DACD81ED31AC6004378B0 /* LYPlayer */,
 				A49DACC61ED31AA1004378B0 /* AppDelegate.swift */,
-				A49DACC81ED31AA1004378B0 /* TypeListViewController.swift */,
+				1A20BF311F602C8E00591A21 /* VideoNewsViewController.swift */,
+				1A20BF331F602D8300591A21 /* VideoNewsCell.swift */,
 				A4D027121EE13CFA00FAF312 /* VideoViewController.swift */,
 				A49DACCA1ED31AA1004378B0 /* Main.storyboard */,
 				A49DACCD1ED31AA1004378B0 /* Assets.xcassets */,
@@ -251,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A20BF341F602D8300591A21 /* VideoNewsCell.swift in Sources */,
 				A49DACE51ED31AC6004378B0 /* LYPlayer.swift in Sources */,
 				A49DACE41ED31AC6004378B0 /* LYPlayButton.swift in Sources */,
 				A41504CB1EE6450100F97979 /* LYPlayerConfigure.swift in Sources */,
@@ -258,8 +262,8 @@
 				A49DACEC1ED31AC6004378B0 /* LYPlayerView.swift in Sources */,
 				A49DACE31ED31AC6004378B0 /* LYExtension.swift in Sources */,
 				A49DACEB1ED31AC6004378B0 /* LYPlayerSlider.swift in Sources */,
-				A49DACC91ED31AA1004378B0 /* TypeListViewController.swift in Sources */,
 				A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */,
+				1A20BF321F602C8E00591A21 /* VideoNewsViewController.swift in Sources */,
 				A4D027131EE13CFA00FAF312 /* VideoViewController.swift in Sources */,
 				A49DACEA1ED31AC6004378B0 /* LYPlayerGesture.swift in Sources */,
 			);
@@ -328,7 +332,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -372,7 +376,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
