@@ -119,7 +119,7 @@ class LYBrightnessView: UIView {
     // 图标
     lazy var image: UIImageView = {
         let brightnessImage = UIImageView()
-        brightnessImage.image = UIImage(named: "LYPlayer.bundle/LYPlayer_brightness")
+        brightnessImage.image = UIImage.init("LYPlayer_brightness")
         
         return brightnessImage
     }()
@@ -128,7 +128,7 @@ class LYBrightnessView: UIView {
     // 进度条背景图片
     lazy var progressBgImgView: UIImageView = {
         let progressBgImgView = UIImageView()
-        progressBgImgView.image = UIImage(named: "LYPlayer.bundle/LYPlayer_slider")
+        progressBgImgView.image = UIImage.init("LYPlayer_slider")
         
         return progressBgImgView
     }()

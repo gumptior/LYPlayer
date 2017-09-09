@@ -30,10 +30,10 @@ public class LYPlayerView: UIView {
     }()
     
     // 视频总秒数
-    fileprivate var totalSeconds: Float = 60
+    fileprivate var totalTime: CMTime = CMTime()
     
     // 视频当前播放秒数
-    fileprivate var currentSeconds: Float = 0.0
+    fileprivate var currentTime: CMTime = CMTime()
     
     // 滑条是否正在被拖拽
     private var isSliderDragging = false
@@ -84,7 +84,7 @@ public class LYPlayerView: UIView {
     /// 通过 url 初始化
     ///
     /// - Parameter url: 视频的网络地址
-    convenience public init(url: URL) {
+    convenience public init(url: URL?) {
         self.init(frame: CGRect.zero)
         player.url = url
         initialize()
@@ -119,41 +119,36 @@ public class LYPlayerView: UIView {
         setupUIFrame()
 
         // 视频信息
-        LYPlayer.videoInfo { (title, totalSeconds) in
-            
-            self.totalSeconds = totalSeconds
+        LYPlayer.videoInfo { (videoTitle, duration) in
             
             // 修改总时间
             self.totalTimeLabel.text = ({
                 // 总分钟
-                let minute = Int(totalSeconds) / 60
+                let minute = Int(duration.seconds) / 60
                 // 减去总分钟后的剩余秒数
-                let seconds = Int(totalSeconds) % 60
+                let seconds = Int(duration.seconds) % 60
                 
                 return String.init(format: "%02d:%02d", minute, seconds)
                 }())
         }
         
         // 视频进度
-        LYPlayer.videoProgress { (currentSeconds, cacheSeconds, state) in
-            
-            self.currentSeconds = currentSeconds
-            
+        LYPlayer.videoProgress { (currentTime, cacheTime, state) in
+
             // 修改当前播放时间
             self.currentTimeLabel.text = ({
                 // 当前播放分钟
-                let minute = Int(currentSeconds) / 60
+                let minute = Int(currentTime.seconds) / 60
                 // 当前播放秒
-                let seconds = Int(currentSeconds) % 60
+                let seconds = Int(currentTime.seconds) % 60
                 
                 return String.init(format: "%02d:%02d", minute, seconds)
                 }())
             
-            
             // 判断滑条是否正在被拖拽
             if self.isSliderDragging == false {
                 // 如果滑条没有被拖拽
-                self.progressSlider.value = Float(currentSeconds / self.totalSeconds)
+                self.progressSlider.value = Float(currentTime.seconds / self.player.playerItem.duration.seconds)
             }
         }
     }
@@ -192,7 +187,7 @@ public class LYPlayerView: UIView {
         
         addSubview(topShadeView)
         
-        addSubview(testActivityIndicatorView)
+        addSubview(indicator)
         
         topShadeView.addSubview(backBtn)
         
@@ -263,7 +258,7 @@ public class LYPlayerView: UIView {
             make.size.equalTo(35)
         }
         
-        testActivityIndicatorView.snp.makeConstraints { (make) in
+        indicator.snp.makeConstraints { (make) in
             make.center.equalTo(self)
         }
     }
@@ -371,11 +366,11 @@ public class LYPlayerView: UIView {
     }()
     
     // 加载缓冲中提示
-    lazy var testActivityIndicatorView: UIActivityIndicatorView = {
-        let adfqwer = UIActivityIndicatorView(activityIndicatorStyle: .white)
-        adfqwer.hidesWhenStopped = true
+    lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        indicator.hidesWhenStopped = true
         
-        return adfqwer
+        return indicator
     }()
     
     private func addNotificationCenter() {
@@ -462,9 +457,10 @@ public class LYPlayerView: UIView {
     func progressSliderTouchUpInsideAction(slider: UISlider) {
         // 设置滑条没有被拖拽
         isSliderDragging = false
-        // 计算进度。快进
-        let seconds = Float(slider.value / 1.0 * totalSeconds)
-        player.seekToSeconds(seconds: seconds)
+        // 计算进度
+        let seconds = Double(slider.value) / 1.0 * player.playerItem.duration.seconds
+        let time = CMTime(seconds: seconds, preferredTimescale: 60)
+        player.seek(to: time)
     }
     
     // 显示控制遮罩视图
@@ -536,7 +532,7 @@ extension LYPlayerView: LYPlayerDelegate {
             break
         case .readyToPlay:
             // 准备播放
-            testActivityIndicatorView.stopAnimating()
+            indicator.stopAnimating()
             break
         case .failed:
             // 播放失败
@@ -546,7 +542,7 @@ extension LYPlayerView: LYPlayerDelegate {
             break
         case .bufferEmpty:
             // 缓存区空
-            testActivityIndicatorView.startAnimating()
+            indicator.startAnimating()
             let img = getImg(asset: player.asset)
             gestureView.image = img
             break
@@ -560,8 +556,10 @@ extension LYPlayerView: LYPlayerGestureDelegate {
         isShowShadeView = !isShowShadeView
     }
     
-    func adjustVideoPlaySeconds(_ seconds: Float) {
-        player.seekToSeconds(seconds: currentSeconds + seconds)
+    func adjustVideoPlaySeconds(_ changeSeconds: Double) {
+        let seconds = player.playerItem.currentTime().seconds + changeSeconds
+        let time = CMTime(seconds: seconds, preferredTimescale: 60)
+        player.seek(to: time)
     }
 }
 
@@ -587,5 +585,3 @@ extension LYPlayerView {
         }
     }
 }
-
-

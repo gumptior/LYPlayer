@@ -17,8 +17,11 @@ public enum Direction {
 
 protocol LYPlayerGestureDelegate {
     
-    // 快进、快退
-    func adjustVideoPlaySeconds(_ seconds: Float)
+    
+    /// 快进、快退
+    ///
+    /// - Parameter seconds: 移动的秒数
+    func adjustVideoPlaySeconds(_ changeSeconds: Double)
     
     func tapGestureAction(view: UIImageView)
 }
@@ -126,7 +129,7 @@ class LYPlayerGesture: UIImageView {
         } else {
             // 视频进度
             let seconds = panPoint.x / 10
-            self.delegate?.adjustVideoPlaySeconds(Float(seconds))
+            self.delegate?.adjustVideoPlaySeconds(Double(seconds))
         }
     }
     

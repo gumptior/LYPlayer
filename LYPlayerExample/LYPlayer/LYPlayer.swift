@@ -12,9 +12,9 @@ import UIKit
 import AVFoundation
 import MobileCoreServices
 
-typealias LYVideoInfo = (String, Float) -> Void
+typealias LYVideoInfo = (String, CMTime) -> Void
 
-typealias LYVideoProgress = (Float, Float, LYPlayerStatus) -> Void
+typealias LYVideoProgress = (CMTime, CMTime, LYPlayerStatus) -> Void
 
 // 视频图像填充模式
 public enum LYPlayerContentMode {
@@ -65,6 +65,24 @@ public class LYPlayer: NSObject {
     
     public var delegate: LYPlayerDelegate?
     
+    // 单例
+    static let shard = LYPlayer()
+    
+    // MARK: - Lifecycle
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // 初始化方法
+    override init() { super.init() }
+    
+    // 视频信息
+    static private var videoInfo: LYVideoInfo?
+    
+    // 视频进度
+    static private var videoProgress: LYVideoProgress?
+    
     // URL地址
     public var url = URL(string: "") {
         willSet {
@@ -88,24 +106,6 @@ public class LYPlayer: NSObject {
         }
     }
     
-    // 单例
-    static let shard = LYPlayer()
-    
-    // MARK: - Lifecycle
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // 初始化方法
-    override init() { super.init() }
-    
-    // 视频信息
-    static private var videoInfo: LYVideoInfo?
-    
-    // 视频进度
-    static private var videoProgress: LYVideoProgress?
-    
     // URL地址
     public var urlType: URLType = .net  {
         willSet {
@@ -121,23 +121,6 @@ public class LYPlayer: NSObject {
         }
     }
     
-    // 总时长
-    private var totalSeconds: Float = 0.0 {
-        willSet {
-            LYPlayer.videoInfo!("视频标题", newValue)
-        }
-    }
-    
-    // 已经播放时长
-    private var currentSeconds: Float = 0 {
-        willSet {
-            LYPlayer.videoProgress!(newValue, cacheSeconds, status)
-        }
-    }
-    
-    // 是否正在播放
-    public var isPlaying: Bool = false
-    
     // 是否在加载到可播放状态后自动播放
     public var isAutomaticPlay: Bool = false
     
@@ -145,7 +128,7 @@ public class LYPlayer: NSObject {
     private var displayLink: CADisplayLink?
     
     // 已经缓存时长
-    private var cacheSeconds: Float = 0
+    private var cacheTime: CMTime = CMTime()
     
     // MARK: - Public Methods
     
@@ -177,9 +160,8 @@ public class LYPlayer: NSObject {
     }
     
     // 跳转到某个播放时间段
-    public func seekToSeconds(seconds: Float) {
-        let seekToSeconds = CMTime(seconds: Double(seconds), preferredTimescale: 60)
-        player.seek(to: seekToSeconds)
+    public func seek(to time: CMTime) {
+        player.seek(to: time)
     }
     
     // 视频信息
@@ -266,7 +248,7 @@ public class LYPlayer: NSObject {
     }()
     
     // 视频项
-    fileprivate lazy var playerItem: AVPlayerItem = {
+    public lazy var playerItem: AVPlayerItem = {
         let playerItem = AVPlayerItem(asset: self.asset)
         
         return playerItem
@@ -290,7 +272,7 @@ public class LYPlayer: NSObject {
             // 三种播放状态  1.unknown  2.readyToPlay  3.failed
             if observePlayerItem?.status == .readyToPlay {
                 // 准备播放状态
-                totalSeconds = Float((observePlayerItem?.duration.value)!) / Float((observePlayerItem?.duration.timescale)!)
+                LYPlayer.videoInfo!("视频标题", playerItem.duration)
                 
                 // 设置当前的播放状态是准备播放
                 status = .readyToPlay
@@ -309,18 +291,19 @@ public class LYPlayer: NSObject {
             // 播放器的缓存进度
             let loadedTimeRanges = observePlayerItem?.loadedTimeRanges
             let timeRange = loadedTimeRanges?.first?.timeRangeValue  // 获取缓冲区域
-            let startSeconds = CMTimeGetSeconds(timeRange!.start)
-            let durationSeconds = CMTimeGetSeconds(timeRange!.duration)
-            cacheSeconds = Float(startSeconds + durationSeconds)  // 计算缓存总进度
+            cacheTime = (timeRange?.duration)!
+            print("缓存时间:")
+            print(cacheTime.seconds)
+            
         case "playbackBufferEmpty":
             // 播放缓冲区空
             status = .bufferEmpty
         case "playbackLikelyToKeepUp":
             // 由于 AVPlayer 缓存不足就会自动暂停，所以缓存充足了需要手动播放，才能继续播放
             // 判断是否有缓冲数据
-            if cacheSeconds == 0 {
-                return
-            }
+//            if cacheSeconds == 0 {
+//                return
+//            }
             status = .readyToPlay
             if isAutomaticPlay == true {
                 play()
@@ -352,7 +335,7 @@ public class LYPlayer: NSObject {
     
     // 刷新进度方法
     func refreshProgressAction() {
-        currentSeconds = Float(CMTimeGetSeconds(playerItem.currentTime()))
+        LYPlayer.videoProgress!(playerItem.currentTime(), cacheTime, status)
     }
     
     // MARK: - Getter
