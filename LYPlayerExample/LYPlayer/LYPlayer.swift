@@ -152,6 +152,11 @@ public class LYPlayer: NSObject {
         removeObserve()
         removeNotificationCenter()
         status = .stopped
+        
+        // 清除上个视频播放进度数据
+        let CMTimeZero = CMTime(seconds: 0, preferredTimescale: 60)
+        LYPlayer.videoInfo!(CMTimeZero)
+        LYPlayer.videoProgress!(CMTimeZero, CMTimeZero, status)
     }
     
     deinit {
