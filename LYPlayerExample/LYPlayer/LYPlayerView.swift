@@ -29,6 +29,13 @@ public class LYPlayerView: UIView {
         return player
     }()
     
+    // 资源名字
+    public var assetName: String = "" {
+        didSet {
+            assetNameLabel.text = assetName
+        }
+    }
+    
     // 视频总秒数
     fileprivate var totalTime: CMTime = CMTime()
     
@@ -72,10 +79,12 @@ public class LYPlayerView: UIView {
             if newValue {
                 // 是全屏状态
                 lockScreenBtn.isHidden = false
+                assetNameLabel.isHidden = false
                 gestureView.isEnabledDragGesture = true
             } else {
                 // 是竖屏状态
                 lockScreenBtn.isHidden = true
+                assetNameLabel.isHidden = true
                 gestureView.isEnabledDragGesture = false
             }
         }
@@ -119,7 +128,7 @@ public class LYPlayerView: UIView {
         setupUIFrame()
 
         // 视频信息
-        LYPlayer.videoInfo { (videoTitle, duration) in
+        LYPlayer.videoInfo { (duration) in
             
             // 修改总时间
             self.totalTimeLabel.text = ({
@@ -191,6 +200,8 @@ public class LYPlayerView: UIView {
         
         topShadeView.addSubview(backBtn)
         
+        topShadeView.addSubview(assetNameLabel)
+        
         bottomShadeView.addSubview(playAndPauseBtn)
         
         bottomShadeView.addSubview(currentTimeLabel)
@@ -216,6 +227,18 @@ public class LYPlayerView: UIView {
         bottomShadeView.snp.makeConstraints { (make) in
             make.bottom.left.right.equalTo(self)
             make.height.equalTo(40)
+        }
+        
+        backBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(self).offset(20)
+            make.left.equalTo(self).offset(0)
+            make.size.equalTo(40)
+        }
+        
+        assetNameLabel.snp.makeConstraints { (make) in
+            make.top.bottom.equalTo(backBtn)
+            make.left.equalTo(backBtn).offset(70)
+            make.right.equalTo(topShadeView).offset(-20)
         }
         
         playAndPauseBtn.snp.makeConstraints { (make) in
@@ -244,12 +267,6 @@ public class LYPlayerView: UIView {
             make.top.bottom.equalTo(bottomShadeView)
             make.left.equalTo(currentTimeLabel.snp.right).offset(10)
             make.right.equalTo(totalTimeLabel.snp.left).offset(-10)
-        }
-        
-        backBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(20)
-            make.left.equalTo(self).offset(0)
-            make.size.equalTo(40)
         }
         
         lockScreenBtn.snp.makeConstraints { (make) in
@@ -290,6 +307,15 @@ public class LYPlayerView: UIView {
         bottomShadeView.image = image.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0.5, 0, 1) , resizingMode: .stretch)
         
         return bottomShadeView
+    }()
+    
+    // 资源名字标签
+    lazy var assetNameLabel: UILabel = {
+        let assetNameLabel = UILabel()
+        assetNameLabel.textColor = UIColor.white
+        assetNameLabel.font = UIFont.systemFont(ofSize: 17)
+        
+        return assetNameLabel
     }()
     
     // 开始暂停按钮
@@ -502,13 +528,13 @@ public class LYPlayerView: UIView {
         switch orientation {
         case .portrait:
             // 屏幕竖直
-            print("屏幕竖直")
+            break
         case .landscapeLeft:
             // 屏幕向左转
-            print("屏幕向左转")
+            break
         case .landscapeRight:
             // 屏幕向右转
-            print("屏幕向右转")
+            break
         default:
             break
         }

@@ -50,6 +50,7 @@ class VideoViewController: UIViewController {
     // 视频播放器
     lazy var playerView: LYPlayerView = {
         let playerView = LYPlayerView(url: self.url)
+        playerView.assetName = "爸爸去哪儿"
         playerView.delegate = self as? LYPlayerViewDelegate
         
         return playerView
@@ -68,14 +69,14 @@ class VideoViewController: UIViewController {
         let bundleFilePath = "\(Bundle.main.bundlePath)/video.mp4"
         let bundleURL = URL(fileURLWithPath: bundleFilePath)
         
-        
          return netURL
         // return sandboxURL
-//        return bundleURL
+        // return bundleURL
     }()
     
     // 下一个按钮点击事件
     @IBAction func nextAction(_ sender: UIButton) {
         playerView.player.url = URL(string: "http://ongelo4u0.bkt.clouddn.com/15011427040376xWtn.mp4")
+        playerView.assetName = "音乐MV"
     }
 }

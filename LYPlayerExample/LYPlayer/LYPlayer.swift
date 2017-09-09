@@ -12,7 +12,7 @@ import UIKit
 import AVFoundation
 import MobileCoreServices
 
-typealias LYVideoInfo = (String, CMTime) -> Void
+typealias LYVideoInfo = (CMTime) -> Void
 
 typealias LYVideoProgress = (CMTime, CMTime, LYPlayerStatus) -> Void
 
@@ -271,7 +271,7 @@ public class LYPlayer: NSObject {
             // 三种播放状态  1.unknown  2.readyToPlay  3.failed
             if observePlayerItem?.status == .readyToPlay {
                 // 准备播放状态
-                LYPlayer.videoInfo!("视频标题", playerItem.duration)
+                LYPlayer.videoInfo!(playerItem.duration)
                 
                 // 设置当前的播放状态是准备播放
                 status = .readyToPlay
