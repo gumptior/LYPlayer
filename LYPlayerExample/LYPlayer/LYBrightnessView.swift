@@ -96,11 +96,11 @@ class LYBrightnessView: UIView {
             
             progressView.frame.size.width = width
             progressView.frame.origin.x = progressBgImgView.frame.width - width
+            
             // 消失动画
-            UIView.animate(withDuration: 1.0, delay: 1.7, usingSpringWithDamping: 0, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+            UIView.animate(withDuration: 1.0, delay: 1.7, options: .curveLinear, animations: {
                 self.alpha = 0.0
-            }) { (false) in
-            }
+            }) { (false) in }
         }
     }
     

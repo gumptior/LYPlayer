@@ -107,7 +107,7 @@ public class LYPlayer: NSObject {
     }
     
     // URL地址
-    public var urlType: URLType = .net  {
+    public var urlType: URLType = .net {
         willSet {
             
         }
@@ -116,7 +116,6 @@ public class LYPlayer: NSObject {
     // 播放状态
     public var status: LYPlayerStatus = .stopped {
         willSet {
-            print(newValue)
             delegate?.player(self, willChange: newValue)
         }
     }
@@ -292,8 +291,8 @@ public class LYPlayer: NSObject {
             let loadedTimeRanges = observePlayerItem?.loadedTimeRanges
             let timeRange = loadedTimeRanges?.first?.timeRangeValue  // 获取缓冲区域
             cacheTime = (timeRange?.duration)!
-            print("缓存时间:")
-            print(cacheTime.seconds)
+//            print("缓存时间:")
+//            print(cacheTime.seconds)
             
         case "playbackBufferEmpty":
             // 播放缓冲区空

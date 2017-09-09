@@ -23,6 +23,9 @@ protocol LYPlayerGestureDelegate {
     /// - Parameter seconds: 移动的秒数
     func adjustVideoPlaySeconds(_ changeSeconds: Double)
     
+    /// 点按手势代理事件
+    ///
+    /// - Parameter view: self
     func tapGestureAction(view: UIImageView)
 }
 
@@ -34,9 +37,6 @@ class LYPlayerGesture: UIImageView {
     
     // 开始点击时的坐标
     private var startPoint: CGPoint?
-    
-    // 结束点击时的坐标
-    private var endPoint: CGPoint?
     
     // 开始值
     private var startValue: Float?
@@ -82,11 +82,9 @@ class LYPlayerGesture: UIImageView {
     // 触摸开始
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        for touch in touches {
-            let point = touch.location(in: self)
-            
-            startPoint = point
-        }
+        // 开始触摸点的坐标
+        startPoint = touches.first?.location(in: self)
+        
         // 检测用户是触摸屏幕的左边还是右边，以此判断用户是要调节音量还是亮度，左边是亮度，右边是音量
         if (startPoint?.x)! <= frame.size.width / 2.0 {
             // 亮度
@@ -99,6 +97,7 @@ class LYPlayerGesture: UIImageView {
         direction = .none
     }
     
+    // 触摸结束
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         // 判断是否激活拖拽手势
@@ -106,30 +105,21 @@ class LYPlayerGesture: UIImageView {
             return
         }
         
-        var point: CGPoint?
-        for touch in touches {
-            point = touch.location(in: self)
-        }
+        let point = touches.first?.location(in: self)
+        
         // 计算手指移动的距离
         let panPoint = CGPoint(x: (point?.x)! - (startPoint?.x)!, y: (point?.y)! - (startPoint?.y)!)
         
         // 分析用户滑动的方向
-        if panPoint.x >= 30 || panPoint.x <= -30 {
-            // 视频进度
-            direction = .leftOrRight
-        } else {
-            // 音量和亮度
-            direction = .upOrDown
-        }
-        
-        if direction == .none {
-            return
-        } else if direction == .upOrDown {
-            return
-        } else {
-            // 视频进度
+        switch judgeGesture(point: point) {
+        case .none:
+            break
+        case .leftOrRight:
             let seconds = panPoint.x / 10
             self.delegate?.adjustVideoPlaySeconds(Double(seconds))
+            break
+        case .upOrDown:
+            break
         }
     }
     
@@ -151,14 +141,15 @@ class LYPlayerGesture: UIImageView {
         let changeValue = calculateValue(point: panPoint)
         
         // 分析用户滑动的方向
-        if direction == .none {
-            if panPoint.x >= 30 || panPoint.x <= -30 {
-                // 视频进度
-                direction = .leftOrRight
-            } else {
-                // 音量和亮度
-                direction = .upOrDown
-            }
+        switch judgeGesture(point: point) {
+        case .none:
+            break
+        case .leftOrRight:
+            // 视频进度
+            direction = .leftOrRight
+        case .upOrDown:
+            // 音量和亮度
+            direction = .upOrDown
         }
         
         if direction == .none {
@@ -189,6 +180,30 @@ class LYPlayerGesture: UIImageView {
             
         }
     }
+    
+    /// 判断手势
+    ///
+    /// - Parameter point: 位移坐标
+    /// - Returns: 手势方向
+    func judgeGesture(point: CGPoint?) -> Direction {
+        if point == nil {
+            return .none
+        }
+        // 获取x、y轴滑动距离
+        let lenghtY = fabs(point!.y) - fabs(startPoint!.y)
+        let lenghtX = fabs(point!.x) - fabs(startPoint!.x)
+        
+        if fabs(lenghtY) > fabs(lenghtX) {
+            // 音量和亮度
+            return .upOrDown
+        } else if fabs(lenghtY) < fabs(lenghtX) {
+            // 视频进度
+            return .leftOrRight
+        } else {
+            // 没有手势
+            return .none
+        }
+    }
 
     //
     /// 通过手指滑动的距离，计算音量或亮度需要调整的值
@@ -205,7 +220,6 @@ class LYPlayerGesture: UIImageView {
     
     /// 点击手势事件
     func tapAction() {
-        
         self.delegate?.tapGestureAction(view: self)
     }
 }

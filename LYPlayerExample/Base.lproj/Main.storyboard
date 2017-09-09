@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="457" y="-482"/>
         </scene>
-        <!--Type List View Controller-->
+        <!--Table View Controller-->
         <scene sceneID="DK2-FR-och">
             <objects>
-                <tableViewController id="JZg-FX-SCG" customClass="TypeListViewController" customModule="LYPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="JZg-FX-SCG" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="18" sectionFooterHeight="1" id="xXg-CB-hAF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,14 +38,14 @@
                             <tableViewSection headerTitle="单个播放器" id="2oD-oB-WzP">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ev4-A2-nhc" style="IBUITableViewCellStyleDefault" id="ozx-Bv-yIM">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ozx-Bv-yIM" id="suJ-dP-UI6">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="效果演示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ev4-A2-nhc">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="50"/>
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="49.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
