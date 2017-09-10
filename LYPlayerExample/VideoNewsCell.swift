@@ -7,8 +7,6 @@
 //
 
 import UIKit
-//import
-import SnapKit
 
 class VideoNewsCell: UITableViewCell {
     
