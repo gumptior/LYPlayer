@@ -334,7 +334,9 @@ public class LYPlayer: NSObject {
     
     // 程序已经返回前台
     func didEnterPlayGround_notification() {
-        play()
+        if isAutomaticPlay == true {
+            play()
+        }
     }
     
     // 刷新进度方法
