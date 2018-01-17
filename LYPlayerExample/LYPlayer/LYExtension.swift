@@ -34,7 +34,6 @@ extension UIResponder {
             objc_setAssociatedObject(self, &key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
     @objc(application:supportedInterfaceOrientationsForWindow:) func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if allowRotation == true {
             return .landscapeRight
@@ -49,5 +48,3 @@ extension UIImage {
         self.init(named: name, in: Bundle(for: LYPlayer.self), compatibleWith: nil)!
     }
 }
-
-

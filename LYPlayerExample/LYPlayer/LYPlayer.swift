@@ -6,222 +6,190 @@
 //  GitHub地址：https://github.com/LY-Coder/LYPlayer
 //
 
-// NSTimeInterval类型
 
 import UIKit
 import AVFoundation
 import MobileCoreServices
 
-typealias LYVideoInfo = (CMTime) -> Void
-
-typealias LYVideoProgress = (CMTime, CMTime, LYPlayerStatus) -> Void
-
 // 视频图像填充模式
-public enum LYPlayerContentMode {
+enum LYPlayerContentMode {
     case resizeFit  // 比例缩放
     case resizeFitFill  // 填充视图
     case resize  // 默认
 }
 
-// 播放状态
-public enum LYPlayerStatus {
-    case bufferEmpty  // 缓存区空
-    case playing  // 播放中
-    case pausing  // 暂停中
-    case stopped  // 停止播放
-    case readyToPlay  // 准备播放
-    case failed  // 播放失败
-    case unknown  // 未知错误
+
+protocol LYPlayerDelegate {
+    /** 获取视频总时长 */
+    func player(_ player: AVPlayer, itemTotal time: CMTime)
+    
+    //func player(_ player: AVPlayer, willEndPlayAt item: AVPlayerItem)
 }
 
-// URL类型
-public enum URLType {
-    case net
-    case sandbox
-    case bundle
+open class LYPlayer: AVPlayer {
+    
+    var delegate: LYPlayerDelegate?
+    
+    deinit {
+        
+        // 清除应用通知
+        removeAppNotification()
+    }
+    public override init() {
+        super.init()
+    }
+    public override init(playerItem item: AVPlayerItem?) {
+        super.init(playerItem: item)
+        addObserverItem(with: item)
+    }
+    
+    // 是否正在播放
+    var isPlaying: Bool = false
 }
 
-public protocol LYPlayerDelegate {
-    
-    func player(_ player: LYPlayer, willChange status: LYPlayerStatus)
-    
-//    // 视频将要播放
-//    func playerReadyToPlay(_ player: LYPlayer)
-//
-//    // 视频正在播放
-//    func player(_ LYPlayer: LYPlayer, playingItemAt item: AVPlayerItem, playProgress: CGFloat)
-//    
-//    // 视频将要结束播放
-//    func playerWillFinishPlay(_ player: LYPlayer, willEndPlayAt item: AVPlayerItem)
-//    
-//    // 视频暂停中
-//    func playerPause(_ player: LYPlayer)
-//    
-//    // 视频播放失败
-//    func playerFailure(_ player: LYPlayer, erroe: Error)
-}
-
-public class LYPlayer: NSObject {
-    
-    public var delegate: LYPlayerDelegate?
-    
-    // 单例
-    static let shard = LYPlayer()
-    
-    // MARK: - Lifecycle
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // 初始化方法
-    override init() { super.init() }
-    
-    // 视频信息
-    static private var videoInfo: LYVideoInfo?
-    
-    // 视频进度
-    static private var videoProgress: LYVideoProgress?
-    
-    // URL地址
-    public var url = URL(string: "") {
-        willSet {
-            if url == nil {
-                // 第一次播放视频
-            } else {
-                // 重新播放新视频
-                if status == .stopped {
-                    
-                } else {
-                    stop()
-                }
-                asset = AVAsset(url: newValue!)
-                playerItem = AVPlayerItem(asset: asset)
-                player.replaceCurrentItem(with: playerItem)
-            }
-        }
-        didSet {
-            addObserver()
-            addNotificationCenter()
-        }
-    }
-    
-    // URL地址
-    public var urlType: URLType = .net {
-        willSet {
-            
-        }
-    }
-    
-    // 播放状态
-    public var status: LYPlayerStatus = .stopped {
-        willSet {
-            delegate?.player(self, willChange: newValue)
-        }
-    }
-    
-    // 是否在加载到可播放状态后自动播放
-    public var isAutomaticPlay: Bool = false
-    
-    // 刷新进度 - 定时器
-    private var displayLink: CADisplayLink?
-    
-    // 已经缓存时长
-    private var cacheTime: CMTime = CMTime()
-    
-    // MARK: - Public Methods
+extension LYPlayer {
     
     // 播放
-    public func play() {
-        player.play()
-        starRefreshProgress()
-        status = .playing
+    open override func play() {
+        super.play()
+        
+        isPlaying = true
+        addAppNotification()
     }
     
     // 暂停
-    public func pause() {
-        player.pause()
-        stopRefreshProgress()
-        status = .pausing
+    open override func pause() {
+        super.pause()
+        
+        isPlaying = false
     }
     
     // 停止
-    public func stop() {
-        playerItem.seek(to: kCMTimeZero)
+    open func stop() {
+        currentItem?.seek(to: kCMTimeZero)
         pause()
-        removeObserve()
-        removeNotificationCenter()
-        status = .stopped
-        
-        // 清除上个视频播放进度数据
-        let CMTimeZero = CMTime(seconds: 0, preferredTimescale: 60)
-        LYPlayer.videoInfo!(CMTimeZero)
-        LYPlayer.videoProgress!(CMTimeZero, CMTimeZero, status)
+//        removeObserverItem(with: currentItem)
     }
     
-    deinit {
-        print("---结束了---")
+    // 重新播放新的item
+    open override func replaceCurrentItem(with item: AVPlayerItem?) {
+        // currentItem
+        // item
+        super.replaceCurrentItem(with: item)
+        addObserverItem(with: item)
     }
     
-    // 跳转到某个播放时间段
-    public func seek(to time: CMTime) {
-        player.seek(to: time)
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        switch keyPath! {
+        case "status":
+            // 状态改变时调用
+            switch currentItem!.status {
+            case .unknown:
+                // 未知错误
+                print("未知错误")
+                break
+            case .failed:
+                // 失败
+                print("失败")
+                break
+            case .readyToPlay:
+                // 准备播放
+                print("准备播放")
+                delegate?.player(self, itemTotal: currentItem!.duration)
+                break
+            }
+            break
+        case "loadedTimeRanges":
+            // 缓存进度的改变时调用
+            // 获取缓冲区域
+            let timeRange = currentItem?.loadedTimeRanges.first?.timeRangeValue
+            
+            print(timeRange?.duration as Any)
+        case "playbackBufferEmpty":
+            // 播放区域缓存为空时调用
+            print("播放区域缓存为空时调用")
+        case "playbackLikelyToKeepUp":
+            // 缓存可以播放的时候调用
+            print("缓存可以播放的时候调用")
+        default:
+            break
+        }
     }
-    
-    // 视频信息
-    class func videoInfo(complete: @escaping LYVideoInfo) {
-        videoInfo = complete
-    }
-    
-    // 视频进度
-    class func videoProgress(complete: @escaping LYVideoProgress) {
-        videoProgress = complete
-    }
+}
 
-    // MARK: - Private Methods
-    
-    // 开始刷新进度
-    public func starRefreshProgress() {
-        displayLink = CADisplayLink(target: self, selector: #selector(refreshProgressAction))
-        displayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
-    }
-    
-    // 停止刷新进度
-    private func stopRefreshProgress() {
-        displayLink?.invalidate()
-    }
-    
+// MARK: - AVPlayerItem Observer
+extension LYPlayer {
     // 添加观察者
-    fileprivate func addObserver() {
+    fileprivate func addObserverItem(with item: AVPlayerItem?) {
+        print(currentItem!)
         // 观察播放状态
-        playerItem.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+        item?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         
-        // 观察加载完毕的时间范围
-        playerItem.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
+        // 观察已经加载完的时间范围
+        item?.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
         
         // seekToTime后，缓冲数据为空，而且有效时间内数据无法补充，播放失败
-        playerItem.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
+        item?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
         
         //seekToTime后,可以正常播放，相当于readyToPlay，一般拖动滑竿菊花转，到了这个这个状态菊花隐藏
-        playerItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
+        item?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
     }
     
     // 移除监听
-    fileprivate func removeObserve() {
-        playerItem.removeObserver(self, forKeyPath: "status", context: nil)
-        playerItem.removeObserver(self, forKeyPath: "loadedTimeRanges", context: nil)
-        playerItem.removeObserver(self, forKeyPath: "playbackBufferEmpty", context: nil)
-        playerItem.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp", context: nil)
+    fileprivate func removeObserverItem(with item: AVPlayerItem?) {
+        item?.removeObserver(self, forKeyPath: "status", context: nil)
+        item?.removeObserver(self, forKeyPath: "loadedTimeRanges", context: nil)
+        item?.removeObserver(self, forKeyPath: "playbackBufferEmpty", context: nil)
+        item?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp", context: nil)
     }
-    
-    // 添加通知中心
-    fileprivate func addNotificationCenter() {
+}
+
+// MARK: - AVPlayerItem Notification
+extension LYPlayer {
+    // 添加播放项目通知
+    fileprivate func addNotificationItem(with item: AVPlayerItem?) {
         // 添加视频播放结束通知
-        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime_notification), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime_notification), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: item)
         
         // 添加视频异常中断通知
-        NotificationCenter.default.addObserver(self, selector: #selector(playbackStalled_notification), name: Notification.Name.AVPlayerItemPlaybackStalled, object: playerItem)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackStalled_notification), name: Notification.Name.AVPlayerItemPlaybackStalled, object: item)
+    }
+    
+    // 移除播放项目通知
+    fileprivate func removeNotificationItem(with item: AVPlayerItem?) {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: item)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.AVPlayerItemPlaybackStalled, object: item)
+    }
+}
+
+extension LYPlayer {
+    
+    // 视频播放结束
+    @objc func didPlayToEndTime_notification() {
+        print("播放结束")
+    }
+    
+    // 视频异常中断
+    @objc func playbackStalled_notification() {
+        print("异常中断")
+    }
+    
+    // 程序将要进入后台
+    @objc func willEnterBcakground_notification() {
+        print("将要进入后台")
+        pause()
+    }
+    
+    // 程序已经返回前台
+    @objc func didEnterPlayGround_notification() {
+        print("已经返回前台")
+    }
+}
+
+// MARK: - APP Notification
+extension LYPlayer {
+    /** 添加应用进入前后台通知 */
+    fileprivate func addAppNotification() {
         // 添加程序将要进入后台通知
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterBcakground_notification), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         
@@ -229,125 +197,12 @@ public class LYPlayer: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterPlayGround_notification), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
-    // 移除通知中心
-    fileprivate func removeNotificationCenter() {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.AVPlayerItemPlaybackStalled, object: playerItem)
+    /** 移除应用进入前后台通知 */
+    fileprivate func removeAppNotification() {
+        // 移除程序将要进入后台通知
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        // 移除程序已经返回前台通知
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
-    
-    // 视频播放图层
-    public lazy var playerLayer: AVPlayerLayer = {
-        let playerLayer = AVPlayerLayer(player: self.player)
-        
-        return playerLayer
-    }()
-    
-    // 播放器对象
-    fileprivate lazy var player: AVPlayer = {
-        let player = AVPlayer(playerItem: self.playerItem)
-        
-        return player
-    }()
-    
-    // 视频项
-    public lazy var playerItem: AVPlayerItem = {
-        let playerItem = AVPlayerItem(asset: self.asset)
-        
-        return playerItem
-    }()
-    
-    // 资源
-    public lazy var asset: AVAsset = {
-        let asset = AVAsset(url: self.url!)
-        
-        return asset
-    }()
-    
-    // MARK: - IBActions
-    
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        // 创建局部的PlayerItem
-        let observePlayerItem = object as? AVPlayerItem
-        
-        switch keyPath! {
-        case "status":
-            // 三种播放状态  1.unknown  2.readyToPlay  3.failed
-            if observePlayerItem?.status == .readyToPlay {
-                // 准备播放状态
-                LYPlayer.videoInfo!(playerItem.duration)
-                
-                // 设置当前的播放状态是准备播放
-                status = .readyToPlay
-            } else if observePlayerItem?.status == .failed {
-                // 播放失败状态
-                
-                // 设置当前的播放状态是播放失败
-                status = .failed
-            } else {
-                // 未知错误
-                
-                // 设置当前的播放状态是未知错误
-                status = .unknown
-            }
-        case "loadedTimeRanges":
-            // 播放器的缓存进度
-            let loadedTimeRanges = observePlayerItem?.loadedTimeRanges
-            let timeRange = loadedTimeRanges?.first?.timeRangeValue  // 获取缓冲区域
-            cacheTime = (timeRange?.duration)!
-//            print("缓存时间:")
-//            print(cacheTime.seconds)
-            
-        case "playbackBufferEmpty":
-            // 播放缓冲区空
-            status = .bufferEmpty
-        case "playbackLikelyToKeepUp":
-            // 由于 AVPlayer 缓存不足就会自动暂停，所以缓存充足了需要手动播放，才能继续播放
-            // 判断是否有缓冲数据
-//            if cacheSeconds == 0 {
-//                return
-//            }
-            status = .readyToPlay
-            if isAutomaticPlay == true {
-                play()
-            }
-            
-        default:
-            break
-        }
-    }
-    
-    // 视频播放结束
-    func didPlayToEndTime_notification() {
-        print("播放结束")
-    }
-    
-    // 视频异常中断
-    func playbackStalled_notification() {
-    }
-    
-    // 程序将要进入后台
-    func willEnterBcakground_notification() {
-        pause()
-    }
-    
-    // 程序已经返回前台
-    func didEnterPlayGround_notification() {
-        if isAutomaticPlay == true {
-            play()
-        }
-    }
-    
-    // 刷新进度方法
-    func refreshProgressAction() {
-        LYPlayer.videoProgress!(playerItem.currentTime(), cacheTime, status)
-    }
-    
-    // MARK: - Getter
-    
-    
-    // MARK: - Setter
-    
-
 }
+

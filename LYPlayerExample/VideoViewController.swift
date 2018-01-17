@@ -47,19 +47,10 @@ class VideoViewController: UIViewController {
         }
     }
     
-    // 视频播放器
-    lazy var playerView: LYPlayerView = {
-        let playerView = LYPlayerView(url: self.url)
-        playerView.assetName = "爸爸去哪儿"
-        playerView.delegate = self as? LYPlayerViewDelegate
-        
-        return playerView
-    }()
-    
     // 创建URL对象
     lazy var url: URL = {
         // 网络视频
-        let netURL = URL(string: "http://flv2.bn.netease.com/tvmrepo/2017/3/K/I/ECF9KFDKI/SD/ECF9KFDKI-mobile.mp4")!
+        let netURL = URL(string: "http://ow41vz64v.bkt.clouddn.com/%E8%B5%B5%E6%96%B9%E5%A9%A7%20-%20%E5%B0%BD%E5%A4%B4%20.mp4")!
         
         // 沙盒（使用前要再沙盒中写入视频资源）
         let sandboxFilePath = "\(NSHomeDirectory())/Documents/video.mp4"
@@ -69,14 +60,32 @@ class VideoViewController: UIViewController {
         let bundleFilePath = "\(Bundle.main.bundlePath)/video.mp4"
         let bundleURL = URL(fileURLWithPath: bundleFilePath)
         
-         return netURL
-        // return sandboxURL
-        // return bundleURL
+//         return netURL
+//         return sandboxURL
+         return bundleURL
+    }()
+    
+    // 播放视图
+    lazy var playerView: LYNormalPlayerView = {
+        let playerView = LYNormalPlayerView(playerModel: self.playerModel)
+        // 自动播放
+        playerView.isAutoPlay = false
+        return playerView
+    }()
+    
+    lazy var playerModel: LYPlayerModel = {
+        let playerModel = LYPlayerModel()
+        let netURL = URL(string: "http://ow41vz64v.bkt.clouddn.com/%E8%B5%B5%E6%96%B9%E5%A9%A7%20-%20%E5%B0%BD%E5%A4%B4%20.mp4")!
+        playerModel.videoURL = netURL
+        playerModel.title = "哈哈哈"
+        playerModel.placeholderImage = UIImage(named: "loading_bgView")
+        
+        return playerModel
     }()
     
     // 下一个按钮点击事件
     @IBAction func nextAction(_ sender: UIButton) {
-        playerView.player.url = URL(string: "http://ongelo4u0.bkt.clouddn.com/15011427040376xWtn.mp4")
-        playerView.assetName = "音乐MV"
+        
+        
     }
 }
