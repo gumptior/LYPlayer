@@ -31,7 +31,6 @@ open class LYPlayer: AVPlayer {
     var delegate: LYPlayerDelegate?
     
     deinit {
-        
         // 清除应用通知
         removeAppNotification()
     }

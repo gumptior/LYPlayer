@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VideoViewController: UIViewController {
+class NormalPlayerVC: UIViewController {
 
     // 显示状态栏
     override var prefersStatusBarHidden: Bool {
@@ -70,6 +70,8 @@ class VideoViewController: UIViewController {
         let playerView = LYNormalPlayerView(playerModel: self.playerModel)
         // 自动播放
         playerView.isAutoPlay = false
+        // 播放倍速
+        playerView.rate = 2.0
         return playerView
     }()
     
@@ -82,10 +84,4 @@ class VideoViewController: UIViewController {
         
         return playerModel
     }()
-    
-    // 下一个按钮点击事件
-    @IBAction func nextAction(_ sender: UIButton) {
-        
-        
-    }
 }

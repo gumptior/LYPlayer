@@ -25,7 +25,7 @@
 		A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCA1ED31AA1004378B0 /* Main.storyboard */; };
 		A49DACCE1ED31AA1004378B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCD1ED31AA1004378B0 /* Assets.xcassets */; };
 		A49DACD11ED31AA1004378B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCF1ED31AA1004378B0 /* LaunchScreen.storyboard */; };
-		A4D027131EE13CFA00FAF312 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D027121EE13CFA00FAF312 /* VideoViewController.swift */; };
+		A4D027131EE13CFA00FAF312 /* NormalPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D027121EE13CFA00FAF312 /* NormalPlayerVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +50,7 @@
 		A49DACCD1ED31AA1004378B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A49DACD01ED31AA1004378B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A49DACD21ED31AA1004378B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A4D027121EE13CFA00FAF312 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		A4D027121EE13CFA00FAF312 /* NormalPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalPlayerVC.swift; sourceTree = "<group>"; };
 		E324F7939661CEC7045626AA /* Pods-LYPlayerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,7 +106,7 @@
 			children = (
 				A49DACD81ED31AC6004378B0 /* LYPlayer */,
 				A49DACC61ED31AA1004378B0 /* AppDelegate.swift */,
-				A4D027121EE13CFA00FAF312 /* VideoViewController.swift */,
+				A4D027121EE13CFA00FAF312 /* NormalPlayerVC.swift */,
 				1A096FE11FCD01B30081F869 /* TableViewController.swift */,
 				1A096FE31FCD04260081F869 /* TableViewCell.swift */,
 				A49DACCA1ED31AA1004378B0 /* Main.storyboard */,
@@ -272,7 +272,7 @@
 				1A097D1D200E555E006C6192 /* LYPlayerView.swift in Sources */,
 				1A097D21200E555E006C6192 /* LYExtension.swift in Sources */,
 				A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */,
-				A4D027131EE13CFA00FAF312 /* VideoViewController.swift in Sources */,
+				A4D027131EE13CFA00FAF312 /* NormalPlayerVC.swift in Sources */,
 				1A097D22200E555E006C6192 /* LYNormalPlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

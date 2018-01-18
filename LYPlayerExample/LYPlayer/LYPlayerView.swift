@@ -39,7 +39,6 @@ open class LYPlayerView: UIView {
         setupPlayerLayer()
     }
     
-    // 自动播放
     var player: LYPlayer?
     
     lazy var playerLayer: AVPlayerLayer = {
@@ -47,29 +46,33 @@ open class LYPlayerView: UIView {
         return playerLayer
     }()
     
+    /** 自动播放 */
     open var isAutoPlay: Bool = false
     
-    /// 视频播放当前时间
+    /** 播放倍速 */
+    open var rate: Float = 1.0
+    
+    /** 视频播放当前时间 */
     open var currentTime: CMTime = CMTime()
     
-    /// 视频总时间
+    /** 视频总时间 */
     open var totalTime: CMTime?
     
-    /// 是否全屏状态
+    /** 是否全屏状态 */
     open var isFullScreen = false
     
     /** 是否锁定屏幕方向 */
-    open var isLocking = false {
+    public var isLocking = false {
         didSet {
             isShowShadeView = !isLocking
         }
     }
     
-    /// 滑条是否正在被拖拽
-    open var isSliderDragging = false
+    /** 滑条是否正在被拖拽 */
+    public var isSliderDragging = false
     
-    /// 是否显示上下遮罩视图
-    open var isShowShadeView: Bool = true {
+    /** 是否显示上下遮罩视图 */
+    public var isShowShadeView: Bool = true {
         didSet {
             if isShowShadeView == true {
                 // 显示
@@ -81,9 +84,9 @@ open class LYPlayerView: UIView {
         }
     }
     
-    open var topShadeView: UIImageView?
+    public var topShadeView: UIImageView?
     
-    open var bottomShadeView: UIImageView?
+    public var bottomShadeView: UIImageView?
     
 }
 
@@ -118,6 +121,9 @@ extension LYPlayerView {
             // 视频自动播放
             player?.play()
         }
+        
+        // 播放倍速
+        player?.rate = rate
     }
 }
 
