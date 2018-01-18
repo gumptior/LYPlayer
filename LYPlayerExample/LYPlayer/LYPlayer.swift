@@ -33,10 +33,11 @@ open class LYPlayer: AVPlayer {
     deinit {
         // 清除应用通知
         removeAppNotification()
+        removeObserverItem(with: currentItem)
     }
-    public override init() {
-        super.init()
-    }
+    
+    public override init() { super.init() }
+    
     public override init(playerItem item: AVPlayerItem?) {
         super.init(playerItem: item)
         addObserverItem(with: item)
