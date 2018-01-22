@@ -26,6 +26,8 @@ open class LYNormalPlayerView: LYPlayerView {
         
         // 设置为竖屏状态，调整锁屏按钮状态
         isFullScreen = false
+        // 默认隐藏锁屏按钮
+//        lockScreenBtn.isHidden = true
     }
     
     override open var currentTime: CMTime {
@@ -63,21 +65,16 @@ open class LYNormalPlayerView: LYPlayerView {
         }
     }
     
-//    isShowShadeView
     public override var isShowShadeView: Bool {
         didSet {
-            lockScreenBtn.isHidden = !isShowShadeView
-//            if isShowShadeView {
-//
-//            }
         }
     }
-    
     
     /** 显示视频第一次加载样式 */
     fileprivate func showLoading() {
         indicator.startAnimating()
         gestureView.image = UIImage(named: "loading_bgView")
+        gestureView.isUserInteractionEnabled = false
     }
     
     /** 隐藏视频加载样式 */
@@ -85,6 +82,7 @@ open class LYNormalPlayerView: LYPlayerView {
         indicator.stopAnimating()
         gestureView.image = nil
         isShowShadeView = true
+        gestureView.isUserInteractionEnabled = true
     }
     
     // 上部遮罩视图
