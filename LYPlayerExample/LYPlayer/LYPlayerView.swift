@@ -46,6 +46,16 @@ open class LYPlayerView: UIView {
         return playerLayer
     }()
     
+    // 手势控制视图
+    lazy var gestureView: LYPlayerGesture = {
+        let gestureView = LYPlayerGesture(frame: CGRect.zero)
+        gestureView.backgroundColor = UIColor.clear
+        gestureView.isUserInteractionEnabled = false
+        gestureView.delegate = self
+        
+        return gestureView
+    }()
+    
     /** 自动播放 */
     open var isAutoPlay: Bool = false
     
@@ -58,10 +68,10 @@ open class LYPlayerView: UIView {
     /** 视频总时间 */
     open var totalTime: CMTime?
     
-    /** 是否全屏状态 */
+    /** 当前是否是全屏显示 */
     open var isFullScreen = false
     
-    /** 是否锁定屏幕方向 */
+    /** 当前是否锁定屏幕方向 */
     public var isLocking = false {
         didSet {
             isShowShadeView = !isLocking
@@ -74,19 +84,22 @@ open class LYPlayerView: UIView {
     /** 是否显示上下遮罩视图 */
     public var isShowShadeView: Bool = true {
         didSet {
-            if isShowShadeView == true {
-                // 显示
-                showControlShade()
-            } else {
-                // 隐藏
-                hiddenControlShade()
-            }
+            topShadeView?.isHidden = !isShowShadeView
+            bottomShadeView?.isHidden = !isShowShadeView
         }
     }
     
-    public var topShadeView: UIImageView?
+    public var topShadeView: UIImageView? {
+        didSet {
+            topShadeView?.isHidden = true
+        }
+    }
     
-    public var bottomShadeView: UIImageView?
+    public var bottomShadeView: UIImageView? {
+        didSet {
+            bottomShadeView?.isHidden = true
+        }
+    }
     
 }
 
@@ -109,6 +122,11 @@ extension LYPlayerView {
     func initialize() {
         backgroundColor = UIColor.black
         
+        addSubview(gestureView)
+        gestureView.snp.makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+        }
+        
         player?.delegate = self
         
         // 监听播放时间
@@ -129,7 +147,6 @@ extension LYPlayerView {
 
 // MARK: - 播放器配置
 extension LYPlayerView {
-    
     
     /** 配置播放器视图层 */
     fileprivate func setupPlayerLayer() {
@@ -165,17 +182,17 @@ extension LYPlayerView {
         return String(format: "%02d:%02d", arguments: [minute, seconds])
     }
     
-    /** 显示控制遮罩视图 */
-    public func showControlShade() {
-        topShadeView?.isHidden = false
-        bottomShadeView?.isHidden = false
-    }
-    
-    /** 隐藏控制遮罩视图 */
-    public func hiddenControlShade() {
-        topShadeView?.isHidden = true
-        bottomShadeView?.isHidden = true
-    }
+//    /** 显示控制遮罩视图 */
+//    public func showControlShade() {
+//        topShadeView?.isHidden = false
+//        bottomShadeView?.isHidden = false
+//    }
+//
+//    /** 隐藏控制遮罩视图 */
+//    public func hiddenControlShade() {
+//        topShadeView?.isHidden = true
+//        bottomShadeView?.isHidden = true
+//    }
 }
     
 // MARK: - IBAction
@@ -304,6 +321,8 @@ extension LYPlayerView: LYPlayerDelegate {
     
     func player(_ player: AVPlayer, itemTotal time: CMTime) {
         totalTime = time
+        
+        gestureView.isUserInteractionEnabled = true
     }
 }
 
@@ -311,11 +330,11 @@ extension LYPlayerView: LYPlayerDelegate {
 extension LYPlayerView: LYPlayerGestureDelegate {
     /** 单击手势事件 */
     func tapGestureAction(view: UIImageView) {
-        if isLocking {
-            return
-        }
-        // 设置点击手势控制是否显示上下遮罩视图
-        isShowShadeView = !isShowShadeView
+//        if isLocking {
+//            return
+//        }
+//        // 设置点击手势控制是否显示上下遮罩视图
+//        isShowShadeView = !isShowShadeView
     }
     
     /** 跳转到指定时间 */

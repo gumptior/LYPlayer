@@ -17,7 +17,6 @@ public enum Direction {
 
 protocol LYPlayerGestureDelegate {
     
-    
     /// 快进、快退
     ///
     /// - Parameter seconds: 移动的秒数

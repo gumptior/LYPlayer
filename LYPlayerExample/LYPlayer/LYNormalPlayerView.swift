@@ -9,12 +9,23 @@ import UIKit
 import AVKit
 
 open class LYNormalPlayerView: LYPlayerView {
-
-    open override func draw(_ rect: CGRect) {
-        super.draw(rect)
-
+    
+    /** 初始化 */
+    override func initialize() {
+        super.initialize()
+        
+        setupUI()
+        
+        setupUIFrame()
+        
         topShadeView = topShadeImgView
+        
         bottomShadeView = bottomShadeImgView
+        
+        showLoading()
+        
+        // 设置为竖屏状态，调整锁屏按钮状态
+        isFullScreen = false
     }
     
     override open var currentTime: CMTime {
@@ -42,6 +53,7 @@ open class LYNormalPlayerView: LYPlayerView {
     open override var isFullScreen: Bool {
         didSet {
             fullScreenBtn.isSelected = isFullScreen
+            lockScreenBtn.isHidden = !isFullScreen
         }
     }
     
@@ -51,14 +63,29 @@ open class LYNormalPlayerView: LYPlayerView {
         }
     }
     
-    // 手势控制视图
-    lazy var gestureView: LYPlayerGesture = {
-        let gestureView = LYPlayerGesture(frame: CGRect.zero)
-        gestureView.backgroundColor = UIColor.clear
-        gestureView.delegate = self
-        
-        return gestureView
-    }()
+//    isShowShadeView
+    public override var isShowShadeView: Bool {
+        didSet {
+            lockScreenBtn.isHidden = !isShowShadeView
+//            if isShowShadeView {
+//
+//            }
+        }
+    }
+    
+    
+    /** 显示视频第一次加载样式 */
+    fileprivate func showLoading() {
+        indicator.startAnimating()
+        gestureView.image = UIImage(named: "loading_bgView")
+    }
+    
+    /** 隐藏视频加载样式 */
+    fileprivate func hiddenLoading() {
+        indicator.stopAnimating()
+        gestureView.image = nil
+        isShowShadeView = true
+    }
     
     // 上部遮罩视图
     lazy var topShadeImgView: UIImageView = {
@@ -170,18 +197,8 @@ open class LYNormalPlayerView: LYPlayerView {
         return indicator
     }()
     
-    override func initialize() {
-        super.initialize()
-        
-        setupUI()
-        
-        setupUIFrame()
-    }
-    
     // 设置UI控件
     private func setupUI() {
-        
-        addSubview(gestureView)
         
         addSubview(lockScreenBtn)
         
@@ -208,9 +225,6 @@ open class LYNormalPlayerView: LYPlayerView {
     
     // 设置UI控件Frame
     private func setupUIFrame() {
-        gestureView.snp.makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
-        }
         
         topShadeImgView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(self)
@@ -295,5 +309,18 @@ open class LYNormalPlayerView: LYPlayerView {
     override func lockScreenAction(sender: UIButton) {
         super.lockScreenAction(sender: sender)
         
+    }
+    
+    override func tapGestureAction(view: UIImageView) {
+        if isLocking {
+            lockScreenBtn.isHidden = !lockScreenBtn.isHidden
+            return
+        }
+        // 设置点击手势控制是否显示上下遮罩视图
+        isShowShadeView = !isShowShadeView
+    }
+    
+    override func player(_ player: AVPlayer, itemTotal time: CMTime) {
+        hiddenLoading()
     }
 }
