@@ -137,11 +137,10 @@ extension LYPlayerView {
         
         if isAutoPlay {
             // 视频自动播放
-            player?.play()
+            playerPlay()
+        } else {
+            player?.pause()
         }
-        
-        // 播放倍速
-        player?.rate = rate
     }
 }
 
@@ -182,17 +181,10 @@ extension LYPlayerView {
         return String(format: "%02d:%02d", arguments: [minute, seconds])
     }
     
-//    /** 显示控制遮罩视图 */
-//    public func showControlShade() {
-//        topShadeView?.isHidden = false
-//        bottomShadeView?.isHidden = false
-//    }
-//
-//    /** 隐藏控制遮罩视图 */
-//    public func hiddenControlShade() {
-//        topShadeView?.isHidden = true
-//        bottomShadeView?.isHidden = true
-//    }
+    func playerPlay() {
+        player?.play()
+        player?.rate = rate
+    }
 }
     
 // MARK: - IBAction
@@ -205,7 +197,7 @@ extension LYPlayerView {
             player?.pause()
             sender.playStatus = .pause
         } else {
-            player?.play()
+            playerPlay()
             sender.playStatus = .play
         }
     }

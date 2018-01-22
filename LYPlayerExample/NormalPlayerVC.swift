@@ -69,7 +69,7 @@ class NormalPlayerVC: UIViewController {
     lazy var playerView: LYNormalPlayerView = {
         let playerView = LYNormalPlayerView(playerModel: self.playerModel)
         // 自动播放
-        playerView.isAutoPlay = false
+        playerView.isAutoPlay = true
         // 播放倍速
         playerView.rate = 2.0
         return playerView

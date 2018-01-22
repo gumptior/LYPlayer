@@ -55,6 +55,7 @@ extension LYPlayer {
         
         isPlaying = true
         addAppNotification()
+        
     }
     
     // 暂停
