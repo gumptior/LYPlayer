@@ -151,6 +151,8 @@ extension LYPlayerView {
         }
         
         verticalFrame = frame
+        
+        superview?.bringSubview(toFront: self)
     }
 }
 

@@ -46,15 +46,11 @@ class NormalPlayerVC: UIViewController {
             make.height.equalTo(playerView.snp.width).multipliedBy(9.0/16.0).priority(750)
         }
         
-        print(playerView.constraints)
-        
-        
-        
-//        view.addSubview(btn)
-//        btn.snp.makeConstraints { (make) in
-//            make.left.right.bottom.equalTo(view)
-//            make.height.equalTo(60)
-//        }
+        view.addSubview(btn)
+        btn.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(view)
+            make.height.equalTo(60)
+        }
     }
     
     // 创建URL对象
