@@ -32,7 +32,7 @@ open class LYNormalPlayerView: LYPlayerView {
     
     override open var currentTime: CMTime {
         didSet {
-            // 判断滑条是否正在被拖拽
+            // 判断滑条是否正在被拖拽  
             if self.isSliderDragging == false {
                 // 如果滑条没有被拖拽
                 guard let totalSeconds = player?.currentItem?.duration.seconds else {

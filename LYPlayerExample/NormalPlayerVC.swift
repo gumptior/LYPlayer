@@ -41,10 +41,20 @@ class NormalPlayerVC: UIViewController {
         view.addSubview(playerView)
         // 设置视频播放器位置、大小
         playerView.snp.makeConstraints { (make) in
-            make.top.equalTo(view)
+            make.top.equalTo(view).offset(50)
             make.left.right.equalTo(view)
             make.height.equalTo(playerView.snp.width).multipliedBy(9.0/16.0).priority(750)
         }
+        
+        print(playerView.constraints)
+        
+        
+        
+//        view.addSubview(btn)
+//        btn.snp.makeConstraints { (make) in
+//            make.left.right.bottom.equalTo(view)
+//            make.height.equalTo(60)
+//        }
     }
     
     // 创建URL对象
@@ -84,4 +94,19 @@ class NormalPlayerVC: UIViewController {
         
         return playerModel
     }()
+    
+    lazy var btn: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.backgroundColor = .red
+        btn.addTarget(self, action: #selector(testFrame), for: .touchUpInside)
+        return btn
+    }()
+    
+    func testFrame() {
+        playerView.snp.updateConstraints { (make) in
+            make.top.equalTo(200)
+            make.left.right.equalTo(view)
+            make.height.equalTo(350)
+        }
+    }
 }

@@ -12,6 +12,13 @@ import UIKit
 import AVFoundation
 import SnapKit
 
+public enum ScreenOrientation: Int {
+    /** 横屏 */
+    case horizontal
+    /** 竖屏 */
+    case vertical
+}
+
 open class LYPlayerView: UIView {
     
     override init(frame: CGRect) { super.init(frame: frame) }
@@ -101,6 +108,7 @@ open class LYPlayerView: UIView {
         }
     }
     
+    public var verticalFrame: CGRect!
 }
 
 // MARK: - Convenience
@@ -141,17 +149,37 @@ extension LYPlayerView {
         } else {
             player?.pause()
         }
+        
+        verticalFrame = frame
     }
 }
 
 // MARK: - 播放器配置
 extension LYPlayerView {
     
+    fileprivate func setupFrame(_ orientation: ScreenOrientation) {
+        if orientation == .horizontal {
+            // 横屏
+            snp.remakeConstraints({ (make) in
+                make.edges.equalTo(superview!)
+            })
+        } else {
+            // 竖屏
+            snp.remakeConstraints({ (make) in
+                make.left.equalTo(verticalFrame.minX)
+                make.top.equalTo(verticalFrame.minY)
+                make.width.equalTo(verticalFrame.width)
+                make.height.equalTo(verticalFrame.height)
+            })
+        }
+    }
+    
     /** 配置播放器视图层 */
     fileprivate func setupPlayerLayer() {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
         layer.insertSublayer(playerLayer, at: 0)
+        
     }
     
     /** 监听播放时长 */
@@ -292,12 +320,14 @@ extension LYPlayerView {
         switch orientation {
         case .portrait:
             // 屏幕竖直
+            setupFrame(.vertical)
             break
         case .landscapeLeft:
             // 屏幕向左转
             break
         case .landscapeRight:
             // 屏幕向右转
+            setupFrame(.horizontal)
             break
         default:
             break
