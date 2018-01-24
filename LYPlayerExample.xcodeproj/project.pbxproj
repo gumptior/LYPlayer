@@ -20,6 +20,9 @@
 		1A097D20200E555E006C6192 /* LYBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A097D15200E555E006C6192 /* LYBrightnessView.swift */; };
 		1A097D21200E555E006C6192 /* LYExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A097D16200E555E006C6192 /* LYExtension.swift */; };
 		1A097D22200E555E006C6192 /* LYNormalPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A097D17200E555E006C6192 /* LYNormalPlayerView.swift */; };
+		1A32023F20188BD600ADCA0E /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32023E20188BD600ADCA0E /* BaseNavigationController.swift */; };
+		1A32024120188C9900ADCA0E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32024020188C9900ADCA0E /* BaseViewController.swift */; };
+		1A32024320188D4200ADCA0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32024220188D4200ADCA0E /* ViewController.swift */; };
 		611FDE775DDBDD1F586BE273 /* Pods_LYPlayerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */; };
 		A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC61ED31AA1004378B0 /* AppDelegate.swift */; };
 		A49DACCC1ED31AA1004378B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49DACCA1ED31AA1004378B0 /* Main.storyboard */; };
@@ -42,6 +45,9 @@
 		1A097D15200E555E006C6192 /* LYBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYBrightnessView.swift; sourceTree = "<group>"; };
 		1A097D16200E555E006C6192 /* LYExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYExtension.swift; sourceTree = "<group>"; };
 		1A097D17200E555E006C6192 /* LYNormalPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LYNormalPlayerView.swift; sourceTree = "<group>"; };
+		1A32023E20188BD600ADCA0E /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		1A32024020188C9900ADCA0E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		1A32024220188D4200ADCA0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
 		839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYPlayerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A49DACC31ED31AA1004378B0 /* LYPlayerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYPlayerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +81,40 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		1A3202442018903C00ADCA0E /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				1A32023E20188BD600ADCA0E /* BaseNavigationController.swift */,
+				1A32024020188C9900ADCA0E /* BaseViewController.swift */,
+			);
+			path = BaseClass;
+			sourceTree = "<group>";
+		};
+		1A3202462018906C00ADCA0E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				A49DACC61ED31AA1004378B0 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		1A3202472018908300ADCA0E /* Item1 */ = {
+			isa = PBXGroup;
+			children = (
+				A4D027121EE13CFA00FAF312 /* NormalPlayerVC.swift */,
+			);
+			path = Item1;
+			sourceTree = "<group>";
+		};
+		1A3202482018909E00ADCA0E /* Item2 */ = {
+			isa = PBXGroup;
+			children = (
+				1A096FE11FCD01B30081F869 /* TableViewController.swift */,
+				1A096FE31FCD04260081F869 /* TableViewCell.swift */,
+			);
+			path = Item2;
+			sourceTree = "<group>";
+		};
 		5C6A9D637F7E22F6108E8311 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,11 +145,12 @@
 			isa = PBXGroup;
 			children = (
 				A49DACD81ED31AC6004378B0 /* LYPlayer */,
-				A49DACC61ED31AA1004378B0 /* AppDelegate.swift */,
-				A4D027121EE13CFA00FAF312 /* NormalPlayerVC.swift */,
-				1A096FE11FCD01B30081F869 /* TableViewController.swift */,
-				1A096FE31FCD04260081F869 /* TableViewCell.swift */,
+				1A3202472018908300ADCA0E /* Item1 */,
+				1A3202482018909E00ADCA0E /* Item2 */,
+				1A3202462018906C00ADCA0E /* Application */,
+				1A3202442018903C00ADCA0E /* BaseClass */,
 				A49DACCA1ED31AA1004378B0 /* Main.storyboard */,
+				1A32024220188D4200ADCA0E /* ViewController.swift */,
 				A49DACCD1ED31AA1004378B0 /* Assets.xcassets */,
 				A49DACCF1ED31AA1004378B0 /* LaunchScreen.storyboard */,
 				A49DACD21ED31AA1004378B0 /* Info.plist */,
@@ -214,13 +255,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LYPlayerExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		469F46BD42EC96EC49904942 /* [CP] Embed Pods Frameworks */ = {
@@ -229,9 +273,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTRootNavigationController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -268,10 +317,13 @@
 				1A097D1C200E555E006C6192 /* LYPlayer.swift in Sources */,
 				1A097D1B200E555E006C6192 /* LYPlayerModel.swift in Sources */,
 				1A097D1E200E555E006C6192 /* LYPlayerGesture.swift in Sources */,
+				1A32023F20188BD600ADCA0E /* BaseNavigationController.swift in Sources */,
+				1A32024320188D4200ADCA0E /* ViewController.swift in Sources */,
 				1A097D19200E555E006C6192 /* LYPlayerConfigure.swift in Sources */,
 				1A097D1D200E555E006C6192 /* LYPlayerView.swift in Sources */,
 				1A097D21200E555E006C6192 /* LYExtension.swift in Sources */,
 				A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */,
+				1A32024120188C9900ADCA0E /* BaseViewController.swift in Sources */,
 				A4D027131EE13CFA00FAF312 /* NormalPlayerVC.swift in Sources */,
 				1A097D22200E555E006C6192 /* LYNormalPlayerView.swift in Sources */,
 			);

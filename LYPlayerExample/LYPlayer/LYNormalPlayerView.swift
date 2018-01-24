@@ -10,24 +10,29 @@ import AVKit
 
 open class LYNormalPlayerView: LYPlayerView {
     
+    deinit {
+        print("---LYNormalPlayerView结束了---")
+        
+    }
+    
     /** 初始化 */
     override func initialize() {
         super.initialize()
         
         setupUI()
-        
+
         setupUIFrame()
         
         topShadeView = topShadeImgView
-        
+
         bottomShadeView = bottomShadeImgView
         
-        showLoading()
+//        showLoading()
         
         // 设置为竖屏状态，调整锁屏按钮状态
         isFullScreen = false
         // 默认隐藏锁屏按钮
-//        lockScreenBtn.isHidden = true
+        lockScreenBtn.isHidden = true
     }
     
     override open var currentTime: CMTime {
@@ -72,7 +77,7 @@ open class LYNormalPlayerView: LYPlayerView {
     
     /** 显示视频第一次加载样式 */
     fileprivate func showLoading() {
-        indicator.startAnimating()
+//        indicator.startAnimating()
         gestureView.image = UIImage(named: "loading_bgView")
         gestureView.isUserInteractionEnabled = false
     }
@@ -318,7 +323,22 @@ open class LYNormalPlayerView: LYPlayerView {
         isShowShadeView = !isShowShadeView
     }
     
+    
+}
+
+extension LYNormalPlayerView {
+    
     override func player(_ player: AVPlayer, itemTotal time: CMTime) {
+        
         hiddenLoading()
+    }
+    
+    override func player(_ player: LYPlayer, isPlaying: Bool) {
+        
+        if isPlaying {
+            playBtn.playStatus = .play
+        } else {
+            playBtn.playStatus = .pause
+        }
     }
 }

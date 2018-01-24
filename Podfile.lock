@@ -1,12 +1,17 @@
 PODS:
+  - RTRootNavigationController (0.6.4):
+    - RTRootNavigationController/Core (= 0.6.4)
+  - RTRootNavigationController/Core (0.6.4)
   - SnapKit (3.1.2)
 
 DEPENDENCIES:
+  - RTRootNavigationController
   - SnapKit (~> 3.1.2)
 
 SPEC CHECKSUMS:
+  RTRootNavigationController: 4c969c21fc3e61ea3056e3f4346578569ed79b09
   SnapKit: 12b24f569cb7c143acc9c22b9d91b23e7b1c84a2
 
-PODFILE CHECKSUM: f35121c6b8c9b1084a9367ed56c5e423c1b6aece
+PODFILE CHECKSUM: 9eaf751d589bd8206d96e3de7994562e76eb6462
 
-COCOAPODS: 1.2.0.beta.3
+COCOAPODS: 1.3.1

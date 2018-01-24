@@ -30,7 +30,7 @@
         <!--Item-->
         <scene sceneID="nv3-pf-ecN">
             <objects>
-                <navigationController id="p00-YF-Rg8" sceneMemberID="viewController">
+                <navigationController id="p00-YF-Rg8" customClass="BaseNavigationController" customModule="LYPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="1KN-df-LIU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="krf-x5-KaV">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -140,7 +140,7 @@
         <!--Item-->
         <scene sceneID="rxm-Qi-qxO">
             <objects>
-                <navigationController id="gFM-g1-iFd" sceneMemberID="viewController">
+                <navigationController id="gFM-g1-iFd" customClass="BaseNavigationController" customModule="LYPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="VQ5-uO-wA3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Tx1-Il-yVf">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

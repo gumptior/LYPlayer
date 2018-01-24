@@ -4,4 +4,5 @@ use_frameworks!
 
 target ‘LYPlayerExample’ do
     pod 'SnapKit', '~> 3.1.2'
+    pod 'RTRootNavigationController'
 end

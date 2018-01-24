@@ -12,6 +12,8 @@ import UIKit
 import AVFoundation
 import SnapKit
 
+
+
 public enum ScreenOrientation: Int {
     /** 横屏 */
     case horizontal
@@ -35,7 +37,8 @@ open class LYPlayerView: UIView {
     }
     
     deinit {
-        print("---结束了---")
+        print("---LYPlayerView结束了---")
+        player = nil
         removeNotificationCenter()
     }
     
@@ -108,7 +111,7 @@ open class LYPlayerView: UIView {
         }
     }
     
-    public var verticalFrame: CGRect!
+    final var verticalFrame: CGRect!
 }
 
 // MARK: - Convenience
@@ -117,12 +120,13 @@ extension LYPlayerView {
     public convenience init(playerModel: LYPlayerModel) {
         self.init(frame: .zero)
         
+        // TODO: 修改 01
         let asset = AVAsset(url: playerModel.videoURL!)
-        
+
         let item = AVPlayerItem(asset: asset)
-        
+
         let player = LYPlayer(playerItem: item)
-        
+
         self.player = player
     }
     
@@ -134,24 +138,24 @@ extension LYPlayerView {
         gestureView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
-        
+        // TODO: 修改 01
         player?.delegate = self
-        
+        // TODO: 修改 01
         // 监听播放时间
         setupDruation(for: player!)
-        
+
         // 添加通知中心
         addNotificationCenter()
-        
+
         if isAutoPlay {
             // 视频自动播放
             playerPlay()
         } else {
             player?.pause()
         }
-        
+
         verticalFrame = frame
-        
+
         superview?.bringSubview(toFront: self)
     }
 }
@@ -186,8 +190,10 @@ extension LYPlayerView {
     
     /** 监听播放时长 */
     fileprivate func setupDruation(for player: LYPlayer) {
+        // 解决循环引用
+        weak var weakSelf = self
         player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 30), queue: DispatchQueue.main, using: { (time) in
-            self.currentTime = time
+            weakSelf?.currentTime = time
         })
         
         
@@ -212,7 +218,7 @@ extension LYPlayerView {
     }
     
     func playerPlay() {
-        player?.play()
+//        player?.play()
         player?.rate = rate
     }
 }
@@ -244,6 +250,7 @@ extension LYPlayerView {
             viewController?.navigationController?.popViewController(animated: true)
             // 关闭播放器
             player?.stop()
+            removeFromSuperview()
         }
     }
     
@@ -339,15 +346,16 @@ extension LYPlayerView {
 
 // MARK: - LYPlayerDelegate
 extension LYPlayerView: LYPlayerDelegate {
-//    func player(_ player: AVPlayer, willEndPlayAt item: AVPlayerItem) {
-//
-//    }
-    
-    func player(_ player: AVPlayer, itemTotal time: CMTime) {
-        totalTime = time
+    func player(_ player: LYPlayer, itemTotal time: CMTime) {
         
         gestureView.isUserInteractionEnabled = true
     }
+    
+    func player(_ player: LYPlayer, isPlaying: Bool) {
+        
+    }
+    
+    
 }
 
 // MARK: - LYPlayerGestureDelegate

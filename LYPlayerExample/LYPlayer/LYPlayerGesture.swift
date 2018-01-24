@@ -15,7 +15,7 @@ public enum Direction {
     case none
 }
 
-protocol LYPlayerGestureDelegate {
+@objc protocol LYPlayerGestureDelegate {
     
     /// 快进、快退
     ///
@@ -30,7 +30,7 @@ protocol LYPlayerGestureDelegate {
 
 class LYPlayerGesture: UIImageView {
 
-    var delegate: LYPlayerGestureDelegate?
+    weak var delegate: LYPlayerGestureDelegate?
     
     private var direction: Direction?
     

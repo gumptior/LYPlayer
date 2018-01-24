@@ -18,22 +18,26 @@ enum LYPlayerContentMode {
     case resize  // 默认
 }
 
-
-protocol LYPlayerDelegate {
+@objc protocol LYPlayerDelegate {
     /** 获取视频总时长 */
-    func player(_ player: AVPlayer, itemTotal time: CMTime)
+    func player(_ player: LYPlayer, itemTotal time: CMTime)
+    
+    /** 播放器状态改变 */
+    func player(_ player: LYPlayer, isPlaying: Bool)
+    
     
     //func player(_ player: AVPlayer, willEndPlayAt item: AVPlayerItem)
 }
 
 open class LYPlayer: AVPlayer {
     
-    var delegate: LYPlayerDelegate?
+    weak var delegate: LYPlayerDelegate?
     
     deinit {
+        print("---LYPlayer结束了---")
         // 清除应用通知
         removeAppNotification()
-        removeObserverItem(with: currentItem)
+
     }
     
     public override init() { super.init() }
@@ -41,10 +45,8 @@ open class LYPlayer: AVPlayer {
     public override init(playerItem item: AVPlayerItem?) {
         super.init(playerItem: item)
         addObserverItem(with: item)
+        addNotificationItem(with: item)
     }
-    
-    // 是否正在播放
-    var isPlaying: Bool = false
 }
 
 extension LYPlayer {
@@ -53,23 +55,37 @@ extension LYPlayer {
     open override func play() {
         super.play()
         
-        isPlaying = true
         addAppNotification()
-        
     }
     
     // 暂停
     open override func pause() {
         super.pause()
-        
-        isPlaying = false
     }
     
     // 停止
     open func stop() {
         currentItem?.seek(to: kCMTimeZero)
         pause()
+        removeObserverItem(with: currentItem)
+        removeNotificationItem(with: currentItem)
+        
 //        removeObserverItem(with: currentItem)
+    }
+    
+    open override var rate: Float {
+        didSet {
+            delegate?.player(self, isPlaying: rate > 0)
+        }
+    }
+    
+    // 是否正在播放
+    open var isPlaying: Bool {
+        if #available(iOS 10, *) {
+            return timeControlStatus == .playing
+        } else {
+            return rate != 0.0
+        }
     }
     
     // 重新播放新的item
@@ -88,10 +104,12 @@ extension LYPlayer {
             case .unknown:
                 // 未知错误
                 print("未知错误")
+                // 更新播放器状态
                 break
             case .failed:
                 // 失败
                 print("失败")
+                // 更新播放器状态
                 break
             case .readyToPlay:
                 // 准备播放
@@ -99,16 +117,19 @@ extension LYPlayer {
                 delegate?.player(self, itemTotal: currentItem!.duration)
                 break
             }
+            
             break
         case "loadedTimeRanges":
             // 缓存进度的改变时调用
             // 获取缓冲区域
             let timeRange = currentItem?.loadedTimeRanges.first?.timeRangeValue
             
-            print(timeRange?.duration as Any)
+            //print(timeRange?.duration as Any)
         case "playbackBufferEmpty":
             // 播放区域缓存为空时调用
             print("播放区域缓存为空时调用")
+            
+        // TODO: 通知代理状态
         case "playbackLikelyToKeepUp":
             // 缓存可以播放的时候调用
             print("缓存可以播放的时候调用")
