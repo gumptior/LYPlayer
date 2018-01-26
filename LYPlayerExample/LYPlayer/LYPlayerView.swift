@@ -387,10 +387,11 @@ extension LYPlayerView: LYGestureViewDelegate {
     
     /** 跳转到指定时间 */
     func adjustVideoPlaySeconds(_ changeSeconds: Double) {
-        
-//        let seconds = player.playerItem.currentTime().seconds + changeSeconds
-//        let time = CMTime(seconds: seconds, preferredTimescale: 60)
-//        player.seek(to: time)
+        guard let currentSeconds = player?.currentItem?.currentTime().seconds else {
+            return
+        }
+        let time = CMTime(seconds: currentSeconds + changeSeconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
+        player?.seek(to: time)
     }
 }
 
