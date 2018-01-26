@@ -1,5 +1,5 @@
 //
-//  LYPlayerGesture.swift
+//  LYGestureView.swift
 //
 //  Copyright © 2017年 ly_coder. All rights reserved.
 //
@@ -15,7 +15,7 @@ public enum Direction {
     case none
 }
 
-@objc protocol LYPlayerGestureDelegate {
+@objc protocol LYGestureViewDelegate {
     
     /// 快进、快退
     ///
@@ -28,9 +28,9 @@ public enum Direction {
     func tapGestureAction(view: UIImageView)
 }
 
-class LYPlayerGesture: UIImageView {
+class LYGestureView: UIImageView {
 
-    weak var delegate: LYPlayerGestureDelegate?
+    weak var delegate: LYGestureViewDelegate?
     
     private var direction: Direction?
     

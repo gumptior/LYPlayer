@@ -10,6 +10,7 @@ import UIKit
 
 class NormalPlayerVC: BaseViewController {
 
+    
     // 显示状态栏
     override var prefersStatusBarHidden: Bool {
         return false
@@ -17,7 +18,7 @@ class NormalPlayerVC: BaseViewController {
     
     // 状态栏设置为白色样式
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,7 +97,11 @@ class NormalPlayerVC: BaseViewController {
     
     //
     func pushAction() {
-       let VC = ViewController()
+        // 暂停播放器
+        playerView.player?.pause()
+        
+        // 跳转
+        let VC = ViewController()
         navigationController?.pushViewController(VC, animated: true)
     }
 }

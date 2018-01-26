@@ -1,5 +1,5 @@
 //
-//  LYPlayerSlider.swift
+//  LYProgressSlider.swift
 //
 //  Copyright © 2017年 ly_coder. All rights reserved.
 //
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LYPlayerSlider: UIControl {
+class LYProgressSlider: UIControl {
     
     // 判断点击点是否在范围内
     private var isContains: Bool?

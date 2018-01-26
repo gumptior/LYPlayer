@@ -12,8 +12,6 @@ import UIKit
 import AVFoundation
 import SnapKit
 
-
-
 public enum ScreenOrientation: Int {
     /** 横屏 */
     case horizontal
@@ -57,8 +55,8 @@ open class LYPlayerView: UIView {
     }()
     
     // 手势控制视图
-    lazy var gestureView: LYPlayerGesture = {
-        let gestureView = LYPlayerGesture(frame: CGRect.zero)
+    lazy var gestureView: LYGestureView = {
+        let gestureView = LYGestureView(frame: CGRect.zero)
         gestureView.backgroundColor = UIColor.clear
         gestureView.isUserInteractionEnabled = false
         gestureView.delegate = self
@@ -359,7 +357,7 @@ extension LYPlayerView: LYPlayerDelegate {
 }
 
 // MARK: - LYPlayerGestureDelegate
-extension LYPlayerView: LYPlayerGestureDelegate {
+extension LYPlayerView: LYGestureViewDelegate {
     /** 单击手势事件 */
     func tapGestureAction(view: UIImageView) {
 //        if isLocking {
