@@ -69,8 +69,6 @@ extension LYPlayer {
         pause()
         removeObserverItem(with: currentItem)
         removeNotificationItem(with: currentItem)
-        
-//        removeObserverItem(with: currentItem)
     }
     
     open override var rate: Float {
@@ -189,6 +187,7 @@ extension LYPlayer {
     // 视频播放结束
     @objc func didPlayToEndTime_notification() {
         print("播放结束")
+        pause()
     }
     
     // 视频异常中断

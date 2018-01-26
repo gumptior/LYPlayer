@@ -27,7 +27,7 @@ open class LYNormalPlayerView: LYPlayerView {
 
         bottomShadeView = bottomShadeImgView
         
-//        showLoading()
+        showLoading()
         
         // 设置为竖屏状态，调整锁屏按钮状态
         isFullScreen = false
@@ -77,7 +77,7 @@ open class LYNormalPlayerView: LYPlayerView {
     
     /** 显示视频第一次加载样式 */
     fileprivate func showLoading() {
-//        indicator.startAnimating()
+        indicator.startAnimating()
         gestureView.image = UIImage(named: "loading_bgView")
         gestureView.isUserInteractionEnabled = false
     }
