@@ -45,6 +45,8 @@ class NormalPlayerVC: BaseViewController {
     // 视频播放器视图
     lazy var playerView: LYNormalPlayerView = {
         let playerView = LYNormalPlayerView(playerModel: self.playerModel)
+        //
+        playerView.delegate = self
         // 自动播放
         playerView.isAutoPlay = true
         // 播放倍速
@@ -75,6 +77,7 @@ class NormalPlayerVC: BaseViewController {
         // 添加视频播放器
         view.addSubview(playerView)
         
+        
         // 添加跳转下个页面按钮
         view.addSubview(pushBtn)
     }
@@ -103,6 +106,18 @@ class NormalPlayerVC: BaseViewController {
         // 跳转
         let VC = ViewController()
         navigationController?.pushViewController(VC, animated: true)
+    }
+}
+
+// MARK: - LYPlayerViewDelegate
+extension NormalPlayerVC: LYPlayerViewDelegate {
+    
+    func playerView(_ playerView: LYPlayerView, willRotate orientation: Orientation) {
+        if orientation == .horizontal {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        } else {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
 }
 

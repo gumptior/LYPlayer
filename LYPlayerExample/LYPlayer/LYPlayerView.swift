@@ -12,11 +12,18 @@ import UIKit
 import AVFoundation
 import SnapKit
 
-public enum ScreenOrientation: Int {
+public enum Orientation: Int {
     /** 横屏 */
     case horizontal
     /** 竖屏 */
     case vertical
+}
+
+public protocol LYPlayerViewDelegate: class {
+    /** 屏幕将要旋转方向 */
+    func playerView(_ playerView: LYPlayerView, willRotate orientation: Orientation)
+    
+    
 }
 
 open class LYPlayerView: UIView {
@@ -49,6 +56,8 @@ open class LYPlayerView: UIView {
     
     var player: LYPlayer?
     
+    weak var delegate: LYPlayerViewDelegate?
+    
     lazy var playerLayer: AVPlayerLayer = {
         let playerLayer = AVPlayerLayer(player: self.player)
         return playerLayer
@@ -77,7 +86,16 @@ open class LYPlayerView: UIView {
     open var totalTime: CMTime?
     
     /** 当前是否是全屏显示 */
-    open var isFullScreen = false
+    open var isFullScreen = false {
+        didSet {
+            gestureView.isEnabledDragGesture = isFullScreen
+            if isFullScreen {
+                delegate?.playerView(self, willRotate: .horizontal)
+            } else {
+                delegate?.playerView(self, willRotate: .vertical)
+            }
+        }
+    }
     
     /** 当前是否锁定屏幕方向 */
     public var isLocking = false {
@@ -161,7 +179,7 @@ extension LYPlayerView {
 // MARK: - 播放器配置
 extension LYPlayerView {
     
-    fileprivate func setupFrame(_ orientation: ScreenOrientation) {
+    fileprivate func setupFrame(_ orientation: Orientation) {
         if orientation == .horizontal {
             // 横屏
             snp.remakeConstraints({ (make) in

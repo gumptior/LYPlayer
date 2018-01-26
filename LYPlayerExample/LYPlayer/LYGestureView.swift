@@ -40,7 +40,7 @@ class LYGestureView: UIImageView {
     // 开始值
     private var startValue: Float?
     
-    // 是否允许拖拽手势
+    /** 是否允许拖拽手势 */
     var isEnabledDragGesture: Bool = false
     
     override init(frame: CGRect) {
