@@ -18,25 +18,6 @@
 ![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE3.PNG)
 ![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE4.PNG)
 
-## CocoaPods安装
-#### Podfile
-```
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
-
-target 'MyApp' do
-  # your other pod
-  # ...
-  pod 'LYPlayer', '~> 0.5.1'
-end
-```
-运行下面的命令
-
-```
-$ pod install
-```
-
 ## License
 LYPlayer is released under the MIT license. See LICENSE for details. 
 
