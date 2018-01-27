@@ -78,7 +78,6 @@ class NormalPlayerVC: BaseViewController {
         // 添加视频播放器
         view.addSubview(playerView)
         
-        
         // 添加跳转下个页面按钮
         view.addSubview(pushBtn)
     }
@@ -125,6 +124,14 @@ extension NormalPlayerVC: LYPlayerViewDelegate {
     func playerView(_ playerView: LYPlayerView, willEndPlayAt item: AVPlayerItem) {
         
         print("播放结束：willEndPlayAt")
+        
+        let playerModel = LYPlayerModel()
+        let netURL = URL(string: "http://120.25.226.186:32812/resources/videos/minion_02.mp4")!
+        playerModel.videoURL = netURL
+        playerModel.title = "哈哈哈"
+        playerModel.placeholderImage = UIImage(named: "loading_bgView")
+        
+        playerView.replaceCurrentPlayerModel(with: playerModel)
     }
 }
 

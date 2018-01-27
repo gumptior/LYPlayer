@@ -67,6 +67,7 @@ extension LYPlayer {
     open func stop() {
         currentItem?.seek(to: kCMTimeZero)
         pause()
+        
         removeObserverItem(with: currentItem)
         removeNotificationItem(with: currentItem)
     }
@@ -187,7 +188,7 @@ extension LYPlayer {
     // 视频播放结束
     @objc func didPlayToEndTime_notification() {
         print("播放结束")
-        pause()
+        stop()
         
         // 通知代理播放结束
         if let item = currentItem {

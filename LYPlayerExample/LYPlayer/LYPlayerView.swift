@@ -74,6 +74,10 @@ open class LYPlayerView: UIView {
         return gestureView
     }()
     
+//    var playerModel: LYPlayerModel! {
+//        return
+//    }
+    
     /** 自动播放 */
     open var isAutoPlay: Bool = false
     
@@ -137,15 +141,12 @@ extension LYPlayerView {
     public convenience init(playerModel: LYPlayerModel) {
         self.init(frame: .zero)
         
-        // TODO: 修改 01
-        let asset = AVAsset(url: playerModel.videoURL!)
-
-        let item = AVPlayerItem(asset: asset)
-
-        let player = LYPlayer(playerItem: item)
-
-        self.player = player
+//        self.playerModel = playerModel
+        
+        self.player = creatPlayer(with: playerModel)
     }
+    
+    
     
     /** 初始化对象 */
     func initialize() {
@@ -155,11 +156,6 @@ extension LYPlayerView {
         gestureView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
-        // TODO: 修改 01
-        player?.delegate = self
-        // TODO: 修改 01
-        // 监听播放时间
-        setupDruation(for: player!)
 
         // 添加通知中心
         addNotificationCenter()
@@ -179,6 +175,20 @@ extension LYPlayerView {
 
 // MARK: - 播放器配置
 extension LYPlayerView {
+    
+    fileprivate func creatPlayer(with playerModel: LYPlayerModel) -> LYPlayer {
+        let asset = AVAsset(url: playerModel.videoURL!)
+        
+        let item = AVPlayerItem(asset: asset)
+        
+        let player = LYPlayer(playerItem: item)
+        player.delegate = self
+        
+        // 监听播放时间
+        setupDruation(for: player)
+        
+        return player
+    }
     
     fileprivate func setupFrame(_ orientation: Orientation) {
         if orientation == .horizontal {
@@ -202,7 +212,6 @@ extension LYPlayerView {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
         layer.insertSublayer(playerLayer, at: 0)
-        
     }
     
     /** 监听播放时长 */
@@ -223,6 +232,23 @@ extension LYPlayerView {
 
 // MARK: - Function
 extension LYPlayerView {
+    
+    open func replaceCurrentPlayerModel(with playerModel: LYPlayerModel?) {
+        
+        guard let videoURL = playerModel?.videoURL else {
+            return
+        }
+        
+        let asset = AVAsset(url: videoURL)
+        let item = AVPlayerItem(asset: asset)
+        self.player?.replaceCurrentItem(with: item)
+        if isAutoPlay {
+            // 视频自动播放
+            playerPlay()
+        } else {
+            player?.pause()
+        }
+    }
     
     /** 时间转分秒 */
     func timeToSeconds(time: CMTime?) -> String {
@@ -382,11 +408,7 @@ extension LYPlayerView: LYPlayerDelegate {
 extension LYPlayerView: LYGestureViewDelegate {
     /** 单击手势事件 */
     func tapGestureAction(view: UIImageView) {
-//        if isLocking {
-//            return
-//        }
-//        // 设置点击手势控制是否显示上下遮罩视图
-//        isShowShadeView = !isShowShadeView
+        
     }
     
     /** 跳转到指定时间 */
