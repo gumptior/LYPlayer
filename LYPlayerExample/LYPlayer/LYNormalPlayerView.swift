@@ -241,7 +241,11 @@ open class LYNormalPlayerView: LYPlayerView {
         
         backBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(20)
-            make.left.equalTo(self).offset(0)
+            if #available(iOS 11, *) {
+                make.left.equalTo(self.safeAreaLayoutGuide.snp.left)
+            } else {
+                make.left.equalTo(self)
+            }
             make.size.equalTo(40)
         }
         
@@ -252,7 +256,12 @@ open class LYNormalPlayerView: LYPlayerView {
         }
         
         playBtn.snp.makeConstraints { (make) in
-            make.top.left.bottom.equalTo(bottomShadeImgView)
+            make.top.bottom.equalTo(bottomShadeImgView)
+            if #available(iOS 11, *) {
+                make.left.equalTo(self.safeAreaLayoutGuide.snp.left)
+            } else {
+                make.left.equalTo(self)
+            }
             make.width.equalTo(40)
         }
         
@@ -263,7 +272,12 @@ open class LYNormalPlayerView: LYPlayerView {
         }
         
         fullScreenBtn.snp.makeConstraints { (make) in
-            make.top.right.bottom.equalTo(bottomShadeImgView)
+            make.top.bottom.equalTo(bottomShadeImgView)
+            if #available(iOS 11, *) {
+                make.right.equalTo(self.safeAreaLayoutGuide.snp.right)
+            } else {
+                make.right.equalTo(self)
+            }
             make.width.equalTo(40)
         }
         
@@ -281,7 +295,12 @@ open class LYNormalPlayerView: LYPlayerView {
         
         lockScreenBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self)
-            make.left.equalTo(self).offset(10)
+            if #available(iOS 11, *) {
+                make.left.equalTo(self.safeAreaLayoutGuide.snp.left).offset(10)
+            } else {
+                make.left.equalTo(self).offset(10)
+            }
+//            make.left.equalTo(self).offset(10)
             make.size.equalTo(35)
         }
         
