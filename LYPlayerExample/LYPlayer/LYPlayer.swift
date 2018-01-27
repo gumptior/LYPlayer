@@ -25,8 +25,8 @@ enum LYPlayerContentMode {
     /** 播放器状态改变 */
     func player(_ player: LYPlayer, isPlaying: Bool)
     
-    
-    //func player(_ player: AVPlayer, willEndPlayAt item: AVPlayerItem)
+    /** 视频播放结束 */
+    func player(_ player: AVPlayer, willEndPlayAt item: AVPlayerItem)
 }
 
 open class LYPlayer: AVPlayer {
@@ -188,6 +188,12 @@ extension LYPlayer {
     @objc func didPlayToEndTime_notification() {
         print("播放结束")
         pause()
+        
+        // 通知代理播放结束
+        if let item = currentItem {
+            delegate?.player(self, willEndPlayAt: item)
+        }
+        
     }
     
     // 视频异常中断

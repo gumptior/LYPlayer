@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class NormalPlayerVC: BaseViewController {
 
@@ -118,6 +119,12 @@ extension NormalPlayerVC: LYPlayerViewDelegate {
         } else {
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
+    }
+    
+    // 播放结束
+    func playerView(_ playerView: LYPlayerView, willEndPlayAt item: AVPlayerItem) {
+        
+        print("播放结束：willEndPlayAt")
     }
 }
 

@@ -23,7 +23,8 @@ public protocol LYPlayerViewDelegate: class {
     /** 屏幕将要旋转方向 */
     func playerView(_ playerView: LYPlayerView, willRotate orientation: Orientation)
     
-    
+    /** 视频播放结束 */
+    func playerView(_ playerView: LYPlayerView, willEndPlayAt item: AVPlayerItem)
 }
 
 open class LYPlayerView: UIView {
@@ -371,7 +372,10 @@ extension LYPlayerView: LYPlayerDelegate {
         
     }
     
-    
+    func player(_ player: AVPlayer, willEndPlayAt item: AVPlayerItem) {
+        // 通知代理对象
+        delegate?.playerView(self, willEndPlayAt: item)
+    }
 }
 
 // MARK: - LYPlayerGestureDelegate
