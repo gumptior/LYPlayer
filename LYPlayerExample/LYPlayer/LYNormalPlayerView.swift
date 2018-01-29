@@ -48,12 +48,13 @@ open class LYNormalPlayerView: LYPlayerView {
             }
         }
     }
-    
-    override open var totalTime: CMTime? {
+
+    open override var totalTime: CMTime! {
         didSet {
             print(timeToSeconds(time: totalTime))
             totalTimeLabel.text = timeToSeconds(time: totalTime)
         }
+
     }
     
     /// 是否全屏状态
@@ -348,6 +349,7 @@ open class LYNormalPlayerView: LYPlayerView {
 extension LYNormalPlayerView {
     
     override func player(_ player: AVPlayer, itemTotal time: CMTime) {
+        totalTime = time
         
         hiddenLoading()
     }

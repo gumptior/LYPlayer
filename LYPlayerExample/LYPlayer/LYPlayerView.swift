@@ -88,7 +88,7 @@ open class LYPlayerView: UIView {
     open var currentTime: CMTime = CMTime()
     
     /** 视频总时间 */
-    open var totalTime: CMTime?
+    open var totalTime: CMTime!
     
     /** 当前是否是全屏显示 */
     open var isFullScreen = false {
@@ -391,7 +391,6 @@ extension LYPlayerView {
 extension LYPlayerView: LYPlayerDelegate {
     func player(_ player: LYPlayer, itemTotal time: CMTime) {
         
-        gestureView.isUserInteractionEnabled = true
     }
     
     func player(_ player: LYPlayer, isPlaying: Bool) {
