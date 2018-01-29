@@ -410,6 +410,18 @@ extension LYPlayerView: LYGestureViewDelegate {
         
     }
     
+    /** 双击手势事件 */
+    func doubleTapGestureAction(view: UIImageView) {
+        guard let playing = player?.isPlaying else {
+            return
+        }
+        if playing {
+            player?.pause()
+        } else {
+            playerPlay()
+        }
+    }
+    
     /** 跳转到指定时间 */
     func adjustVideoPlaySeconds(_ changeSeconds: Double) {
         guard let currentSeconds = player?.currentItem?.currentTime().seconds else {

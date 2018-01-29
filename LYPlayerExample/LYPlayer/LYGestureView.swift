@@ -26,6 +26,11 @@ public enum Direction {
     ///
     /// - Parameter view: self
     func tapGestureAction(view: UIImageView)
+    
+    /// 双击手势代理事件
+    ///
+    /// - Parameter view: self
+    func doubleTapGestureAction(view: UIImageView)
 }
 
 class LYGestureView: UIImageView {
@@ -53,6 +58,13 @@ class LYGestureView: UIImageView {
         tap.numberOfTapsRequired = 1
         tap.numberOfTouchesRequired = 1
         addGestureRecognizer(tap)
+        
+        // 添加双击手势
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapAction))
+        doubleTap.numberOfTapsRequired = 2
+        doubleTap.numberOfTouchesRequired = 1
+        addGestureRecognizer(doubleTap)
+        tap.require(toFail: doubleTap)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -220,5 +232,10 @@ class LYGestureView: UIImageView {
     /// 点击手势事件
     func tapAction() {
         self.delegate?.tapGestureAction(view: self)
+    }
+    
+    /// 双击手势事件
+    func doubleTapAction() {
+        self.delegate?.doubleTapGestureAction(view: self)
     }
 }
