@@ -437,11 +437,23 @@ extension LYPlayerView: LYGestureViewDelegate {
     
     /** 跳转到指定时间 */
     func adjustVideoPlaySeconds(_ changeSeconds: Double) {
-        guard let currentSeconds = player?.currentItem?.currentTime().seconds else {
+        guard let currentTime = player?.currentItem?.currentTime() else {
             return
         }
-        let time = CMTime(seconds: currentSeconds + changeSeconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
+        let time = CMTime(seconds: currentTime.seconds + changeSeconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
         player?.seek(to: time)
+        
+        
+    }
+    
+    /** 视频进度拖拽中 */
+    func progressDragging(_ changeSeconds: Double) {
+        guard let currentTime = player?.currentItem?.currentTime() else {
+            return
+        }
+        let time = CMTime(seconds: currentTime.seconds + changeSeconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
+        let seekView = LYSeekView.shared
+        seekView.seek(to: time, with: currentTime, item: player!.currentItem!)
     }
 }
 

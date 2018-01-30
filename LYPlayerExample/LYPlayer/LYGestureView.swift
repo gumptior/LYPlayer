@@ -17,6 +17,8 @@ public enum Direction {
 
 @objc protocol LYGestureViewDelegate {
     
+    func progressDragging(_ changeSeconds: Double)
+    
     /// 快进、快退
     ///
     /// - Parameter seconds: 移动的秒数
@@ -188,7 +190,9 @@ class LYGestureView: UIImageView {
                 }
             }
         } else {
-            
+            // 视频进度
+            let seconds = panPoint.x / 10
+            self.delegate?.progressDragging((Double(seconds)))
         }
     }
     
