@@ -334,7 +334,7 @@ open class LYNormalPlayerView: LYPlayerView {
         
     }
     
-    override func tapGestureAction(view: UIImageView) {
+    override func singleTapGestureAction(view: UIImageView) {
         if isLocking {
             lockScreenBtn.isHidden = !lockScreenBtn.isHidden
             return

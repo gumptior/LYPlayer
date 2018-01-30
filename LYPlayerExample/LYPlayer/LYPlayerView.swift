@@ -157,8 +157,6 @@ extension LYPlayerView {
         self.player = creatPlayer(with: playerModel)
     }
     
-    
-    
     /** 初始化对象 */
     func initialize() {
         backgroundColor = UIColor.black
@@ -418,8 +416,9 @@ extension LYPlayerView: LYPlayerDelegate {
 
 // MARK: - LYPlayerGestureDelegate
 extension LYPlayerView: LYGestureViewDelegate {
+    
     /** 单击手势事件 */
-    func tapGestureAction(view: UIImageView) {
+    func singleTapGestureAction(view: UIImageView) {
         
     }
     

@@ -37,7 +37,6 @@ open class LYPlayer: AVPlayer {
         print("---LYPlayer结束了---")
         // 清除应用通知
         removeAppNotification()
-
     }
     
     public override init() { super.init() }
@@ -53,7 +52,6 @@ extension LYPlayer {
     
     // 播放
     open override func play() {
-        
         super.play()
         
         addAppNotification()
@@ -123,8 +121,6 @@ extension LYPlayer {
                 delegate?.player(self, itemTotal: currentItem!.duration)
                 break
             }
-            
-            break
         case "loadedTimeRanges":
             // 缓存进度的改变时调用
             // 获取缓冲区域
@@ -226,7 +222,6 @@ extension LYPlayer {
         if let item = currentItem {
             delegate?.player(self, willEndPlayAt: item)
         }
-        
     }
     
     // 视频异常中断
@@ -265,4 +260,3 @@ extension LYPlayer {
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 }
-

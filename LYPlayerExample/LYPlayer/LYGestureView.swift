@@ -24,10 +24,10 @@ public enum Direction {
     /// - Parameter seconds: 移动的秒数
     func adjustVideoPlaySeconds(_ changeSeconds: Double)
     
-    /// 点按手势代理事件
+    /// 单击手势代理事件
     ///
     /// - Parameter view: self
-    func tapGestureAction(view: UIImageView)
+    func singleTapGestureAction(view: UIImageView)
     
     /// 双击手势代理事件
     ///
@@ -39,13 +39,13 @@ class LYGestureView: UIImageView {
 
     weak var delegate: LYGestureViewDelegate?
     
-    private var direction: Direction?
+    fileprivate var direction: Direction?
     
     // 开始点击时的坐标
-    private var startPoint: CGPoint?
+    fileprivate var startPoint: CGPoint?
     
     // 开始值
-    private var startValue: Float?
+    fileprivate var startValue: Float?
     
     /** 是否允许拖拽手势 */
     var isEnabledDragGesture: Bool = false
@@ -53,26 +53,47 @@ class LYGestureView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        isUserInteractionEnabled = true
-        
-        // 添加点击手势
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-        tap.numberOfTapsRequired = 1
-        tap.numberOfTouchesRequired = 1
-        addGestureRecognizer(tap)
-        
-        // 添加双击手势
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapAction))
-        doubleTap.numberOfTapsRequired = 2
-        doubleTap.numberOfTouchesRequired = 1
-        addGestureRecognizer(doubleTap)
-        tap.require(toFail: doubleTap)
+        initialize()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // 初始化
+    fileprivate func initialize() {
+        
+        isUserInteractionEnabled = true
+        
+        // 添加单击手势
+        addGestureRecognizer(singleTapGesture)
+        
+        // 添加双击手势
+        addGestureRecognizer(doubleTapGesture)
+        
+        // 双击手势触发时，取消点击手势
+        singleTapGesture.require(toFail: doubleTapGesture)
+    }
+    
+    /** 单击手势 */
+    lazy var singleTapGesture: UITapGestureRecognizer = {
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(singleTapAction))
+        singleTapGesture.numberOfTapsRequired = 1
+        singleTapGesture.numberOfTouchesRequired = 1
+        
+        return singleTapGesture
+    }()
+    
+    /** 双击手势 */
+    lazy var doubleTapGesture: UITapGestureRecognizer = {
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapAction))
+        doubleTapGesture.numberOfTapsRequired = 2
+        doubleTapGesture.numberOfTouchesRequired = 1
+        
+        return doubleTapGesture
+    }()
+    
+    /** 音量指示器 */
     lazy var volumeViewSlider: UISlider? = {
         let volumeView = MPVolumeView(frame: CGRect(x: 50, y: 50, width: 100, height: 100))
         var volumeViewSlider: UISlider? = nil
@@ -88,11 +109,7 @@ class LYGestureView: UIImageView {
         return volumeViewSlider
     }()
     
-    func adjustVolume(volume: Float) {
-        volumeViewSlider?.setValue(volume, animated: true)
-    }
-    
-    // 触摸开始
+    /** 触摸开始 */
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         // 开始触摸点的坐标
@@ -110,7 +127,7 @@ class LYGestureView: UIImageView {
         direction = .none
     }
     
-    // 触摸结束
+    /** 触摸结束 */
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         // 判断是否激活拖拽手势
@@ -136,6 +153,7 @@ class LYGestureView: UIImageView {
         }
     }
     
+    /** 触摸移动中 */
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         // 判断是否激活拖拽手势
@@ -195,11 +213,18 @@ class LYGestureView: UIImageView {
             self.delegate?.progressDragging((Double(seconds)))
         }
     }
+}
+
+// MARK: - FUNC
+
+extension LYGestureView {
     
-    /// 判断手势
-    ///
-    /// - Parameter point: 位移坐标
-    /// - Returns: 手势方向
+    /** 调整音量 */
+    func adjustVolume(volume: Float) {
+        volumeViewSlider?.setValue(volume, animated: true)
+    }
+    
+    /** 根据当前手指坐标判断手势 */
     func judgeGesture(point: CGPoint?) -> Direction {
         if point == nil {
             return .none
@@ -219,27 +244,28 @@ class LYGestureView: UIImageView {
             return .none
         }
     }
-
-    //
-    /// 通过手指滑动的距离，计算音量或亮度需要调整的值
-    ///
-    /// - Parameter point: 手指当前位置相对起始位置的坐标
-    /// - Returns: 调整的值，区间的值是  0..1
+    
+    /** 通过手指滑动的距离，计算音量或亮度需要调整的值 */
     func calculateValue(point: CGPoint) -> CGFloat {
         // 由于手指离屏幕左上角越近（竖屏），值增加，所以加负号，使手指向右边划时，值增加
         // * 3  ：在滑动相等距离的情况下，乘的越大，滑动产生的效果越大（value变化快）
-        let value = -point.y / screen_width * 3
-
+        let value = -point.y / UIScreen.main.bounds.size.width * 3
+        
         return value
     }
+}
+
+// MARK: - Action
+
+extension LYGestureView {
     
     /// 点击手势事件
-    func tapAction() {
-        self.delegate?.tapGestureAction(view: self)
+    @objc fileprivate func singleTapAction() {
+        self.delegate?.singleTapGestureAction(view: self)
     }
     
     /// 双击手势事件
-    func doubleTapAction() {
+    @objc fileprivate func doubleTapAction() {
         self.delegate?.doubleTapGestureAction(view: self)
     }
 }
