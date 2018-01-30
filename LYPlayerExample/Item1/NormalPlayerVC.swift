@@ -50,6 +50,8 @@ class NormalPlayerVC: BaseViewController {
         playerView.delegate = self
         // 自动播放
         playerView.isAutoPlay = true
+        // 继续上次进度播放
+        playerView.isRecoveryPlay = true
         // 播放倍速
         playerView.rate = 2.0
         return playerView

@@ -81,6 +81,17 @@ open class LYPlayerView: UIView {
     /** 自动播放 */
     open var isAutoPlay: Bool = false
     
+    /** 是否恢复播放（继续上次播放位置） */
+    open var isRecoveryPlay: Bool = false {
+        didSet {
+            if isRecoveryPlay {
+                player?.playLastTime()
+            } else {
+                playerPlay()
+            }
+        }
+    }
+    
     /** 播放倍速 */
     open var rate: Float = 1.0
     
@@ -263,6 +274,8 @@ extension LYPlayerView {
     func playerPlay() {
 //        player?.play()
         player?.rate = rate
+        
+        
     }
 }
     

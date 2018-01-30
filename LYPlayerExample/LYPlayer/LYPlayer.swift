@@ -53,6 +53,7 @@ extension LYPlayer {
     
     // 播放
     open override func play() {
+        
         super.play()
         
         addAppNotification()
@@ -65,8 +66,14 @@ extension LYPlayer {
     
     // 停止
     open func stop() {
+        // 保存播放进度
+        savePlayTime()
+        
         currentItem?.seek(to: kCMTimeZero)
         pause()
+        
+        currentItem?.cancelPendingSeeks()
+        currentItem?.asset.cancelLoading()
         
         removeObserverItem(with: currentItem)
         removeNotificationItem(with: currentItem)
@@ -134,6 +141,31 @@ extension LYPlayer {
             print("缓存可以播放的时候调用")
         default:
             break
+        }
+    }
+}
+
+// MARK: - FUNC
+extension LYPlayer {
+    
+    /** 保存播放时间位置 */
+    public func savePlayTime() {
+        let urlAsset = currentItem?.asset as? AVURLAsset
+        guard let urlString = urlAsset?.url.absoluteString else { return }
+        guard let currentSeconds = currentItem?.currentTime().seconds else { return }
+        // 保存当前播放的时间（秒）
+        UserDefaults.standard.set(currentSeconds, forKey: urlString)
+    }
+    
+    /** 继续上一次时间播放 */
+    public func playLastTime() {
+        let urlAsset = currentItem?.asset as? AVURLAsset
+        guard let urlString = urlAsset?.url.absoluteString else { return }
+        let lastPlaySeconds = UserDefaults.standard.double(forKey: urlString)
+        let time = CMTime(seconds: lastPlaySeconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
+        // 跳到上次记录的时间点播放
+        seek(to: time) { (success) in
+            super.play()
         }
     }
 }
