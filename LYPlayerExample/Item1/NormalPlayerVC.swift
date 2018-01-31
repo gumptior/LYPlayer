@@ -54,6 +54,9 @@ class NormalPlayerVC: BaseViewController {
         playerView.isRecoveryPlay = false
         // 播放倍速
         playerView.rate = 2.0
+        
+        // 隐藏返回按钮
+        //playerView.isHiddenBackButton = true
         return playerView
     }()
     

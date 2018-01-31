@@ -35,6 +35,15 @@ open class LYNormalPlayerView: LYPlayerView {
         lockScreenBtn.isHidden = true
     }
     
+    /** 是否隐藏返回按钮 */
+    open var isHiddenBackButton: Bool = false {
+        didSet {
+            if isHiddenBackButton {
+                backBtn.isHidden = true
+            }
+        }
+    }
+    
     override open var currentTime: CMTime {
         didSet {
             // 判断滑条是否正在被拖拽  
