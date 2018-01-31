@@ -54,7 +54,6 @@ open class LYNormalPlayerView: LYPlayerView {
             print(timeToSeconds(time: totalTime))
             totalTimeLabel.text = timeToSeconds(time: totalTime)
         }
-
     }
     
     /// 是否全屏状态
@@ -241,18 +240,18 @@ open class LYNormalPlayerView: LYPlayerView {
         }
         
         backBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(self).offset(20)
+            make.top.equalTo(self).offset(15)
             if #available(iOS 11, *) {
-                make.left.equalTo(self.safeAreaLayoutGuide.snp.left)
+                make.left.equalTo(self.safeAreaLayoutGuide.snp.left).offset(5)
             } else {
-                make.left.equalTo(self)
+                make.left.equalTo(self).offset(5)
             }
-            make.size.equalTo(40)
+            make.size.equalTo(30)
         }
         
         assetNameLabel.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(backBtn)
-            make.left.equalTo(backBtn).offset(70)
+            make.left.equalTo(backBtn).offset(40)
             make.right.equalTo(topShadeImgView).offset(-20)
         }
         
@@ -310,6 +309,13 @@ open class LYNormalPlayerView: LYPlayerView {
         }
     }
     
+    override func creatPlayerItem(with playerModel: LYPlayerModel) -> AVPlayerItem {
+        
+        assetNameLabel.text = playerModel.title
+        
+        return super.creatPlayerItem(with: playerModel)
+    }
+    
     /// 播放和暂停按钮点击事件
     override func playAction(sender: LYPlayButton) {
         super.playAction(sender: sender)
@@ -342,8 +348,6 @@ open class LYNormalPlayerView: LYPlayerView {
         // 设置点击手势控制是否显示上下遮罩视图
         isShowShadeView = !isShowShadeView
     }
-    
-    
 }
 
 extension LYNormalPlayerView {

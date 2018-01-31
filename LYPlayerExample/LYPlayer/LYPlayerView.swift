@@ -74,10 +74,6 @@ open class LYPlayerView: UIView {
         return gestureView
     }()
     
-//    var playerModel: LYPlayerModel! {
-//        return
-//    }
-    
     /** 自动播放 */
     open var isAutoPlay: Bool = false
     
@@ -152,13 +148,11 @@ extension LYPlayerView {
     public convenience init(playerModel: LYPlayerModel) {
         self.init(frame: .zero)
         
-//        self.playerModel = playerModel
-        
         self.player = creatPlayer(with: playerModel)
     }
     
     /** 初始化对象 */
-    func initialize() {
+    internal func initialize() {
         backgroundColor = UIColor.black
         
         addSubview(gestureView)
@@ -185,10 +179,16 @@ extension LYPlayerView {
 // MARK: - 播放器配置
 extension LYPlayerView {
     
-    fileprivate func creatPlayer(with playerModel: LYPlayerModel) -> LYPlayer {
+    internal func creatPlayerItem(with playerModel: LYPlayerModel) -> AVPlayerItem {
+        
         let asset = AVAsset(url: playerModel.videoURL!)
         
-        let item = AVPlayerItem(asset: asset)
+        return AVPlayerItem(asset: asset)
+    }
+    
+    fileprivate func creatPlayer(with playerModel: LYPlayerModel) -> LYPlayer {
+        
+        let item = creatPlayerItem(with: playerModel)
         
         let player = LYPlayer(playerItem: item)
         player.delegate = self
@@ -243,14 +243,10 @@ extension LYPlayerView {
 extension LYPlayerView {
     
     open func replaceCurrentPlayerModel(with playerModel: LYPlayerModel?) {
+        let item = creatPlayerItem(with: playerModel!)
         
-        guard let videoURL = playerModel?.videoURL else {
-            return
-        }
-        
-        let asset = AVAsset(url: videoURL)
-        let item = AVPlayerItem(asset: asset)
         self.player?.replaceCurrentItem(with: item)
+        
         if isAutoPlay {
             // 视频自动播放
             playerPlay()
@@ -272,8 +268,6 @@ extension LYPlayerView {
     func playerPlay() {
 //        player?.play()
         player?.rate = rate
-        
-        
     }
 }
     

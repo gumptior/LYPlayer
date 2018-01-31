@@ -51,7 +51,7 @@ class NormalPlayerVC: BaseViewController {
         // 自动播放
         playerView.isAutoPlay = true
         // 继续上次进度播放
-        playerView.isRecoveryPlay = true
+        playerView.isRecoveryPlay = false
         // 播放倍速
         playerView.rate = 2.0
         return playerView
@@ -62,7 +62,7 @@ class NormalPlayerVC: BaseViewController {
         let playerModel = LYPlayerModel()
         let netURL = URL(string: "http://120.25.226.186:32812/resources/videos/minion_01.mp4")!
         playerModel.videoURL = netURL
-        playerModel.title = "哈哈哈"
+        playerModel.title = "视频1"
         playerModel.placeholderImage = UIImage(named: "loading_bgView")
         
         return playerModel
@@ -130,7 +130,7 @@ extension NormalPlayerVC: LYPlayerViewDelegate {
         let playerModel = LYPlayerModel()
         let netURL = URL(string: "http://120.25.226.186:32812/resources/videos/minion_02.mp4")!
         playerModel.videoURL = netURL
-        playerModel.title = "哈哈哈"
+        playerModel.title = "视频2"
         playerModel.placeholderImage = UIImage(named: "loading_bgView")
         
         playerView.replaceCurrentPlayerModel(with: playerModel)
