@@ -35,8 +35,6 @@ open class LYPlayer: AVPlayer {
     
     deinit {
         print("---LYPlayer结束了---")
-        // 清除应用通知
-        removeAppNotification()
     }
     
     public override init() { super.init() }
@@ -53,8 +51,6 @@ extension LYPlayer {
     // 播放
     open override func play() {
         super.play()
-        
-        addAppNotification()
     }
     
     // 暂停
@@ -229,34 +225,4 @@ extension LYPlayer {
         print("异常中断")
     }
     
-    // 程序将要进入后台
-    @objc func willEnterBcakground_notification() {
-        print("将要进入后台")
-        pause()
-    }
-    
-    // 程序已经返回前台
-    @objc func didEnterPlayGround_notification() {
-        print("已经返回前台")
-    }
-}
-
-// MARK: - APP Notification
-extension LYPlayer {
-    /** 添加应用进入前后台通知 */
-    fileprivate func addAppNotification() {
-        // 添加程序将要进入后台通知
-        NotificationCenter.default.addObserver(self, selector: #selector(willEnterBcakground_notification), name: Notification.Name.UIApplicationWillResignActive, object: nil)
-        
-        // 添加程序已经返回前台通知
-        NotificationCenter.default.addObserver(self, selector: #selector(didEnterPlayGround_notification), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
-    }
-    
-    /** 移除应用进入前后台通知 */
-    fileprivate func removeAppNotification() {
-        // 移除程序将要进入后台通知
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationWillResignActive, object: nil)
-        // 移除程序已经返回前台通知
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
-    }
 }

@@ -46,6 +46,8 @@ open class LYPlayerView: UIView {
         print("---LYPlayerView结束了---")
         player = nil
         removeNotificationCenter()
+        // 清除应用通知
+        removeAppNotification()
     }
     
     open override func layoutSubviews() {
@@ -163,6 +165,8 @@ extension LYPlayerView {
         // 添加通知中心
         addNotificationCenter()
 
+        addAppNotification()
+        
         if isAutoPlay {
             // 视频自动播放
             playerPlay()
@@ -171,7 +175,7 @@ extension LYPlayerView {
         }
 
         verticalFrame = frame
-
+        
         superview?.bringSubview(toFront: self)
     }
 }
@@ -290,7 +294,7 @@ extension LYPlayerView {
     func backAction(sender: UIButton) {
         if isFullScreen {
             // 当前是全屏状态
-            orientationRotate()
+            rotate(.portrait)
         } else {
             if viewController?.navigationController == nil || viewController?.navigationController?.viewControllers.count == 1 {
                 return
@@ -305,7 +309,13 @@ extension LYPlayerView {
     // 全屏按钮点击事件
     func fullScreenAction(sender: UIButton) {
         // 旋转屏幕
-        orientationRotate()
+        if isFullScreen {
+            // 当前是全屏状态
+            rotate(.portrait)
+        } else {
+            // 当前是竖屏状态
+            rotate(.landscapeRight)
+        }
     }
     
     // 锁屏按钮点击事件
@@ -337,28 +347,21 @@ extension LYPlayerView {
 extension LYPlayerView {
     
     /// 屏幕方向旋转
-    func orientationRotate() {
+    fileprivate func rotate(_ orientation: UIInterfaceOrientation) {
         // 判断是否允许屏幕旋转
         if isLocking == true {
             print("当前全屏按钮处于锁定状态")
             return
         }
-        let appDelegate = UIApplication.shared.delegate as! UIResponder
-        let value: Int
         
-        if isFullScreen {
-            // 切换到竖屏状态
-            appDelegate.allowRotation = false   // 关闭横屏功能
-            value = UIInterfaceOrientation.portrait.rawValue
+        if orientation.isPortrait {
             isFullScreen = false
-            
-        } else {
-            // 切换到全屏状态
-            appDelegate.allowRotation = true    // 打开横屏功能
-            value = UIInterfaceOrientation.landscapeLeft.rawValue
+        } else if orientation.isLandscape {
             isFullScreen = true
         }
-        UIDevice.current.setValue(value, forKey: "orientation")
+        
+        let appDelegate = UIApplication.shared.delegate as! UIResponder
+        appDelegate.interfaceOrientation = orientation
     }
     
     fileprivate func addNotificationCenter() {
@@ -371,23 +374,13 @@ extension LYPlayerView {
     
     // 处理旋转过程中需要的操作
     func orientation(notification: NSNotification) {
-        
         let orientation = UIDevice.current.orientation
-        
-        switch orientation {
-        case .portrait:
+        if orientation.isLandscape {
+            // 屏幕水平
+            setupFrame(.horizontal)
+        } else if orientation.isPortrait {
             // 屏幕竖直
             setupFrame(.vertical)
-            break
-        case .landscapeLeft:
-            // 屏幕向左转
-            break
-        case .landscapeRight:
-            // 屏幕向右转
-            setupFrame(.horizontal)
-            break
-        default:
-            break
         }
     }
 }
@@ -435,8 +428,6 @@ extension LYPlayerView: LYGestureViewDelegate {
         }
         let time = CMTime(seconds: currentTime.seconds + changeSeconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
         player?.seek(to: time)
-        
-        
     }
     
     /** 视频进度拖拽中 */
@@ -447,6 +438,42 @@ extension LYPlayerView: LYGestureViewDelegate {
         let time = CMTime(seconds: currentTime.seconds + changeSeconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
         let seekView = LYSeekView.shared
         seekView.seek(to: time, with: currentTime, item: player!.currentItem!)
+    }
+}
+
+// MARK: - APP Notification
+extension LYPlayerView {
+    /** 添加应用进入前后台通知 */
+    fileprivate func addAppNotification() {
+        // 添加程序将要进入后台通知
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterBcakground_notification), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        
+        // 添加程序已经返回前台通知
+        NotificationCenter.default.addObserver(self, selector: #selector(didEnterPlayGround_notification), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    /** 移除应用进入前后台通知 */
+    fileprivate func removeAppNotification() {
+        // 移除程序将要进入后台通知
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        // 移除程序已经返回前台通知
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    // 程序将要进入后台
+    @objc func willEnterBcakground_notification() {
+        print("将要进入后台")
+        player?.pause()
+    }
+    
+    // 程序已经返回前台
+    @objc func didEnterPlayGround_notification() {
+        print("已经返回前台")
+        if isFullScreen {
+            rotate(.landscapeLeft)
+        } else {
+            rotate(.portrait)
+        }
     }
 }
 
@@ -464,3 +491,4 @@ extension LYPlayerView {
         return nil
     }
 }
+

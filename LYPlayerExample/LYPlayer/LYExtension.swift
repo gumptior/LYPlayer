@@ -22,22 +22,30 @@ extension CALayer {
     }
 }
 
-public var key: Void?
+public var key: UIInterfaceOrientation = .portrait
 
 extension UIResponder {
     
-    var allowRotation: Bool? {
+    /// 屏幕方向
+    var interfaceOrientation: UIInterfaceOrientation {
         get {
-            return objc_getAssociatedObject(self, &key) as? Bool
+            guard let value = objc_getAssociatedObject(self, &key) as? UIInterfaceOrientation else {
+                return .portrait
+            }
+            return value
         }
-        set(newValue) {
+        set {
             objc_setAssociatedObject(self, &key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            UIDevice.current.setValue(newValue.rawValue, forKey: "orientation")
         }
     }
+    
     @objc(application:supportedInterfaceOrientationsForWindow:) func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        if allowRotation == true {
+        if interfaceOrientation.isLandscape {
+            // 水平
             return .landscapeRight
         } else {
+            // 竖直
             return .portrait
         }
     }
