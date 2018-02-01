@@ -46,21 +46,31 @@ open class LYNormalPlayerView: LYPlayerView {
     
     override open var currentTime: CMTime {
         didSet {
-            // 判断滑条是否正在被拖拽  
-            if self.isSliderDragging == false {
-                // 如果滑条没有被拖拽
-                guard let totalSeconds = player?.currentItem?.duration.seconds else {
-                    return
-                }
-                self.progressSlider.value = Float(currentTime.seconds / totalSeconds)
-                currentTimeLabel.text = timeToSeconds(time: currentTime)
+            // 如果滑条没有被拖拽
+            if self.isSliderDragging == true {
+                return
             }
+            // 总秒数
+            guard let totalSeconds = player?.currentItem?.duration.seconds else {
+                return
+            }
+            self.progressSlider.playProgress = CGFloat(currentTime.seconds / totalSeconds)
+            currentTimeLabel.text = timeToSeconds(time: currentTime)
+        }
+    }
+    
+    open override var cacheTime: CMTime {
+        didSet {
+            // 总秒数
+            guard let totalSeconds = player?.currentItem?.duration.seconds else {
+                return
+            }
+            self.progressSlider.bufferedProgress = CGFloat(cacheTime.seconds / totalSeconds)
         }
     }
 
     open override var totalTime: CMTime! {
         didSet {
-            print(timeToSeconds(time: totalTime))
             totalTimeLabel.text = timeToSeconds(time: totalTime)
         }
     }
@@ -149,9 +159,10 @@ open class LYNormalPlayerView: LYPlayerView {
     }()
     
     // 播放进度条
-    lazy var progressSlider: UISlider = {
-        let progressSlider = UISlider()
-        progressSlider.value = 0.0
+    lazy var progressSlider: LYProgressSlider = {
+        let progressSlider = LYProgressSlider()
+        progressSlider.bufferedProgress = 0.0
+        progressSlider.playProgress = 0.0
         progressSlider.addTarget(self, action: #selector(progressSliderTouchDownAction(slider:)), for: .touchDown)
         progressSlider.addTarget(self, action: #selector(progressSliderTouchUpInsideAction(slider:)), for: .touchUpInside)
         

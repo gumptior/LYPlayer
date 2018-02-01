@@ -96,6 +96,9 @@ open class LYPlayerView: UIView {
     /** 视频播放当前时间 */
     open var currentTime: CMTime = CMTime()
     
+    /** 视频缓存时间 */
+    open var cacheTime: CMTime = CMTime()
+    
     /** 视频总时间 */
     open var totalTime: CMTime!
     
@@ -324,20 +327,20 @@ extension LYPlayerView {
     }
     
     // 进度条被按下时的事件
-    func progressSliderTouchDownAction(slider: UISlider) {
+    func progressSliderTouchDownAction(slider: LYProgressSlider) {
         // 设置滑条正在被拖拽
         isSliderDragging = true
     }
     
     // 进度条手指抬起时的事件
-    func progressSliderTouchUpInsideAction(slider: UISlider) {
+    func progressSliderTouchUpInsideAction(slider: LYProgressSlider) {
         // 设置滑条没有被拖拽
         isSliderDragging = false
         // 计算进度
         guard let totalSeconds = player?.currentItem?.duration.seconds else {
             return
         }
-        let seconds = Double(slider.value) / 1.0 * totalSeconds
+        let seconds = Double(slider.playProgress) / 1.0 * totalSeconds
         let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
         player?.seek(to: time)
     }
@@ -398,6 +401,10 @@ extension LYPlayerView: LYPlayerDelegate {
     func player(_ player: AVPlayer, willEndPlayAt item: AVPlayerItem) {
         // 通知代理对象
         delegate?.playerView(self, willEndPlayAt: item)
+    }
+    
+    func player(_ player: AVPlayer, loadedCacheDuration duration: CMTime) {
+        cacheTime = duration
     }
 }
 

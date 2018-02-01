@@ -27,6 +27,9 @@ enum LYPlayerContentMode {
     
     /** 视频播放结束 */
     func player(_ player: AVPlayer, willEndPlayAt item: AVPlayerItem)
+    
+    /** 已经加载的缓存 */
+    func player(_ player: AVPlayer, loadedCacheDuration duration: CMTime)
 }
 
 open class LYPlayer: AVPlayer {
@@ -120,9 +123,10 @@ extension LYPlayer {
         case "loadedTimeRanges":
             // 缓存进度的改变时调用
             // 获取缓冲区域
-            let timeRange = currentItem?.loadedTimeRanges.first?.timeRangeValue
-            
-            //print(timeRange?.duration as Any)
+            guard let timeRange = currentItem?.loadedTimeRanges.first?.timeRangeValue else {
+                return
+            }
+            delegate?.player(self, loadedCacheDuration: timeRange.duration)
         case "playbackBufferEmpty":
             // 播放区域缓存为空时调用
             print("播放区域缓存为空时调用")
