@@ -65,6 +65,7 @@ class NormalPlayerVC: BaseViewController {
         let playerModel = LYPlayerModel()
         let netURL = URL(string: "http://120.25.226.186:32812/resources/videos/minion_01.mp4")!
         playerModel.videoURL = netURL
+        // Thor
         playerModel.title = "视频1"
         playerModel.placeholderImage = UIImage(named: "loading_bgView")
         
@@ -133,6 +134,7 @@ extension NormalPlayerVC: LYPlayerViewDelegate {
         let playerModel = LYPlayerModel()
         let netURL = URL(string: "http://120.25.226.186:32812/resources/videos/minion_02.mp4")!
         playerModel.videoURL = netURL
+        // Thor
         playerModel.title = "视频2"
         playerModel.placeholderImage = UIImage(named: "loading_bgView")
         
