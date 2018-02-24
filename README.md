@@ -1,4 +1,4 @@
-
+![](https://raw.githubusercontent.com/LY-Coder/LYPlayer-Misc/master/Logo/logo.png)
 
 ![LYPlayer hero image](https://raw.githubusercontent.com/LY-Coder/LYPlayer-Misc/master/LYPlayer/LYPlayer.gif)
 
