@@ -63,7 +63,7 @@
                                 <rect key="frame" x="101" y="528" width="172" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="跳转">
+                                <state key="normal" title="去播放">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -162,16 +162,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnU-Qs-4zT">
-                                <rect key="frame" x="143" y="392" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTt-ci-ZxH">
+                                <rect key="frame" x="235" y="597" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="WKN-98-9lw"/>
+                                    <constraint firstAttribute="height" constant="30" id="vwi-d8-DYY"/>
+                                </constraints>
+                                <state key="normal" title="Push">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="pushBtnAction:" destination="q88-sf-PA9" eventType="touchUpInside" id="oof-kc-xDk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnU-Qs-4zT">
+                                <rect key="frame" x="40" y="597" width="100" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="aBO-fG-j1S"/>
+                                    <constraint firstAttribute="height" constant="30" id="sEE-kL-XDy"/>
+                                </constraints>
+                                <state key="normal" title="小窗口">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="smallWindowAction:" destination="q88-sf-PA9" eventType="touchUpInside" id="1GR-hY-FXm"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="r3C-mG-Qus" firstAttribute="top" secondItem="kTt-ci-ZxH" secondAttribute="bottom" constant="40" id="Plw-81-cIU"/>
+                            <constraint firstAttribute="trailing" secondItem="kTt-ci-ZxH" secondAttribute="trailing" constant="40" id="p5L-xW-RzD"/>
+                            <constraint firstItem="r3C-mG-Qus" firstAttribute="top" secondItem="hnU-Qs-4zT" secondAttribute="bottom" constant="40" id="pfd-kF-kao"/>
+                            <constraint firstItem="hnU-Qs-4zT" firstAttribute="leading" secondItem="XbW-kE-ys8" secondAttribute="leading" constant="40" id="s6X-lQ-nS8"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dRI-HF-yiJ"/>
                 </viewController>

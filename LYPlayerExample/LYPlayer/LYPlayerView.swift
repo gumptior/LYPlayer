@@ -118,12 +118,6 @@ open class LYPlayerView: UIView {
     /** 视频总时间 */
     open var totalTime: CMTime!
     
-//    /** 当前是否是全屏显示 */
-//    public var isFullWindow = false
-//
-//    /** 当前是否是小窗口显示 */
-//    public var isSmallWindow = false
-    
     /** 当前是否锁定屏幕方向 */
     public var isLocking = false {
         didSet {
@@ -386,19 +380,16 @@ extension LYPlayerView {
     
     // 进度条被按下时的事件
     func progressSliderTouchDownAction(slider: LYProgressSlider) {
-        // 设置滑条正在被拖拽
-        isSliderDragging = true
+        
     }
     
     // 进度条手指抬起时的事件
     func progressSliderTouchUpInsideAction(slider: LYProgressSlider) {
-        // 设置滑条没有被拖拽
-        isSliderDragging = false
         // 计算进度
         guard let totalSeconds = player?.currentItem?.duration.seconds else {
             return
         }
-        let seconds = Double(slider.playProgress) / 1.0 * totalSeconds
+        let seconds = Double(slider.thumbImageValue) / 1.0 * totalSeconds
         let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(1 * NSEC_PER_SEC))
         player?.seek(to: time)
     }
@@ -413,12 +404,6 @@ extension LYPlayerView {
         if isLocking == true {
             print("当前全屏按钮处于锁定状态")
             return
-        }
-        
-        if orientation.isPortrait {
-//            isFullWindow = false
-        } else if orientation.isLandscape {
-//            isFullWindow = true
         }
         
         let appDelegate = UIApplication.shared.delegate as! UIResponder

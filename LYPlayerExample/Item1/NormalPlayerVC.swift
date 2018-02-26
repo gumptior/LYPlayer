@@ -44,7 +44,7 @@ class NormalPlayerVC: BaseViewController {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         setupUI()
-
+        
         setupUIFrame()
     }
     
@@ -54,6 +54,7 @@ class NormalPlayerVC: BaseViewController {
         //
         playerView.delegate = self
         // 自动播放
+        
         playerView.isAutoPlay = self.isAutoPlay
         // 继续上次进度播放
         playerView.isRecoveryPlay = self.isRecoveryPlay
@@ -79,20 +80,11 @@ class NormalPlayerVC: BaseViewController {
         return playerModel
     }()
     
-    lazy var pushBtn: UIButton = {
-        let pushBtn = UIButton(type: .custom)
-        pushBtn.backgroundColor = .red
-        pushBtn.addTarget(self, action: #selector(pushAction), for: .touchUpInside)
-        return pushBtn
-    }()
     
     /** 设置UI */
     func setupUI() {
         // 添加视频播放器
         view.addSubview(playerView)
-        
-        // 添加跳转下个页面按钮
-        view.addSubview(pushBtn)
     }
     
     /** 设置UIFrame */
@@ -103,16 +95,10 @@ class NormalPlayerVC: BaseViewController {
             make.left.right.equalTo(view)
             make.height.equalTo(playerView.snp.width).multipliedBy(9.0/16.0).priority(750)
         }
-        
-        // 设置Push按钮位置、大小
-        pushBtn.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalTo(view)
-            make.height.equalTo(60)
-        }
     }
     
     //
-    func pushAction() {
+    @IBAction func pushBtnAction(_ sender: UIButton) {
         // 暂停播放器
         playerView.player?.pause()
         
@@ -120,7 +106,6 @@ class NormalPlayerVC: BaseViewController {
         let VC = ViewController()
         navigationController?.pushViewController(VC, animated: true)
     }
-    
     
     @IBAction func smallWindowAction(_ sender: UIButton) {
         

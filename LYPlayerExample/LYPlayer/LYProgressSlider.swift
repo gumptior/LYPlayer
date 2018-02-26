@@ -10,8 +10,11 @@ import UIKit
 
 class LYProgressSlider: UIControl {
     
-    // 判断点击点是否在范围内
-    private var isContains: Bool?
+    // 判断是否触摸中
+    private var isTouching: Bool = false
+    
+    // 0 - 1
+    public var thumbImageValue: CGFloat = 0.0
     
     // MARK: - life cycle
     override init(frame: CGRect) {
@@ -50,10 +53,6 @@ class LYProgressSlider: UIControl {
     /** 视频缓冲进度 */
     public var bufferedProgress: CGFloat = 0.0 {
         willSet {
-            // 在拖动时停止赋值
-            if isTracking {
-                return
-            }
             bufferedView.snp.updateConstraints { (make) in
                 make.width.equalTo(newValue * frame.size.width)
             }
@@ -65,7 +64,7 @@ class LYProgressSlider: UIControl {
         didSet {
             // 在拖动时停止赋值
             if playProgress.isNaN || playProgress > 1.0
-            || isTracking {
+                || isTouching {
                 return
             }
             dragImageView.snp.updateConstraints({ (make) in
@@ -110,18 +109,6 @@ class LYProgressSlider: UIControl {
         return dragImageView
     }()
     
-    // MARK: - event response
-    // 开始点击
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        for touch in touches {
-            
-            let point = touch.location(in: self)
-            isContains = dragImageView.frame.contains(point)
-        }
-    }
-
     // MARK: - private method
     fileprivate func setupUI() {
         addSubview(bufferedView)
@@ -142,13 +129,13 @@ class LYProgressSlider: UIControl {
             make.right.equalTo(dragImageView.snp.centerX)
             make.height.equalTo(2)
         }
-
+        
         bufferedView.snp.makeConstraints { (make) in
             make.left.centerY.equalTo(self)
             make.height.equalTo(2)
             make.width.equalTo(0)
         }
-
+        
         noBufferView.snp.makeConstraints { (make) in
             make.centerY.right.equalTo(self)
             make.left.equalTo(dragImageView.snp.centerX)
@@ -156,9 +143,24 @@ class LYProgressSlider: UIControl {
         }
     }
     
+    // MARK: - event response
+    // 开始点击
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        isTouching = true
+//        for touch in touches {
+//            let point = touch.location(in: self)
+//        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        isTouching = false
+    }
+    
     // 手指在移动
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         super.touchesMoved(touches, with: event)
         for touch in touches {
             // 获取当前位置
@@ -166,11 +168,11 @@ class LYProgressSlider: UIControl {
             // 在小圆点内并且在self内时，设置当前进度
             if point.x > 0 && point.x < frame.width {
                 dragImageView.center.x = point.x
-                playProgress = point.x / frame.width
+                //playProgress = point.x / frame.width
+                thumbImageValue = point.x / frame.width
             }
-//                else {
-//
-//            }
         }
     }
+
+
 }

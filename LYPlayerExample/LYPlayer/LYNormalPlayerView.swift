@@ -45,10 +45,6 @@ open class LYNormalPlayerView: LYPlayerView {
     
     override open var currentTime: CMTime {
         didSet {
-            // 如果滑条没有被拖拽
-            if self.isSliderDragging == true {
-                return
-            }
             // 总秒数
             guard let totalSeconds = player?.currentItem?.duration.seconds else {
                 return
@@ -74,7 +70,7 @@ open class LYNormalPlayerView: LYPlayerView {
         }
     }
     
-    open override var _style: WindowStyle {
+    public override var _style: WindowStyle {
         didSet {
             if _style == .full {
                 fullScreenBtn.isSelected = true
@@ -334,7 +330,7 @@ open class LYNormalPlayerView: LYPlayerView {
     
     open override func rotateToSmallWindow() {
         super.rotateToSmallWindow()
-        
+        lockScreenBtn.isHidden = true
         gestureView.isUserInteractionEnabled = false
     }
     
