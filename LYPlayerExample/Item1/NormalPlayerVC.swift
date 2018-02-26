@@ -11,6 +11,11 @@ import AVFoundation
 
 class NormalPlayerVC: BaseViewController {
 
+    var isAutoPlay: Bool = false
+    
+    var isRecoveryPlay: Bool = false
+    
+    var rate: Float = 1.0
     
     // 显示状态栏
     override var prefersStatusBarHidden: Bool {
@@ -49,11 +54,11 @@ class NormalPlayerVC: BaseViewController {
         //
         playerView.delegate = self
         // 自动播放
-        playerView.isAutoPlay = true
+        playerView.isAutoPlay = self.isAutoPlay
         // 继续上次进度播放
-        playerView.isRecoveryPlay = false
+        playerView.isRecoveryPlay = self.isRecoveryPlay
         // 播放倍速
-        playerView.rate = 2.0
+        playerView.rate = self.rate
         
         // 隐藏返回按钮
         //playerView.isHiddenBackButton = true
@@ -63,9 +68,11 @@ class NormalPlayerVC: BaseViewController {
     // 播放器数据model
     lazy var playerModel: LYPlayerModel = {
         let playerModel = LYPlayerModel()
-        let netURL = URL(string: "http://120.25.226.186:32812/resources/videos/minion_01.mp4")!
-        playerModel.videoURL = netURL
-        // Thor
+        //let netURL = URL(string: "http://120.25.226.186:32812/resources/videos/minion_01.mp4")!
+        let path = Bundle.main.path(forResource: "Thor", ofType: ".mp4")
+        let url = URL(fileURLWithPath: path!)
+        
+        playerModel.videoURL = url
         playerModel.title = "视频1"
         playerModel.placeholderImage = UIImage(named: "loading_bgView")
         
@@ -112,6 +119,12 @@ class NormalPlayerVC: BaseViewController {
         // 跳转
         let VC = ViewController()
         navigationController?.pushViewController(VC, animated: true)
+    }
+    
+    
+    @IBAction func smallWindowAction(_ sender: UIButton) {
+        
+        playerView.rotateToSmallWindow()
     }
 }
 

@@ -12,6 +12,15 @@ import UIKit
 import AVFoundation
 import SnapKit
 
+public enum WindowStyle: Int {
+    /** 正常 */
+    case normal
+    /** 全屏 */
+    case full
+    /** 小窗口 */
+    case small
+}
+
 public enum Orientation: Int {
     /** 横屏 */
     case horizontal
@@ -93,6 +102,13 @@ open class LYPlayerView: UIView {
     /** 播放倍速 */
     open var rate: Float = 1.0
     
+    /** 样式 */
+    open var style: WindowStyle {
+        return _style
+    }
+    
+    public var _style: WindowStyle = .normal
+    
     /** 视频播放当前时间 */
     open var currentTime: CMTime = CMTime()
     
@@ -102,17 +118,11 @@ open class LYPlayerView: UIView {
     /** 视频总时间 */
     open var totalTime: CMTime!
     
-    /** 当前是否是全屏显示 */
-    open var isFullScreen = false {
-        didSet {
-            gestureView.isEnabledDragGesture = isFullScreen
-            if isFullScreen {
-                delegate?.playerView(self, willRotate: .horizontal)
-            } else {
-                delegate?.playerView(self, willRotate: .vertical)
-            }
-        }
-    }
+//    /** 当前是否是全屏显示 */
+//    public var isFullWindow = false
+//
+//    /** 当前是否是小窗口显示 */
+//    public var isSmallWindow = false
     
     /** 当前是否锁定屏幕方向 */
     public var isLocking = false {
@@ -249,6 +259,50 @@ extension LYPlayerView {
 // MARK: - Function
 extension LYPlayerView {
     
+    open func rotateToNormalWindow() {
+        // 关闭拖拽收拾
+        gestureView.isEnabledDragGesture = false
+        // 通知代理
+        delegate?.playerView(self, willRotate: .vertical)
+        
+        rotate(.portrait)
+        
+        _style = .normal
+    }
+    
+    open func rotateToFullWindow() {
+        // 开启拖拽收拾
+        gestureView.isEnabledDragGesture = true
+        // 通知代理
+        delegate?.playerView(self, willRotate: .horizontal)
+        
+        rotate(.landscapeRight)
+        
+        _style = .full
+    }
+    
+    open func rotateToSmallWindow() {
+        // 关闭拖拽收拾
+        gestureView.isEnabledDragGesture = false
+        // 通知代理
+        delegate?.playerView(self, willRotate: .vertical)
+        
+        rotate(.portrait)
+        
+        window?.addSubview(self)
+        snp.remakeConstraints { (make) in
+            make.width.equalTo(200)
+            make.height.equalTo(snp.width).multipliedBy(9.0/16.0).priority(750)
+            make.bottom.right.equalTo(window!).offset(-100)
+        }
+        
+        isLocking = true
+        
+        isShowShadeView = false
+        
+        _style = .small
+    }
+    
     open func replaceCurrentPlayerModel(with playerModel: LYPlayerModel?) {
         let item = creatPlayerItem(with: playerModel!)
         
@@ -295,9 +349,13 @@ extension LYPlayerView {
     
     // 返回按钮点击事件
     func backAction(sender: UIButton) {
-        if isFullScreen {
-            // 当前是全屏状态
-            rotate(.portrait)
+        if style == .full {
+            // 当前是全屏状态，变为正常窗口显示
+            rotateToNormalWindow()
+        } else if style == .small {
+            // 当前是小窗口状态，关闭窗口
+            player?.stop()
+            removeFromSuperview()
         } else {
             if viewController?.navigationController == nil || viewController?.navigationController?.viewControllers.count == 1 {
                 return
@@ -312,12 +370,12 @@ extension LYPlayerView {
     // 全屏按钮点击事件
     func fullScreenAction(sender: UIButton) {
         // 旋转屏幕
-        if isFullScreen {
-            // 当前是全屏状态
-            rotate(.portrait)
+        if style == .full {
+            // 当前是全屏状态，变为正常窗口显示
+            rotateToNormalWindow()
         } else {
-            // 当前是竖屏状态
-            rotate(.landscapeRight)
+            // 当前是竖屏状态，变为全屏窗口显示
+            rotateToFullWindow()
         }
     }
     
@@ -358,9 +416,9 @@ extension LYPlayerView {
         }
         
         if orientation.isPortrait {
-            isFullScreen = false
+//            isFullWindow = false
         } else if orientation.isLandscape {
-            isFullScreen = true
+//            isFullWindow = true
         }
         
         let appDelegate = UIApplication.shared.delegate as! UIResponder
@@ -476,7 +534,7 @@ extension LYPlayerView {
     // 程序已经返回前台
     @objc func didEnterPlayGround_notification() {
         print("已经返回前台")
-        if isFullScreen {
+        if style == .full {
             rotate(.landscapeLeft)
         } else {
             rotate(.portrait)

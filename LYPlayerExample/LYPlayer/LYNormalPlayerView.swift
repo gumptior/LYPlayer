@@ -29,8 +29,7 @@ open class LYNormalPlayerView: LYPlayerView {
         
         showLoading()
         
-        // 设置为竖屏状态，调整锁屏按钮状态
-        isFullScreen = false
+        _style = .normal
         // 默认隐藏锁屏按钮
         lockScreenBtn.isHidden = true
     }
@@ -75,11 +74,15 @@ open class LYNormalPlayerView: LYPlayerView {
         }
     }
     
-    /// 是否全屏状态
-    open override var isFullScreen: Bool {
+    open override var _style: WindowStyle {
         didSet {
-            fullScreenBtn.isSelected = isFullScreen
-            lockScreenBtn.isHidden = !isFullScreen
+            if _style == .full {
+                fullScreenBtn.isSelected = true
+                lockScreenBtn.isHidden = false
+            } else {
+                fullScreenBtn.isSelected = false
+                lockScreenBtn.isHidden = true
+            }
         }
     }
     
@@ -231,7 +234,7 @@ open class LYNormalPlayerView: LYPlayerView {
         
         addSubview(indicator)
         
-        topShadeImgView.addSubview(backBtn)
+        addSubview(backBtn)
         
         topShadeImgView.addSubview(assetNameLabel)
         
@@ -327,6 +330,12 @@ open class LYNormalPlayerView: LYPlayerView {
         indicator.snp.makeConstraints { (make) in
             make.center.equalTo(self)
         }
+    }
+    
+    open override func rotateToSmallWindow() {
+        super.rotateToSmallWindow()
+        
+        gestureView.isUserInteractionEnabled = false
     }
     
     override func creatPlayerItem(with playerModel: LYPlayerModel) -> AVPlayerItem {
