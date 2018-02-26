@@ -104,7 +104,8 @@ class LYProgressSlider: UIControl {
         let dragImageView = UIImageView()
         dragImageView.image = UIImage(named: "dot")
         dragImageView.isUserInteractionEnabled = true
-        dragImageView.backgroundColor = UIColor.cyan
+        dragImageView.backgroundColor = UIColor.white
+        dragImageView.layer.cornerRadius = 7
         
         return dragImageView
     }()
