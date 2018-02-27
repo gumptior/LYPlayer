@@ -52,9 +52,9 @@ class LYProgressSlider: UIControl {
     
     /** 视频缓冲进度 */
     public var bufferedProgress: CGFloat = 0.0 {
-        willSet {
+        didSet {
             bufferedView.snp.updateConstraints { (make) in
-                make.width.equalTo(newValue * frame.size.width)
+                make.width.equalTo(bufferedProgress * frame.size.width)
             }
         }
     }
@@ -167,12 +167,11 @@ class LYProgressSlider: UIControl {
             let point = touch.location(in: self)
             // 在小圆点内并且在self内时，设置当前进度
             if point.x > 0 && point.x < frame.width {
-                dragImageView.center.x = point.x
-                //playProgress = point.x / frame.width
+                dragImageView.snp.updateConstraints({ (make) in
+                    make.centerX.equalTo(point.x)
+                })
                 thumbImageValue = point.x / frame.width
             }
         }
     }
-
-
 }
