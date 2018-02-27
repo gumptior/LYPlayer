@@ -21,9 +21,11 @@
 2. 如果页面无法满足需求，完全自定义UI
 
 ## 效果图
-![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE1.PNG)
-![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE3.PNG)
-![](http://ov49u3l5m.bkt.clouddn.com/%E6%95%88%E6%9E%9C%E5%9B%BE4.PNG)
+![](https://raw.githubusercontent.com/LY-Coder/LYPlayer-Misc/master/LYPlayer/img1.PNG)
+![](https://raw.githubusercontent.com/LY-Coder/LYPlayer-Misc/master/LYPlayer/img2.PNG)
+![](https://raw.githubusercontent.com/LY-Coder/LYPlayer-Misc/master/LYPlayer/img3.PNG)
+![](https://raw.githubusercontent.com/LY-Coder/LYPlayer-Misc/master/LYPlayer/img4.PNG)
+![](https://raw.githubusercontent.com/LY-Coder/LYPlayer-Misc/master/LYPlayer/img5.jpeg)
 
 ## License
 LYPlayer is released under the MIT license. See LICENSE for details. 
