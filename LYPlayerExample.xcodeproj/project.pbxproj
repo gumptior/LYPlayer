@@ -23,6 +23,7 @@
 		1A32024120188C9900ADCA0E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32024020188C9900ADCA0E /* BaseViewController.swift */; };
 		1A32024320188D4200ADCA0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32024220188D4200ADCA0E /* ViewController.swift */; };
 		1A32D7FD202014C100FC8271 /* LYSeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A32D7FC202014C100FC8271 /* LYSeekView.swift */; };
+		1A410E9D2045953E00232498 /* LYShadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A410E9C2045953E00232498 /* LYShadeView.swift */; };
 		1A605D7E2043AB18003DA700 /* EidtPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A605D7D2043AB18003DA700 /* EidtPlayerVC.swift */; };
 		611FDE775DDBDD1F586BE273 /* Pods_LYPlayerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */; };
 		A49DACC71ED31AA1004378B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49DACC61ED31AA1004378B0 /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		1A32024020188C9900ADCA0E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		1A32024220188D4200ADCA0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1A32D7FC202014C100FC8271 /* LYSeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LYSeekView.swift; sourceTree = "<group>"; };
+		1A410E9C2045953E00232498 /* LYShadeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LYShadeView.swift; sourceTree = "<group>"; };
 		1A605D7D2043AB18003DA700 /* EidtPlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EidtPlayerVC.swift; sourceTree = "<group>"; };
 		5EE2E13C210A6BAEB2CA582A /* Pods-LYPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYPlayerExample/Pods-LYPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
 		839ACA3FFDDC7AA9E7DF49CE /* Pods_LYPlayerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LYPlayerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +172,7 @@
 				1A097D12200E555D006C6192 /* LYPlayerView.swift */,
 				1A097D17200E555E006C6192 /* LYNormalPlayerView.swift */,
 				1A097D16200E555E006C6192 /* LYExtension.swift */,
+				1A410E9C2045953E00232498 /* LYShadeView.swift */,
 				1A097D15200E555E006C6192 /* LYBrightnessView.swift */,
 				1A32D7FC202014C100FC8271 /* LYSeekView.swift */,
 				1A097D0F200E555D006C6192 /* LYPlayButton.swift */,
@@ -318,6 +321,7 @@
 				1A097D1F200E555E006C6192 /* LYProgressSlider.swift in Sources */,
 				1A096FE21FCD01B30081F869 /* TableViewController.swift in Sources */,
 				1A097D1C200E555E006C6192 /* LYPlayer.swift in Sources */,
+				1A410E9D2045953E00232498 /* LYShadeView.swift in Sources */,
 				1A097D1B200E555E006C6192 /* LYPlayerModel.swift in Sources */,
 				1A32D7FD202014C100FC8271 /* LYSeekView.swift in Sources */,
 				1A097D1E200E555E006C6192 /* LYGestureView.swift in Sources */,

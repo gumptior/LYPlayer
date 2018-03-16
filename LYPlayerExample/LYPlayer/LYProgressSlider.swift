@@ -85,7 +85,7 @@ class LYProgressSlider: UIControl {
     // 缓冲进度视图
     private lazy var bufferedView: UIView = {
         let bufferedView = UIView()
-        bufferedView.backgroundColor = UIColor.blue
+        bufferedView.backgroundColor = UIColor.clear
         
         return bufferedView
     }()

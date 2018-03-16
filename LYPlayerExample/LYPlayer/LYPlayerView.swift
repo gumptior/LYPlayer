@@ -532,7 +532,7 @@ extension LYPlayerView {
     /** 当前的视图对应的视图控制器 */
     var viewController: UIViewController? {
         for view in sequence(first: self, next: {$0?.superview}) {
-            if let responder = view?.next {
+            if let responder = view.next {
                 if responder.isKind(of: UIViewController.self) {
                     return responder as? UIViewController
                 }

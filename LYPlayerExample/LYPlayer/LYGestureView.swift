@@ -196,7 +196,7 @@ class LYGestureView: UIImageView {
                 } else {
                     // 减少亮度
                 }
-                let brightnessView = LYBrightnessView.shard
+                let brightnessView = LYBrightnessView.shard as! LYBrightnessView
                 brightnessView.progress = CGFloat(startValue!) + changeValue
             } else {
                 // 音量

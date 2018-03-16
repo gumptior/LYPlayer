@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LYBrightnessView: UIView {
+class LYBrightnessView: LYShadeView {
     
     // 单例
     static let shard = LYBrightnessView()
@@ -16,68 +16,80 @@ class LYBrightnessView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.layer.cornerRadius = 8.5
-        self.layer.masksToBounds = true
-        
         setupUI()
     }
     
-    // 获取window
-    lazy var keyWindow: UIWindow = {
-        let keyWindow = UIApplication.shared.keyWindow!
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // 亮度文本
+    lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "亮度"
+        titleLabel.textColor = UIColor.black
+        titleLabel.alpha = 0.7
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.textAlignment = .center
         
-        return keyWindow
+        return titleLabel
+    }()
+    
+    // 图标
+    lazy var brightnessIcon: UIImageView = {
+        let brightnessIcon = UIImageView()
+        brightnessIcon.image = UIImage.init("LYPlayer_brightness")
+        
+        return brightnessIcon
+    }()
+    
+    // 进度条
+    // 进度条背景图片
+    lazy var progressBgImgView: UIImageView = {
+        let progressBgImgView = UIImageView()
+        progressBgImgView.image = UIImage.init("LYPlayer_slider")
+        
+        return progressBgImgView
+    }()
+    
+    // 进度条遮背景视图
+    lazy var progressView: UIView = {
+        let progressView = UIView()
+        progressView.backgroundColor = UIColor(red: 30 / 255, green: 30 / 255, blue: 30 / 255, alpha: 1)
+        
+        return progressView
     }()
     
     // 设置UI样式
-    func setupUI() {
-        keyWindow.addSubview(self)
+    override func setupUI() {
+        super.setupUI()
         
-        // 将当前视图添加到windoiw上
-        self.snp.makeConstraints { (make) in
-            make.center.equalTo(keyWindow)
-            make.size.equalTo(CGSize(width: 155, height: 155))
-        }
-        
-        let blur = UIBlurEffect(style: .light)
-        let visual = UIVisualEffectView(effect: blur)
-        
-        addSubview(visual)
-        visual.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
-        }
-        
-        addSubview(label)
-        label.snp.makeConstraints { (make) in
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(12)
             make.left.right.equalTo(self)
             make.height.equalTo(16)
         }
         
-        addSubview(image)
-        image.snp.makeConstraints { (make) in
+        addSubview(brightnessIcon)
+        brightnessIcon.snp.makeConstraints { (make) in
             make.center.equalTo(self)
             make.size.equalTo(70)
         }
         
         addSubview(progressBgImgView)
-        progressBgImgView.addSubview(progressView)
-        
         progressBgImgView.snp.makeConstraints { (make) in
             make.bottom.equalTo(self).offset(-16)
             make.left.equalTo(self).offset(13)
             make.right.equalTo(-13)
         }
         
+        progressBgImgView.addSubview(progressView)
         progressView.snp.makeConstraints { (make) in
             make.edges.equalTo(progressBgImgView)
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     // MPVolumeView
     // 亮度调节的进度
     public var progress: CGFloat = 0 {
@@ -98,46 +110,17 @@ class LYBrightnessView: UIView {
             progressView.frame.origin.x = progressBgImgView.frame.width - width
             
             // 消失动画
+//            UIView.animate(withDuration: 1.0, delay: 1.7, options: .curveLinear, animations: {
+//                self.alpha = 0.0
+//            }) { (false) in }
+            
             UIView.animate(withDuration: 1.0, delay: 1.7, options: .curveLinear, animations: {
                 self.alpha = 0.0
-            }) { (false) in }
+            }) { (true) in
+                print("动画完成了")
+            }
         }
     }
     
-    // 亮度文本
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.text = "亮度"
-        label.textColor = UIColor.black
-        label.alpha = 0.7
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textAlignment = .center
-        
-        return label
-    }()
-    
-    // 图标
-    lazy var image: UIImageView = {
-        let brightnessImage = UIImageView()
-        brightnessImage.image = UIImage.init("LYPlayer_brightness")
-        
-        return brightnessImage
-    }()
-    
-    // 进度条
-    // 进度条背景图片
-    lazy var progressBgImgView: UIImageView = {
-        let progressBgImgView = UIImageView()
-        progressBgImgView.image = UIImage.init("LYPlayer_slider")
-        
-        return progressBgImgView
-    }()
-    
-    // 进度条遮背景视图
-    lazy var progressView: UIView = {
-        let progressView = UIView()
-        progressView.backgroundColor = UIColor(red: 30 / 255, green: 30 / 255, blue: 30 / 255, alpha: 1)
-        
-        return progressView
-    }()
+
 }
