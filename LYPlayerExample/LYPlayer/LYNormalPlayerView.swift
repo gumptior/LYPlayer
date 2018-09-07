@@ -230,7 +230,7 @@ open class LYNormalPlayerView: LYPlayerView {
         
         addSubview(indicator)
         
-        addSubview(backBtn)
+        topShadeImgView.addSubview(backBtn)
         
         topShadeImgView.addSubview(assetNameLabel)
         

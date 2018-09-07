@@ -122,6 +122,16 @@ open class LYPlayerView: UIView {
     public var isLocking = false {
         didSet {
             isShowShadeView = !isLocking
+            if isLocking {
+                // 屏幕锁定状态
+                // 关闭拖拽手势
+                gestureView.isEnabledDragGesture = false
+            } else {
+                // 屏幕未锁定状态
+                // 开启拖拽手势
+                gestureView.isEnabledDragGesture = true
+            }
+            
         }
     }
     
@@ -254,7 +264,7 @@ extension LYPlayerView {
 extension LYPlayerView {
     
     open func rotateToNormalWindow() {
-        // 关闭拖拽收拾
+        // 关闭拖拽手势
         gestureView.isEnabledDragGesture = false
         // 通知代理
         delegate?.playerView(self, willRotate: .vertical)
@@ -265,7 +275,7 @@ extension LYPlayerView {
     }
     
     open func rotateToFullWindow() {
-        // 开启拖拽收拾
+        // 开启拖拽手势
         gestureView.isEnabledDragGesture = true
         // 通知代理
         delegate?.playerView(self, willRotate: .horizontal)
@@ -462,6 +472,9 @@ extension LYPlayerView: LYGestureViewDelegate {
     /** 双击手势事件 */
     func doubleTapGestureAction(view: UIImageView) {
         guard let playing = player?.isPlaying else {
+            return
+        }
+        if isLocking {
             return
         }
         if playing {
